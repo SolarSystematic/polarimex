@@ -1,17 +1,407 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Primera Página Web</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f9; padding: 50px; }
-        h1 { color: #333; }
-        p { color: #666; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Polarimex - Polarizado y Blindaje Ligero.">
+  <title>Polarimex | Polarizado y Blindaje Ligero</title>
+
+  <style>
+    /* ================================================================
+       CONFIGURACIÓN GLOBAL: EDITA ESTAS VARIABLES PARA CAMBIAR TODA
+       LA APARIENCIA DEL SITIO DESDE UN ÚNICO LUGAR.
+       ================================================================ */
+    :root {
+      --color-principal: var(--mi-degradado); /* Fondo negro y elementos con más fuerza visual. */
+      --color-secundario: #1a1a1a; /* Fondo gris oscuro de secciones y tarjetas. */
+      --color-acento: #ffffff; /* Blanco para textos principales y contrastes. */
+      --color-texto-mutado: #ffffff; /* Gris claro para textos secundarios. */
+      --fuente-principal: 'Arial', sans-serif; /* Cambia aquí la fuente de toda la web. */
+      --ancho-contenido: 1200px; /* Ancho máximo del contenido central. */
+      --espaciado-seccion: 7rem; /* Aire vertical entre secciones de escritorio. */
+      --borde-suave: rgb(255, 255, 255); /* Color de líneas y separadores. */
+      --mi-degradado: linear-gradient(90deg, #200000, #ff0000);
+
+    }
+
+    /* ================================================================
+       RESETEO BÁSICO: EVITA MÁRGENES IMPREVISTOS DEL NAVEGADOR.
+       ================================================================ */
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--color-principal);
+      color: var(--color-acento);
+      font-family: var(--fuente-principal);
+      line-height: 1.6;
+    }
+
+    img { display: block; max-width: 100%; }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ================================================================
+       CLASES REUTILIZABLES: ESTILOS COMPARTIDOS PARA MANTENER EL HTML
+       LIMPIO Y HACER AJUSTES RÁPIDOS.
+       ================================================================ */
+    .contenedor {
+      width: min(100% - 3rem, var(--ancho-contenido));
+      margin-inline: auto;
+    }
+
+    .etiqueta {
+      margin: 0 0 1rem;
+      color: var(--color-texto-mutado);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .titulo-seccion {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(2.2rem, 5vw, 4.5rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    .boton {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0.75rem 1.35rem;
+      border: 1px solid var(--color-acento);
+      background: var(--mi-degradado);
+      color: var(--color-principal);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background 180ms ease, color 180ms ease;
+    }
+
+    .boton:hover,
+    .boton:focus-visible {
+      background: transparent;
+      color: var(--color-acento);
+    }
+
+    /* ================================================================
+       INICIO DEL ENCABEZADO Y MENÚ DE NAVEGACIÓN.
+       CAMBIA LOS href DE LOS ENLACES PARA CONECTAR SUBPÁGINAS REALES.
+       ================================================================ */
+    .encabezado {
+      position: absolute;
+      z-index: 10;
+      top: 0;
+      width: 100%;
+      border-bottom: 1px solid var(--borde-suave);
+    }
+
+    .barra-navegacion {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      min-height: 88px;
+    }
+
+    .logo {
+      flex-shrink: 0;
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: 0.25em;
+    }
+
+    .enlaces-navegacion {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(0.9rem, 2vw, 2rem);
+      margin-left: auto;
+    }
+
+    .enlaces-navegacion a {
+      color: var(--color-texto-mutado);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      transition: color 180ms ease;
+    }
+
+    .enlaces-navegacion a:hover,
+    .enlaces-navegacion a:focus-visible { color: var(--color-acento); }
+
+    /* ================================================================
+       INICIO DE LA SECCIÓN HERO: PRIMER IMPACTO VISUAL DE LA PÁGINA.
+       SUSTITUYE EL src DE LA IMAGEN POR UNA FOTOGRAFÍA DE LA EMPRESA.
+       ================================================================ */
+    .hero {
+      position: relative;
+      isolation: isolate;
+      min-height: 760px;
+      padding: 160px 0 4rem;
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      background: var(--color-secundario);
+    }
+
+    .imagen-hero {
+      position: absolute;
+      z-index: -2;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.45;
+      filter: grayscale(100%);
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.88), rgba(0, 0, 0, 0.4)), linear-gradient(0deg, rgba(0, 0, 0, 0.72), transparent 55%);
+    }
+
+    .contenido-hero { max-width: 780px; }
+
+    .subtitulo-hero {
+      margin: 0 0 1.25rem;
+      color: var(--color-texto-mutado);
+      font-size: clamp(0.78rem, 1.5vw, 0.95rem);
+      font-weight: 700;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+    }
+
+    .titulo-hero {
+      margin: 0;
+      font-size: clamp(3rem, 8vw, 7rem);
+      line-height: 0.93;
+      letter-spacing: -0.065em;
+    }
+
+    .nota-imagen {
+      margin: 2rem 0 0;
+      color: var(--color-texto-mutado);
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ================================================================
+       INICIO DE LA SECCIÓN ¿QUIÉNES SOMOS?: PRESENTACIÓN DE POLARIMEX.
+       MODIFICA LOS PÁRRAFOS PARA ACTUALIZAR EL MENSAJE DE LA EMPRESA.
+       ================================================================ */
+    .quienes-somos { padding: var(--espaciado-seccion) 0; }
+
+    .rejilla-presentacion {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: clamp(2.5rem, 8vw, 9rem);
+      align-items: start;
+    }
+
+    .texto-presentacion {
+      max-width: 580px;
+      color: var(--color-texto-mutado);
+      font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+    }
+
+    .texto-presentacion p { margin: 0 0 1.5rem; }
+    .texto-presentacion p:last-child { margin-bottom: 0; }
+
+    /* ================================================================
+       INICIO DE LA SECCIÓN MISIÓN Y VISIÓN: DOS COLUMNAS EQUILIBRADAS.
+       EDITA CADA BLOQUE DE TEXTO SIN ALTERAR LA ESTRUCTURA DEL DISEÑO.
+       ================================================================ */
+    .mision-vision {
+      padding: var(--espaciado-seccion) 0;
+      background: var(--color-secundario);
+    }
+
+    .rejilla-valores {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      border-top: 5px solid var(--color-acento);
+      border-bottom: 5px solid var(--color-acento);
+    }
+
+    .tarjeta-valor { padding: clamp(2.5rem, 6vw, 5rem); }
+    .tarjeta-valor + .tarjeta-valor { border-left: 5px solid var(--color-acento); }
+
+    .titulo-valor {
+      margin: 0 0 2rem;
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      letter-spacing: -0.03em;
+    }
+
+    .tarjeta-valor p {
+      max-width: 430px;
+      margin: 0;
+      color: var(--color-texto-mutado);
+      font-size: 1.05rem;
+    }
+
+    /* ================================================================
+       INICIO DEL PIE DE PÁGINA: ESPACIO FINAL PARA DATOS DE CONTACTO.
+       CAMBIA EL CORREO Y EL TELÉFONO POR LOS DATOS OFICIALES.
+       ================================================================ */
+    .pie-pagina { padding: 2rem 0; border-top: 1px solid var(--borde-suave); background-color:#222222; }
+
+
+    .contenido-pie {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      color: var(--color-texto-mutado);
+      font-size: 0.78rem;
+    }
+
+    /* ================================================================
+       DISEÑO RESPONSIVE: AJUSTES PARA TABLETAS Y PANTALLAS PEQUEÑAS.
+       ================================================================ */
+    @media (max-width: 850px) {
+      .barra-navegacion { min-height: auto; padding: 1.3rem 0; flex-wrap: wrap; }
+      .enlaces-navegacion { order: 3; width: 100%; margin-left: 0; justify-content: space-between; gap: 0.6rem; }
+      .encabezado .boton { margin-left: auto; }
+      .hero { min-height: 680px; padding-top: 190px; }
+      .rejilla-presentacion { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    @media (max-width: 560px) {
+      :root { --espaciado-seccion: 4.5rem; }
+      .contenedor { width: min(100% - 2rem, var(--ancho-contenido)); }
+      .logo { font-size: 1rem; }
+      .encabezado .boton { min-height: 40px; padding: 0.55rem 0.8rem; font-size: 0.65rem; }
+      .enlaces-navegacion { flex-wrap: wrap; justify-content: flex-start; }
+      .enlaces-navegacion a { font-size: 0.63rem; }
+      .hero { min-height: 620px; padding-top: 175px; }
+      .rejilla-valores { grid-template-columns: 1fr; }
+      .tarjeta-valor + .tarjeta-valor { border-top: 1px solid var(--borde-suave); border-left: 0; }
+      .contenido-pie { flex-direction: column; }
+    }
+      /* === ESTILOS DE CONTACTO: DOS COLUMNAS Y FORMULARIO RESPONSIVE === */
+    .contacto { padding:var(--espaciado-seccion) 0; } .rejilla-contacto { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(3rem,8vw,9rem); align-items:start; } .texto-contacto { max-width:560px; margin:1.5rem 0 2.5rem; color:var(--color-texto-mutado); font-size:1.05rem; } .bloque-datos { padding:1.5rem 0; border-top:3px solid var(--borde-suave); } .bloque-datos:last-of-type { border-bottom:3px solid var(--borde-suave); } .titulo-dato,.grupo-campo label { margin:0 0 .5rem; color:var(--color-texto-mutado); font-size:.72rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; } .bloque-datos p { margin:0; } .bloque-datos p+p { margin-top:.2rem; color:var(--color-texto-mutado); } .enlace-dato { display:inline-flex; align-items:center; gap:.7rem; margin-bottom:.75rem; } .enlace-dato:last-child { margin-bottom:0; } .icono-outline { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.5; } .mapa-contacto { width:100%; min-height:330px; margin-top:2rem; border:1px solid var(--borde-suave); filter:grayscale(100%) invert(92%) contrast(90%); } .formulario-cotizacion { padding:clamp(2rem,4vw,3rem); border:5px solid var(--color-acento); } .formulario-cotizacion .titulo-seccion { margin-bottom:2.5rem; font-size:clamp(2rem,4vw,3.5rem); } .fila-formulario { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; } .grupo-campo { margin-bottom:1.25rem; } .grupo-campo label { display:block; } .grupo-campo input,.grupo-campo select,.grupo-campo textarea { width:100%; padding:.9rem 1rem; border:3px solid var(--color-acento); border-radius:0; outline:0; background:transparent; color:var(--color-acento); font:inherit; } .grupo-campo select option { background:var(--color-acento); color:var(--color-secundario); } .grupo-campo textarea { min-height:140px; resize:vertical; } .grupo-campo input:focus,.grupo-campo select:focus,.grupo-campo textarea:focus { border-color:var(--color-acento); background:rgba(255, 255, 255, 0.04); } @media (max-width:850px) { .rejilla-contacto { grid-template-columns:1fr; } } @media (max-width:560px) { .fila-formulario { grid-template-columns:1fr; gap:0; } .formulario-cotizacion { padding:1.5rem; } }</style>
 </head>
+
 <body>
-    <h1>¡Hola Mundo! Mi web está en GitHub</h1>
-    <p>Este es un sitio web gratuito alojado con GitHub Pages.</p>
+  <!-- ================================================================
+       INICIO DEL MENÚ DE NAVEGACIÓN.
+       CAMBIA LOS ENLACES DE ABAJO PARA REDIRECCIONAR A TUS SUBPÁGINAS.
+       ================================================================ -->
+  <header class="encabezado">
+    <nav class="barra-navegacion contenedor" aria-label="Navegación principal">
+      <a class="logo" href="#inicio" aria-label="Ir al inicio de Polarimex">POLARIMEX</a>
+      <div class="enlaces-navegacion">
+        <a href="automotriz.html">AUTOMOTRIZ</a>
+        <a href="#decorativa">DECORATIVA</a>
+        <a href="#comercial">COMERCIAL</a>
+        <a href="#residencial">RESIDENCIAL</a>
+        <a href="#seguridad">SEGURIDAD</a>
+      </div>
+      <a class="boton" href="#contacto">Contáctanos</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ================================================================
+         INICIO DE LA IMAGEN PRINCIPAL Y MENSAJE HERO.
+         REEMPLAZA LA URL DEL src POR TU FOTO FINAL EN FORMATO HORIZONTAL.
+         ================================================================ -->
+    <section class="hero" id="inicio" aria-labelledby="titulo-hero">
+      <img class="imagen-hero" src="https://via.placeholder.com/1920x1080/555555/FFFFFF?text=IMAGEN+PRINCIPAL+POLARIMEX" alt="Marcador temporal de 1920 por 1080 píxeles para la imagen principal de Polarimex">
+      <div class="contenedor contenido-hero">
+        <p class="subtitulo-hero">POLARIMEX</p>
+        <h1 class="titulo-hero" id="titulo-hero">Polarizado y<br>Blindaje Ligero</h1>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         INICIO DE LA SECCIÓN ¿QUIÉNES SOMOS?
+         PERSONALIZA ESTOS PÁRRAFOS CON LA HISTORIA O SERVICIOS DE LA MARCA.
+         ================================================================ -->
+    <section class="quienes-somos" id="quienes-somos" aria-labelledby="titulo-quienes-somos">
+      <div class="contenedor rejilla-presentacion">
+        <div>
+          <p class="etiqueta">POLARIMEX</p>
+          <h2 class="titulo-seccion" id="titulo-quienes-somos">¿Quiénes somos?</h2>
+        </div>
+        <div class="texto-presentacion">
+          <p>Somos una empresa comprometida a garantizar confort, comodidad y seguridad en cualquier vehículo de transporte o bien inmueble que contenga cristales.</p>
+          <p>Nos especializamos en la distribución e instalación de películas en general: de control solar, decorativas, seguridad y privacidad.</p>
+          <p>Ofrecemos las marcas más prestigiadas del mercado a los precios más competitivos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         INICIO DE LA SECCIÓN MISIÓN Y VISIÓN.
+         DOS BLOQUES INDEPENDIENTES PARA EDITAR EL PROPÓSITO DE LA EMPRESA.
+         ================================================================ -->
+    <section class="mision-vision" aria-label="Misión y visión de Polarimex">
+      <div class="contenedor">
+        <p class="etiqueta">NUESTRO COMPROMISO</p>
+        <div class="rejilla-valores">
+          <article class="tarjeta-valor">
+            <h2 class="titulo-valor">MISIÓN</h2>
+            <p>Proporcionar seguridad y confort a nuestros clientes, logrando con esto una relación estratégica y de confianza mutua. Ofreciendo productos de alta calidad a precios competitivos.</p>
+          </article>
+          <article class="tarjeta-valor">
+            <h2 class="titulo-valor">VISIÓN</h2>
+            <p>Ser la compañía líder, instalando las mejores películas en tecnología de punta, en las áreas de seguridad, decoración y control solar para ser identificados como símbolo de excelencia.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+    <!-- === INICIO DE CONTACTO: ACTUALIZA LOS DATOS CUANDO SEA NECESARIO === -->
+    <section class="contacto" id="contacto" aria-labelledby="titulo-contacto">
+      <div class="contenedor rejilla-contacto">
+        <!-- === COLUMNA 1: INFORMACIÓN DIRECTA Y UBICACIÓN === -->
+        <div>
+          <p class="etiqueta">CONTACTO</p><h2 class="titulo-seccion" id="titulo-contacto">Estamos dispuestos para asesorarte</h2>
+          <p class="texto-contacto">Si tienes dudas con respecto al polarizado, ya sea, de control solar, decorativo o de seguridad, en Polarimex estamos dispuestos a brindarte asesoría y cotización del servicio que ofrecemos.</p>
+          <!-- CAMBIA AQUÍ LA DIRECCIÓN FÍSICA DE LA EMPRESA. -->
+          <div class="bloque-datos"><h3 class="titulo-dato">Dirección</h3><p>Tuxtla Gutiérrez, Chiapas.</p><p>Calzada al Sumidero, Mz. 125 Lte. 10A Col. 17 de Mayo, C.P. 29019.</p></div>
+          <!-- CAMBIA AQUÍ EL TELÉFONO Y CORREO DE CONTACTO. LOS SVG SON ICONOS OUTLINE EDITABLES. -->
+          <div class="bloque-datos"><h3 class="titulo-dato">Datos directos</h3><a class="enlace-dato" href="tel:+529611460138"><svg class="icono-outline" aria-hidden="true" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.79.62 2.65a2 2 0 0 1-.45 2.11L8 9.76a16 16 0 0 0 6 6l1.28-1.28a2 2 0 0 1 2.11-.45c.86.29 1.75.5 2.65.62A2 2 0 0 1 22 16.92z"/></svg>+52 (961) 146 01 38&nbsp;&nbsp;</a><a class="enlace-dato" href="mailto:polarizadosmexico@gmail.com"><svg class="icono-outline" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 7 9 6 9-6"/></svg>polarizadosmexico@gmail.com</a></div>
+          <!-- === CÓMO CAMBIAR EL MAPA: 1) Busca tu negocio en Google Maps. 2) Pulsa Compartir. 3) Elige Insertar un mapa. 4) Copia el enlace dentro de src="..." y reemplaza SOLO el valor de src de este iframe. === -->
+          <br>  
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.7349445355057!2d-93.0989558!3d16.789857599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ecd8aa1594ded7%3A0xf6a019c6ccdc6295!2sPOLARIMEX!5e0!3m2!1ses!2smx!4v1785177495842!5m2!1ses!2smx" width="548" height="210" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+        <!-- === COLUMNA 2: FORMULARIO DE COTIZACIÓN === -->
+        <div class="formulario-cotizacion"><p class="etiqueta">COTIZACIÓN</p><h2 class="titulo-seccion">Solicita tu cotización</h2>
+          <!-- CAMBIA ESTE CORREO POR EL DE TU EMPRESA PARA QUE TE LLEGUEN LAS COTIZACIONES -->
+          <!-- FormSubmit enviará los datos a este correo. La primera vez, confirma la activación desde el correo recibido. -->
+          <form action="https://formsubmit.co/polarizadosmexico@gmail.com" method="POST"><input type="hidden" name="_subject" value="Nueva solicitud de cotización - Polarimex"><input type="hidden" name="_captcha" value="false">
+            <!-- FILA 1: NOMBRE Y APELLIDOS. --><div class="fila-formulario"><div class="grupo-campo"><label for="nombres">Nombre(s)</label><input id="nombres" name="nombres" type="text" autocomplete="given-name" required></div><div class="grupo-campo"><label for="apellidos">Apellidos</label><input id="apellidos" name="apellidos" type="text" autocomplete="family-name" required></div></div>
+            <!-- FILA 2: NÚMERO DE TELÉFONO. --><div class="grupo-campo"><label for="telefono">Número de teléfono</label><input id="telefono" name="telefono" type="tel" placeholder="+52 000 000 0000" autocomplete="tel" required></div>
+            <!-- FILA 3: SERVICIO DE INTERÉS. --><div class="grupo-campo"><label for="tipo-servicio">Tipo de servicio</label><select id="tipo-servicio" name="tipo_de_servicio" required><option value="" selected disabled>Selecciona una opción</option><option>Automotriz</option><option>Decorativa</option><option>Comercial</option><option>Residencial</option><option>Seguridad</option></select></div>
+            <!-- FILA 4: NOTAS ADICIONALES. --><div class="grupo-campo"><label for="notas">Notas</label><textarea id="notas" name="notas" placeholder="Cuéntanos brevemente qué necesitas."></textarea></div><button class="boton" type="submit">Enviar solicitud</button>
+          </form>
+        </div>
+      </div>
+    </section>  </main>
+
+  <!-- ================================================================
+       INICIO DEL PIE DE PÁGINA.
+       REEMPLAZA ESTOS MARCADORES POR LOS DATOS REALES DE POLARIMEX.
+       ================================================================ -->
+  <footer class="pie-pagina">
+    <div class="contenedor contenido-pie">
+      <span>© 2026 POLARIMEX. Todos los derechos reservados.</span>
+      <span>polarizadosmexico@gmail.com · +52 (961) 146 0138</span>
+    </div>
+  </footer>
 </body>
 </html>
+
+

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Servicio automotriz Polarimex: películas de seguridad y gamas de polarizado.">
+  <title>Servicio Automotriz | Polarimex</title>
+
+  <style>
+    /* ======================================================================
+       CONFIGURACIÓN GLOBAL: EDITA AQUÍ LOS COLORES, LA TIPOGRAFÍA Y MEDIDAS
+       GENERALES DE TODA LA SUBPÁGINA.
+       ====================================================================== */
+    :root {
+      --color-principal: #121212;
+      --color-secundario: #1a1a1a;
+      --color-superficie: #222222;
+      --color-acento: #ffffff;
+      --color-texto-mutado: #cfcfcf;
+      --borde-suave: rgba(255, 255, 255, 0.28);
+      --fuente-principal: Arial, Helvetica, sans-serif;
+      --ancho-contenido: 1200px;
+      --espaciado-seccion: clamp(4.5rem, 9vw, 8rem);
+    }
+
+    /* ======================================================================
+       RESETEO Y CLASES REUTILIZABLES.
+       ====================================================================== */
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--color-principal); color: var(--color-acento); font-family: var(--fuente-principal); line-height: 1.6; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    .contenedor { width: min(100% - 3rem, var(--ancho-contenido)); margin-inline: auto; }
+    .etiqueta { margin: 0 0 1rem; color: var(--color-texto-mutado); font-size: .72rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+    .titulo-seccion { max-width: 700px; margin: 0; font-size: clamp(2.25rem, 5vw, 4.4rem); line-height: 1.05; letter-spacing: -.045em; }
+    .texto-descriptivo { max-width: 620px; margin: 1.5rem 0 0; color: var(--color-texto-mutado); font-size: 1rem; }
+
+    /* ======================================================================
+       HEADER Y NAVEGACIÓN: MISMO LENGUAJE VISUAL QUE LA PÁGINA PRINCIPAL.
+       EDITA LOS href SI CAMBIAN LAS RUTAS DE LAS DEMÁS SUBPÁGINAS.
+       ====================================================================== */
+    .encabezado { position: absolute; z-index: 10; top: 0; width: 100%; border-bottom: 1px solid var(--borde-suave); }
+    .barra-navegacion { display: flex; align-items: center; gap: 2rem; min-height: 88px; }
+    .logo { flex-shrink: 0; font-size: 1.1rem; font-weight: 800; letter-spacing: .25em; }
+    .enlaces-navegacion { display: flex; align-items: center; justify-content: center; gap: clamp(.9rem, 2vw, 2rem); margin-left: auto; }
+    .enlaces-navegacion a { color: var(--color-texto-mutado); font-size: .7rem; font-weight: 700; letter-spacing: .08em; transition: color 180ms ease; }
+    .enlaces-navegacion a:hover, .enlaces-navegacion a:focus-visible, .enlaces-navegacion .activo { color: var(--color-acento); }
+    .boton { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: .7rem 1.15rem; border: 1px solid var(--color-acento); color: var(--color-acento); font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; transition: background 180ms ease, color 180ms ease; }
+    .boton:hover, .boton:focus-visible { background: var(--color-acento); color: var(--color-principal); }
+
+    /* ======================================================================
+       HERO AUTOMOTRIZ: SUSTITUYE EL src POR UNA FOTOGRAFÍA PANORÁMICA FINAL.
+       ====================================================================== */
+    .hero { position: relative; min-height: min(720px, 85vh); display: grid; align-items: end; padding: 10rem 0 5rem; overflow: hidden; background: #303030; }
+    .imagen-hero { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .42; filter: grayscale(1); }
+    .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.72), rgba(0,0,0,.2)), linear-gradient(0deg, rgba(0,0,0,.55), transparent 55%); }
+    .contenido-hero { position: relative; z-index: 1; }
+    .titulo-hero { max-width: 780px; margin: 0; font-size: clamp(3.2rem, 8vw, 7rem); line-height: .94; letter-spacing: -.06em; }
+
+    /* ======================================================================
+       PELÍCULAS DE SEGURIDAD: EDITA EL TEXTO Y LA IMAGEN DEMOSTRATIVA AQUÍ.
+       ====================================================================== */
+    .seguridad-automotriz { padding: var(--espaciado-seccion) 0; border-bottom: 1px solid var(--borde-suave); }
+    .rejilla-seguridad { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 7vw, 7rem); align-items: center; }
+    .imagen-demostrativa { width: 100%; min-height: 330px; object-fit: cover; filter: grayscale(1); background: #333; }
+
+    /* ======================================================================
+       GAMAS DE CALIDAD: CADA TARJETA ES INDEPENDIENTE Y SE PUEDE EDITAR.
+       MANTIENE EL ORDEN DE LAS CUATRO GAMAS AL AGREGAR CONTENIDO.
+       ====================================================================== */
+    .gamas { padding: var(--espaciado-seccion) 0; }
+    .cabecera-gamas { display: flex; justify-content: space-between; align-items: end; gap: 2rem; margin-bottom: 3.25rem; }
+    .rejilla-gamas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid var(--borde-suave); }
+    .tarjeta-gama { display: flex; flex-direction: column; min-height: 520px; padding: clamp(1.5rem, 4vw, 3rem); background: var(--color-secundario); }
+    .tarjeta-gama:nth-child(odd) { border-right: 1px solid var(--borde-suave); }
+    .tarjeta-gama:nth-child(n + 3) { border-top: 1px solid var(--borde-suave); }
+    .tarjeta-gama h3 { margin: 0; font-size: clamp(1.5rem, 3vw, 2.2rem); letter-spacing: -.035em; }
+    .tarjeta-gama p { margin: 1rem 0 2rem; color: var(--color-texto-mutado); }
+    .tarjeta-gama img { width: 100%; height: 230px; margin-top: auto; object-fit: cover; filter: grayscale(1); background: #343434; }
+
+    /* ======================================================================
+       DISEÑO RESPONSIVE: AJUSTES PARA TABLETAS Y MÓVILES.
+       ====================================================================== */
+    @media (max-width: 850px) {
+      .barra-navegacion { min-height: auto; padding: 1.3rem 0; flex-wrap: wrap; }
+      .enlaces-navegacion { order: 3; width: 100%; margin-left: 0; justify-content: space-between; gap: .6rem; }
+      .boton { margin-left: auto; }
+      .hero { min-height: 620px; padding-top: 180px; }
+      .rejilla-seguridad { grid-template-columns: 1fr; }
+      .imagen-demostrativa { order: -1; }
+    }
+    @media (max-width: 600px) {
+      .contenedor { width: min(100% - 2rem, var(--ancho-contenido)); }
+      .logo { font-size: 1rem; }
+      .enlaces-navegacion { flex-wrap: wrap; justify-content: flex-start; }
+      .enlaces-navegacion a { font-size: .62rem; }
+      .boton { min-height: 40px; padding: .55rem .75rem; font-size: .62rem; }
+      .cabecera-gamas { display: block; margin-bottom: 2.5rem; }
+      .cabecera-gamas .texto-descriptivo { margin-top: 1rem; }
+      .rejilla-gamas { grid-template-columns: 1fr; }
+      .tarjeta-gama { min-height: 440px; }
+      .tarjeta-gama:nth-child(odd) { border-right: 0; }
+      .tarjeta-gama + .tarjeta-gama { border-top: 1px solid var(--borde-suave); }
+    }
+  </style>
+</head>
+<body>
+  <!-- ====================================================================
+       NAVEGACIÓN: EL LOGOTIPO FUNCIONA COMO ENLACE DE REGRESO AL INICIO.
+       ==================================================================== -->
+  <header class="encabezado">
+    <nav class="barra-navegacion contenedor" aria-label="Navegación principal">
+      <a class="logo" href="index.html#inicio" aria-label="Regresar al inicio de Polarimex">POLARIMEX</a>
+      <div class="enlaces-navegacion">
+        <a class="activo" href="automotriz.html" aria-current="page">AUTOMOTRIZ</a>
+        <a href="index.html#decorativa">DECORATIVA</a>
+        <a href="index.html#comercial">COMERCIAL</a>
+        <a href="index.html#residencial">RESIDENCIAL</a>
+        <a href="index.html#seguridad">SEGURIDAD</a>
+      </div>
+      <a class="boton" href="index.html#contacto">Contáctanos</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ==================================================================
+         HERO: EDITAR IMAGEN PANORÁMICA Y TEXTO PRINCIPAL DE AUTOMOTRIZ AQUÍ.
+         ================================================================== -->
+    <section class="hero" aria-labelledby="titulo-hero">
+      <img class="imagen-hero" src="https://via.placeholder.com/1920x900/3B3B3B/FFFFFF?text=IMAGEN+PANORAMICA+AUTOMOTRIZ" alt="Placeholder para fotografía panorámica de servicio automotriz">
+      <div class="contenedor contenido-hero">
+        <p class="etiqueta">Polarimex / Automotriz</p>
+        <h1 class="titulo-hero" id="titulo-hero">Servicio Automotriz</h1>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         PELÍCULAS DE SEGURIDAD: EDITAR TEXTO DESCRIPTIVO E IMAGEN AQUÍ.
+         ================================================================== -->
+    <section class="seguridad-automotriz" aria-labelledby="titulo-seguridad">
+      <div class="contenedor rejilla-seguridad">
+        <div>
+          <p class="etiqueta">Protección para cada trayecto</p>
+          <h2 class="titulo-seccion" id="titulo-seguridad">Películas de seguridad automotriz</h2>
+          <!-- EDITAR TEXTO DE PELÍCULAS DE SEGURIDAD AUTOMOTRIZ AQUÍ -->
+          <p class="texto-descriptivo">Describe aquí las características, beneficios y aplicaciones de las películas de seguridad para vehículos.</p>
+        </div>
+        <!-- EDITAR IMAGEN DEMOSTRATIVA DE PELÍCULAS DE SEGURIDAD AQUÍ -->
+        <img class="imagen-demostrativa" src="https://via.placeholder.com/1000x700/3B3B3B/FFFFFF?text=IMAGEN+DEMOSTRATIVA" alt="Placeholder para imagen demostrativa de película de seguridad automotriz">
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         GAMAS DE CALIDAD: EDITAR ESPECIFICACIONES, BENEFICIOS E IMÁGENES.
+         ================================================================== -->
+    <section class="gamas" aria-labelledby="titulo-gamas">
+      <div class="contenedor">
+        <div class="cabecera-gamas">
+          <div>
+            <p class="etiqueta">Elige tu nivel de protección</p>
+            <h2 class="titulo-seccion" id="titulo-gamas">Gamas de calidad</h2>
+          </div>
+          <p class="texto-descriptivo">Conoce las opciones disponibles y personaliza cada ficha con sus especificaciones técnicas.</p>
+        </div>
+
+        <div class="rejilla-gamas">
+          <!-- EDITAR TEXTO E IMAGEN DE GAMA STANDARD AQUÍ -->
+          <article class="tarjeta-gama">
+            <h3>Gama Standard</h3>
+            <p>Agrega aquí las especificaciones y beneficios de la Gama Standard.</p>
+            <img src="https://via.placeholder.com/800x500/3B3B3B/FFFFFF?text=GAMA+STANDARD" alt="Placeholder de imagen para la Gama Standard">
+          </article>
+
+          <!-- EDITAR TEXTO E IMAGEN DE GAMA CARBÓN AQUÍ -->
+          <article class="tarjeta-gama">
+            <h3>Gama Carbón</h3>
+            <p>Agrega aquí las especificaciones y beneficios de la Gama Carbón.</p>
+            <img src="https://via.placeholder.com/800x500/3B3B3B/FFFFFF?text=GAMA+CARBON" alt="Placeholder de imagen para la Gama Carbón">
+          </article>
+
+          <!-- EDITAR TEXTO DE GAMA NANOCERÁMICA AQUÍ -->
+          <!-- EDITAR IMAGEN DE GAMA NANOCERÁMICA AQUÍ -->
+          <article class="tarjeta-gama">
+            <h3>Gama Nanocerámica</h3>
+            <p>Agrega aquí las especificaciones y beneficios de la Gama Nanocerámica.</p>
+            <img src="https://via.placeholder.com/800x500/3B3B3B/FFFFFF?text=GAMA+NANOCERAMICA" alt="Placeholder de imagen para la Gama Nanocerámica">
+          </article>
+
+          <!-- EDITAR TEXTO E IMAGEN DE GAMA FOTOCROMÁTICA AQUÍ -->
+          <article class="tarjeta-gama">
+            <h3>Gama Fotocromática</h3>
+            <p>Agrega aquí las especificaciones y beneficios de la Gama Fotocromática.</p>
+            <img src="https://via.placeholder.com/800x500/3B3B3B/FFFFFF?text=GAMA+FOTOCROMATICA" alt="Placeholder de imagen para la Gama Fotocromática">
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
