@@ -111,22 +111,22 @@
       min-height: 88px;
     }
 
-   .logo {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-shrink: 0;
-  font-size: 1.1rem;
-  font-weight: 800;
-  letter-spacing: 0.25em;
-}
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: 0.25em;
+    }
 
-/* LOGOTIPO: AJUSTA LA ALTURA AQUÍ PARA HACERLO MÁS GRANDE O PEQUEÑO */
-.logo-imagen {
-  height: 44px;
-  width: auto;
-  display: block;
-}
+    /* LOGOTIPO: AJUSTA LA ALTURA AQUÍ PARA HACERLO MÁS GRANDE O PEQUEÑO */
+    .logo-imagen {
+      height: 44px;
+      width: auto;
+      display: block;
+    }
 
     .enlaces-navegacion {
       display: flex;
@@ -148,18 +148,42 @@
     .enlaces-navegacion a:focus-visible { color: var(--color-acento); }
 
     /* ================================================================
-       INICIO DE LA SECCIÓN HERO: PRIMER IMPACTO VISUAL DE LA PÁGINA.
-       SUSTITUYE EL src DE LA IMAGEN POR UNA FOTOGRAFÍA DE LA EMPRESA.
+       INICIO DE LA SECCIÓN HERO / CARRUSEL: PRIMER IMPACTO VISUAL.
+       CADA .carrusel-slide ES UNA DIAPOSITIVA INDEPENDIENTE.
        ================================================================ */
-    .hero {
+    .hero-carrusel {
       position: relative;
       isolation: isolate;
       min-height: 760px;
-      padding: 160px 0 4rem;
-      display: grid;
-      align-items: end;
       overflow: hidden;
       background: var(--color-secundario);
+    }
+
+    /* CONTENEDOR DE TODAS LAS DIAPOSITIVAS */
+    .carrusel-track {
+      position: relative;
+      width: 100%;
+      height: 760px;
+    }
+
+    /* CADA DIAPOSITIVA INDIVIDUAL: OCULTA POR DEFECTO */
+    .carrusel-slide {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      align-items: end;
+      padding: 160px 0 4rem;
+      opacity: 0;
+      visibility: hidden;
+      z-index: 1;
+      /* VELOCIDAD DE LA TRANSICIÓN DE DESVANECIMIENTO: CAMBIA 900ms AQUÍ */
+      transition: opacity 900ms ease, visibility 900ms ease;
+    }
+
+    .carrusel-slide.activa {
+      opacity: 1;
+      visibility: visible;
+      z-index: 2;
     }
 
     .imagen-hero {
@@ -171,9 +195,14 @@
       object-fit: cover;
       opacity: 0.45;
       filter: grayscale(100%);
+      /* EFECTO SUTIL DE ZOOM LENTO MIENTRAS LA IMAGEN ESTÁ ACTIVA */
+      transform: scale(1.08);
+      transition: transform 6000ms ease;
     }
 
-    .hero::after {
+    .carrusel-slide.activa .imagen-hero { transform: scale(1); }
+
+    .carrusel-slide::after {
       content: '';
       position: absolute;
       z-index: -1;
@@ -182,6 +211,21 @@
     }
 
     .contenido-hero { max-width: 780px; }
+
+    /* ANIMACIÓN 'FADE-UP' DE LOS TEXTOS: SE ACTIVA SOLO EN LA SLIDE ACTIVA */
+    .contenido-hero > * {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 700ms ease, transform 700ms ease;
+    }
+
+    .carrusel-slide.activa .contenido-hero > * { opacity: 1; transform: translateY(0); }
+
+    /* RETRASO ESCALONADO PARA QUE CADA ELEMENTO APAREZCA EN SECUENCIA */
+    .carrusel-slide.activa .subtitulo-hero { transition-delay: 150ms; }
+    .carrusel-slide.activa .titulo-hero { transition-delay: 300ms; }
+    .carrusel-slide.activa .texto-hero { transition-delay: 450ms; }
+    .carrusel-slide.activa .boton-hero { transition-delay: 600ms; }
 
     .subtitulo-hero {
       margin: 0 0 1.25rem;
@@ -199,13 +243,69 @@
       letter-spacing: -0.065em;
     }
 
-    .nota-imagen {
-      margin: 2rem 0 0;
+    /* TEXTO SUBTÍTULO DESCRIPTIVO DEBAJO DEL TÍTULO DE CADA SLIDE */
+    .texto-hero {
+      max-width: 560px;
+      margin: 1.5rem 0 2rem;
       color: var(--color-texto-mutado);
-      font-size: 0.75rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      font-size: clamp(1rem, 1.6vw, 1.2rem);
     }
+
+    .boton-hero { margin-top: 0.5rem; }
+
+    /* ================================================================
+       FLECHAS DE NAVEGACIÓN PREVIO / SIGUIENTE
+       ================================================================ */
+    .flecha-carrusel {
+      position: absolute;
+      top: 50%;
+      z-index: 5;
+      transform: translateY(-50%);
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--color-acento);
+      background: rgba(0, 0, 0, 0.35);
+      color: var(--color-acento);
+      cursor: pointer;
+      transition: background 180ms ease, transform 180ms ease;
+    }
+
+    .flecha-carrusel:hover,
+    .flecha-carrusel:focus-visible { background: rgba(255, 0, 0, 0.35); }
+
+    .flecha-carrusel svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+    .flecha-anterior { left: clamp(1rem, 4vw, 3rem); }
+    .flecha-siguiente { right: clamp(1rem, 4vw, 3rem); }
+
+    /* ================================================================
+       INDICADORES DE PUNTOS (DOTS)
+       ================================================================ */
+    .puntos-carrusel {
+      position: absolute;
+      left: 50%;
+      bottom: 2rem;
+      z-index: 5;
+      display: flex;
+      gap: 0.75rem;
+      transform: translateX(-50%);
+    }
+
+    .punto {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1px solid var(--color-acento);
+      background: transparent;
+      padding: 0;
+      cursor: pointer;
+      transition: background 180ms ease, transform 180ms ease;
+    }
+
+    .punto.activo { background: var(--color-acento); transform: scale(1.2); }
 
     /* ================================================================
        INICIO DE LA SECCIÓN ¿QUIÉNES SOMOS?: PRESENTACIÓN DE POLARIMEX.
@@ -283,7 +383,9 @@
       .barra-navegacion { min-height: auto; padding: 1.3rem 0; flex-wrap: wrap; }
       .enlaces-navegacion { order: 3; width: 100%; margin-left: 0; justify-content: space-between; gap: 0.6rem; }
       .encabezado .boton { margin-left: auto; }
-      .hero { min-height: 680px; padding-top: 190px; }
+      .hero-carrusel, .carrusel-track { min-height: 680px; height: 680px; }
+      .carrusel-slide { padding-top: 190px; }
+      .flecha-carrusel { width: 42px; height: 42px; }
       .rejilla-presentacion { grid-template-columns: 1fr; gap: 2rem; }
     }
 
@@ -294,7 +396,9 @@
       .encabezado .boton { min-height: 40px; padding: 0.55rem 0.8rem; font-size: 0.65rem; }
       .enlaces-navegacion { flex-wrap: wrap; justify-content: flex-start; }
       .enlaces-navegacion a { font-size: 0.63rem; }
-      .hero { min-height: 620px; padding-top: 175px; }
+      .hero-carrusel, .carrusel-track { min-height: 620px; height: 620px; }
+      .carrusel-slide { padding-top: 175px; }
+      .flecha-carrusel { display: none; } /* En móvil se navega con los puntos */
       .rejilla-valores { grid-template-columns: 1fr; }
       .tarjeta-valor + .tarjeta-valor { border-top: 1px solid var(--borde-suave); border-left: 0; }
       .contenido-pie { flex-direction: column; }
@@ -310,12 +414,11 @@
        ================================================================ -->
   <header class="encabezado">
     <nav class="barra-navegacion contenedor" aria-label="Navegación principal">
-     <!-- LOGOTIPO: REEMPLAZA logo.png POR TU ARCHIVO SI LO ACTUALIZAS -->
-<a class="logo" href="#inicio" aria-label="Ir al inicio de Polarimex">
-  <img class="logo-imagen" src="Logo.png" alt="Polarimex">
-  <span>POLARIMEX</span>
-</a>
-      
+      <!-- LOGOTIPO: REEMPLAZA logo.png POR TU ARCHIVO SI LO ACTUALIZAS -->
+      <a class="logo" href="#inicio" aria-label="Ir al inicio de Polarimex">
+        <img class="logo-imagen" src="logo.png" alt="Polarimex">
+        <span>POLARIMEX</span>
+      </a>
       <div class="enlaces-navegacion">
         <a href="automotriz.html">AUTOMOTRIZ</a>
         <a href="#decorativa">DECORATIVA</a>
@@ -329,14 +432,66 @@
 
   <main>
     <!-- ================================================================
-         INICIO DE LA IMAGEN PRINCIPAL Y MENSAJE HERO.
-         REEMPLAZA LA URL DEL src POR TU FOTO FINAL EN FORMATO HORIZONTAL.
+         INICIO DEL CARRUSEL HERO.
+         PARA AGREGAR UNA NUEVA DIAPOSITIVA: COPIA UN BLOQUE COMPLETO
+         <div class="carrusel-slide">...</div> Y PÉGALO ANTES DEL CIERRE
+         DE .carrusel-track. LUEGO AGREGA UN <button class="punto">
+         ADICIONAL EN .puntos-carrusel Y ACTUALIZA EL JS SI ES NECESARIO.
          ================================================================ -->
-    <section class="hero" id="inicio" aria-labelledby="titulo-hero">
-      <img class="imagen-hero" src="https://via.placeholder.com/1920x1080/555555/FFFFFF?text=IMAGEN+PRINCIPAL+POLARIMEX" alt="Marcador temporal de 1920 por 1080 píxeles para la imagen principal de Polarimex">
-      <div class="contenedor contenido-hero">
-        <p class="subtitulo-hero">POLARIMEX</p>
-        <h1 class="titulo-hero" id="titulo-hero">Polarizado y<br>Blindaje Ligero</h1>
+    <section class="hero-carrusel" id="inicio" aria-label="Carrusel principal de Polarimex" aria-roledescription="carrusel">
+      <div class="carrusel-track" id="carrusel-track">
+
+        <!-- ============ DIAPOSITIVA 1 ============ -->
+        <!-- EDITAR TEXTO E IMAGEN DE LA DIAPOSITIVA 1 AQUÍ -->
+        <div class="carrusel-slide activa" data-slide="0">
+          <img class="imagen-hero" src="https://via.placeholder.com/1920x1080/555555/FFFFFF?text=IMAGEN+PRINCIPAL+1" alt="Vehículo con polarizado de seguridad instalado por Polarimex">
+          <div class="contenedor contenido-hero">
+            <p class="subtitulo-hero">POLARIMEX</p>
+            <h1 class="titulo-hero">Polarizado y<br>Blindaje Ligero</h1>
+            <p class="texto-hero">Protección, confort y estilo para tu vehículo o inmueble con las mejores marcas del mercado.</p>
+            <a class="boton boton-hero" href="#contacto">Solicitar Cotización</a>
+          </div>
+        </div>
+
+        <!-- ============ DIAPOSITIVA 2 ============ -->
+        <!-- EDITAR TEXTO E IMAGEN DE LA DIAPOSITIVA 2 AQUÍ -->
+        <div class="carrusel-slide" data-slide="1">
+          <img class="imagen-hero" src="https://via.placeholder.com/1920x1080/555555/FFFFFF?text=IMAGEN+PRINCIPAL+2" alt="Instalación profesional de película de seguridad en fachada de cristal">
+          <div class="contenedor contenido-hero">
+            <p class="subtitulo-hero">SEGURIDAD Y CONFORT</p>
+            <h1 class="titulo-hero">Protección<br>Que Se Nota</h1>
+            <p class="texto-hero">Reduce el calor, los rayos UV y refuerza tus cristales con tecnología de última generación.</p>
+            <a class="boton boton-hero" href="#contacto">Solicitar Cotización</a>
+          </div>
+        </div>
+
+        <!-- ============ DIAPOSITIVA 3 ============ -->
+        <!-- EDITAR TEXTO E IMAGEN DE LA DIAPOSITIVA 3 AQUÍ -->
+        <div class="carrusel-slide" data-slide="2">
+          <img class="imagen-hero" src="https://via.placeholder.com/1920x1080/555555/FFFFFF?text=IMAGEN+PRINCIPAL+3" alt="Instalación de película decorativa en oficina comercial">
+          <div class="contenedor contenido-hero">
+            <p class="subtitulo-hero">CALIDAD GARANTIZADA</p>
+            <h1 class="titulo-hero">Las Mejores<br>Marcas</h1>
+            <p class="texto-hero">Trabajamos con las marcas más prestigiadas del mercado a los precios más competitivos.</p>
+            <a class="boton boton-hero" href="#contacto">Solicitar Cotización</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- FLECHAS DE NAVEGACIÓN -->
+      <button class="flecha-carrusel flecha-anterior" id="flecha-anterior" aria-label="Diapositiva anterior">
+        <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="flecha-carrusel flecha-siguiente" id="flecha-siguiente" aria-label="Diapositiva siguiente">
+        <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+
+      <!-- INDICADORES DE PUNTOS: UNO POR CADA DIAPOSITIVA -->
+      <div class="puntos-carrusel" id="puntos-carrusel" role="tablist" aria-label="Seleccionar diapositiva">
+        <button class="punto activo" data-punto="0" aria-label="Ir a la diapositiva 1"></button>
+        <button class="punto" data-punto="1" aria-label="Ir a la diapositiva 2"></button>
+        <button class="punto" data-punto="2" aria-label="Ir a la diapositiva 3"></button>
       </div>
     </section>
 
@@ -416,5 +571,71 @@
       <span>polarizadosmexico@gmail.com · +52 (961) 146 0138</span>
     </div>
   </footer>
+
+  <!-- ================================================================
+       LÓGICA DEL CARRUSEL HERO.
+       - VELOCIDAD DE CAMBIO AUTOMÁTICO: MODIFICA "duracionSlide" (en ms).
+       - PAUSA AL PASAR EL MOUSE: CONTROLADA MÁS ABAJO.
+       ================================================================ -->
+  <script>
+    (function () {
+      const track = document.getElementById('carrusel-track');
+      const slides = Array.from(track.querySelectorAll('.carrusel-slide'));
+      const puntos = Array.from(document.querySelectorAll('.punto'));
+      const btnAnterior = document.getElementById('flecha-anterior');
+      const btnSiguiente = document.getElementById('flecha-siguiente');
+
+      let indiceActual = 0;
+      const totalSlides = slides.length;
+
+      // CAMBIA ESTE VALOR PARA AJUSTAR CADA CUÁNTO SE MUEVE AUTOMÁTICAMENTE (EN MILISEGUNDOS)
+      const duracionSlide = 6000;
+      let temporizador = null;
+
+      function irASlide(indice) {
+        slides[indiceActual].classList.remove('activa');
+        puntos[indiceActual].classList.remove('activo');
+
+        indiceActual = (indice + totalSlides) % totalSlides;
+
+        slides[indiceActual].classList.add('activa');
+        puntos[indiceActual].classList.add('activo');
+      }
+
+      function siguienteSlide() { irASlide(indiceActual + 1); }
+      function anteriorSlide() { irASlide(indiceActual - 1); }
+
+      function iniciarAutoplay() {
+        temporizador = setInterval(siguienteSlide, duracionSlide);
+      }
+
+      function detenerAutoplay() {
+        clearInterval(temporizador);
+      }
+
+      function reiniciarAutoplay() {
+        detenerAutoplay();
+        iniciarAutoplay();
+      }
+
+      // BOTONES DE NAVEGACIÓN MANUAL
+      btnSiguiente.addEventListener('click', () => { siguienteSlide(); reiniciarAutoplay(); });
+      btnAnterior.addEventListener('click', () => { anteriorSlide(); reiniciarAutoplay(); });
+
+      // CLIC EN LOS PUNTOS PARA IR DIRECTO A UNA DIAPOSITIVA
+      puntos.forEach((punto, i) => {
+        punto.addEventListener('click', () => { irASlide(i); reiniciarAutoplay(); });
+      });
+
+      // PAUSA EL CAMBIO AUTOMÁTICO CUANDO EL MOUSE ESTÁ SOBRE EL CARRUSEL
+      const heroCarrusel = document.querySelector('.hero-carrusel');
+      heroCarrusel.addEventListener('mouseenter', detenerAutoplay);
+      heroCarrusel.addEventListener('mouseleave', iniciarAutoplay);
+
+      iniciarAutoplay();
+    })();
+  </script>
 </body>
 </html>
+
+
