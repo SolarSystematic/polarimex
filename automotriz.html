@@ -112,10 +112,19 @@
     }
 
     .logo {
+      display: flex;
+      align-items: center;
       flex-shrink: 0;
       font-size: 1.1rem;
       font-weight: 800;
       letter-spacing: 0.25em;
+    }
+
+    /* LOGOTIPO: AJUSTA LA ALTURA AQUÍ PARA HACERLO MÁS GRANDE O PEQUEÑO */
+    .logo-imagen {
+      height: 56px;
+      width: auto;
+      display: block;
     }
 
     .enlaces-navegacion {
@@ -329,7 +338,10 @@
        ================================================================ -->
   <header class="encabezado">
     <nav class="barra-navegacion contenedor" aria-label="Navegación principal">
-      <a class="logo" href="index.html" aria-label="Ir al inicio de Polarimex">POLARIMEX</a>
+      <!-- LOGOTIPO: REEMPLAZA logo.png POR TU ARCHIVO SI LO ACTUALIZAS -->
+      <a class="logo" href="index.html" aria-label="Ir al inicio de Polarimex">
+        <img class="logo-imagen" src="Logo.png" alt="Polarimex">
+      </a>
       <div class="enlaces-navegacion">
         <a href="index.html">INICIO</a>
         <a href="automotriz.html" aria-current="page">AUTOMOTRIZ</a>
