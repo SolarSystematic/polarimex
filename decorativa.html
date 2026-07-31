@@ -13,10 +13,10 @@
        (MISMAS VARIABLES QUE EL RESTO DEL SITIO PARA MANTENER CONSISTENCIA)
        ================================================================ */
     :root {
-      --color-principal: #ffffff;
-      --color-secundario: #f2f2f2; /* un gris muy claro para alternar secciones, o pon #ffffff también */
-      --color-acento: #000000; /* antes era blanco, ahora texto negro */
-      --color-texto-mutado: #333333; /* antes era blanco, ahora gris oscuro para texto secundario */
+      --color-principal: var(--mi-degradado); /* Fondo negro y elementos con más fuerza visual. */
+      --color-secundario: #1a1a1a; /* Fondo gris oscuro de secciones y tarjetas. */
+      --color-acento: #ffffff; /* Blanco para textos principales y contrastes. */
+      --color-texto-mutado: #ffffff; /* Gris claro para textos secundarios. */
       --color-rojo: #ff0000; /* Rojo de acento para detalles y hover. */
       --fuente-principal: 'Arial', sans-serif; /* Cambia aquí la fuente de toda la web. */
       --ancho-contenido: 1200px; /* Ancho máximo del contenido central. */
@@ -225,16 +225,6 @@
     .rama-imagen-izquierda .rejilla-rama { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr); }
     .rama-imagen-izquierda .panel-diagonal { order: -1; }
 
-    .texto-rama-numero {
-      font-size: clamp(3.5rem, 7vw, 6rem);
-      font-weight: 800;
-      line-height: 1;
-      color: transparent;
-      -webkit-text-stroke: 1.5px var(--color-acento);
-      margin: 0 0 1rem;
-      opacity: 0.6;
-    }
-
     .titulo-rama {
       margin: 0 0 1.25rem;
       font-size: clamp(2rem, 4.2vw, 3.4rem);
@@ -315,10 +305,13 @@
       padding-top: 1.5rem;
     }
 
+    /* GALERÍA MÁS GRANDE: AHORA 2 COLUMNAS EN LUGAR DE 3 PARA QUE CADA
+       FOTO TENGA MÁS PRESENCIA. SI QUIERES VOLVER A 3 EN UNA FILA,
+       CAMBIA "repeat(2, minmax(0, 1fr))" POR "repeat(3, minmax(0, 1fr))" */
     .rejilla-galeria {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.75rem;
     }
 
     .foto-galeria {
@@ -327,9 +320,10 @@
       border: 1px solid var(--borde-suave);
     }
 
+    /* ALTURA DE CADA FOTO DE LA GALERÍA: AUMENTA O REDUCE ESTE VALOR AQUÍ */
     .foto-galeria img {
       width: 100%;
-      height: 260px;
+      height: 420px;
       object-fit: cover;
       filter: grayscale(100%);
       transition: transform 400ms ease, filter 400ms ease;
@@ -383,7 +377,7 @@
       .panel-diagonal img { min-height: 320px; }
       .acento-diagonal { display: none; } /* SE OCULTA EL ACENTO DE FONDO PARA EVITAR DESBORDES */
 
-      .rejilla-galeria { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .foto-galeria img { height: 340px; } /* GALERÍA EN TABLET: FOTOS UN POCO MÁS BAJAS PARA CABER EN 2 COLUMNAS */
     }
 
     @media (max-width: 560px) {
@@ -404,6 +398,7 @@
       .panel-diagonal img { min-height: 260px; }
 
       .rejilla-galeria { grid-template-columns: 1fr; }
+      .foto-galeria img { height: 300px; } /* GALERÍA EN MÓVIL: UNA SOLA COLUMNA, FOTO GRANDE Y CLARA */
       .contenido-pie { flex-direction: column; }
     }
   </style>
@@ -419,7 +414,7 @@
     <nav class="barra-navegacion contenedor" aria-label="Navegación principal">
       <!-- LOGOTIPO: REEMPLAZA logo.png POR TU ARCHIVO SI LO ACTUALIZAS -->
       <a class="logo" href="index.html" aria-label="Ir al inicio de Polarimex">
-        <img class="logo-imagen" src="Logo.png" alt="Polarimex">
+        <img class="logo-imagen" src="logo.png" alt="Polarimex">
         <span>POLARIMEX</span>
       </a>
       <div class="enlaces-navegacion">
@@ -455,8 +450,7 @@
     <section class="rama rama-imagen-derecha" id="reflectivas" aria-labelledby="titulo-reflectivas">
       <div class="contenedor rejilla-rama">
         <div>
-          <p class="texto-rama-numero">01</p>
-          <p class="etiqueta">RAMA 1</p>
+          <p class="etiqueta">REFLECTIVAS</p>
           <!-- EDITAR TÍTULO Y DESCRIPCIÓN DE REFLECTIVAS AQUÍ -->
           <h2 class="titulo-rama" id="titulo-reflectivas">Reflectivas</h2>
           <p class="texto-rama">Películas espejadas que aportan privacidad total durante el día, reducen el brillo solar y le dan a tu fachada o vehículo un acabado moderno y distintivo.</p>
@@ -475,11 +469,6 @@
               <figure class="foto-galeria">
                 <img src="https://via.placeholder.com/500x600/555555/FFFFFF?text=REFLECTIVAS+2" alt="Marcador de imagen 2 de película reflectiva instalada, tamaño recomendado 500x600 píxeles">
                 <figcaption>Detalle de reflejo y control solar</figcaption>
-              </figure>
-              <!-- CAMBIAR FOTO 3 DE REFLECTIVAS AQUÍ -->
-              <figure class="foto-galeria">
-                <img src="https://via.placeholder.com/500x600/555555/FFFFFF?text=REFLECTIVAS+3" alt="Marcador de imagen 3 de película reflectiva instalada, tamaño recomendado 500x600 píxeles">
-                <figcaption>Privacidad total en horario diurno</figcaption>
               </figure>
             </div>
           </div>
@@ -505,8 +494,7 @@
         </div>
 
         <div>
-          <p class="texto-rama-numero">02</p>
-          <p class="etiqueta">RAMA 2</p>
+          <p class="etiqueta">DECORATIVAS</p>
           <!-- EDITAR TÍTULO Y DESCRIPCIÓN DE DECORATIVAS AQUÍ -->
           <h2 class="titulo-rama" id="titulo-decorativas">Decorativas</h2>
           <p class="texto-rama">Texturas, patrones esmerilados y acabados translúcidos que transforman cualquier superficie de cristal en un elemento de diseño para oficinas, hogares y locales comerciales.</p>
@@ -526,11 +514,6 @@
                 <img src="https://via.placeholder.com/500x600/555555/FFFFFF?text=DECORATIVAS+2" alt="Marcador de imagen 2 de película decorativa instalada, tamaño recomendado 500x600 píxeles">
                 <figcaption>Patrón geométrico en separador de sala</figcaption>
               </figure>
-              <!-- CAMBIAR FOTO 3 DE DECORATIVAS AQUÍ -->
-              <figure class="foto-galeria">
-                <img src="https://via.placeholder.com/500x600/555555/FFFFFF?text=DECORATIVAS+3" alt="Marcador de imagen 3 de película decorativa instalada, tamaño recomendado 500x600 píxeles">
-                <figcaption>Textura translúcida en puerta de vidrio</figcaption>
-              </figure>
             </div>
           </div>
         </div>
@@ -543,8 +526,7 @@
     <section class="rama rama-imagen-derecha" id="graficos" aria-labelledby="titulo-graficos">
       <div class="contenedor rejilla-rama">
         <div>
-          <p class="texto-rama-numero">03</p>
-          <p class="etiqueta">RAMA 3</p>
+          <p class="etiqueta">GRÁFICOS</p>
           <!-- EDITAR TÍTULO Y DESCRIPCIÓN DE GRÁFICOS AQUÍ -->
           <h2 class="titulo-rama" id="titulo-graficos">Gráficos</h2>
           <p class="texto-rama">Impresión de logotipos, vinilos de corte y gráficos personalizados sobre película, ideales para branding corporativo, rotulación de vehículos y señalización de espacios.</p>
@@ -563,11 +545,6 @@
               <figure class="foto-galeria">
                 <img src="https://via.placeholder.com/500x600/555555/FFFFFF?text=GRAFICOS+2" alt="Marcador de imagen 2 de vinilo gráfico instalado, tamaño recomendado 500x600 píxeles">
                 <figcaption>Logotipo aplicado en cristal de recepción</figcaption>
-              </figure>
-              <!-- CAMBIAR FOTO 3 DE GRÁFICOS AQUÍ -->
-              <figure class="foto-galeria">
-                <img src="https://via.placeholder.com/500x600/555555/FFFFFF?text=GRAFICOS+3" alt="Marcador de imagen 3 de vinilo gráfico instalado, tamaño recomendado 500x600 píxeles">
-                <figcaption>Señalización de espacio comercial</figcaption>
               </figure>
             </div>
           </div>
