@@ -385,7 +385,7 @@
       .barra-navegacion { min-height: auto; padding: 1.3rem 0; flex-wrap: wrap; }
       .enlaces-navegacion { order: 3; width: 100%; margin-left: 0; justify-content: space-between; gap: 0.6rem; }
       .encabezado .boton { margin-left: auto; }
-      .hero-carrusel, .carrusel-track { min-height: 680px; height: 680px; }
+      .hero-carrusel, .carrusel-track { min-height: 400px; height: auto; }
       .carrusel-slide { padding-top: 190px; }
       .flecha-carrusel { width: 42px; height: 42px; }
       .rejilla-presentacion { grid-template-columns: 1fr; gap: 2rem; }
@@ -399,7 +399,7 @@
       .enlaces-navegacion { flex-wrap: wrap; justify-content: flex-start; }
       .enlaces-navegacion a { font-size: 0.63rem; }
       .hero-carrusel, .carrusel-track { min-height: 620px; height: 620px; }
-      .carrusel-slide { padding-top: 175px; }
+      .carrusel-slide { padding-top: clamp(40px, 10vw, 100px); }
       .flecha-carrusel { display: none; } /* En móvil se navega con los puntos */
       .rejilla-valores { grid-template-columns: 1fr; }
       .tarjeta-valor + .tarjeta-valor { border-top: 1px solid var(--borde-suave); border-left: 0; }
