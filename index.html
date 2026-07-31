@@ -392,6 +392,20 @@
     }
 
     @media (max-width: 560px) {
+       /* SOLUCIÓN PARA TU FORMULARIO Y TEXTO: */
+  .rejilla-contacto {
+    grid-template-columns: 1fr !important; /* Obliga a que se pongan uno abajo del otro */
+    gap: 2.5rem; /* Deja un espacio cómodo entre el texto y el formulario */
+  }
+
+  /* Si tienes un mapa abajo que también se sale, esto lo domará: */
+  .rejilla-contacto iframe, 
+  .rejilla-contacto map,
+  #map {
+    width: 100% !important;
+    height: 300px; /* Una altura cómoda para celular */
+  }
+  
       :root { --espaciado-seccion: 4.5rem; }
       .contenedor { width: min(100% - 2rem, var(--ancho-contenido)); }
       .logo { font-size: 1rem; }
