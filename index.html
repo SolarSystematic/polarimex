@@ -20,7 +20,7 @@
       --color-principal: var(--mi-degradado); /* Fondo negro y elementos con más fuerza visual. */
       --color-secundario: #161616; /* Fondo gris oscuro de secciones y tarjetas. */
       --color-acento: #ffffff; /* Blanco para textos principales y contrastes. */
-      --color-texto-mutado: #c9c9c9; /* Gris claro para textos secundarios. */
+      --color-texto-mutado: #fcf8f8; /* Gris claro para textos secundarios. */
       --color-rojo: #ff1a1a; /* Rojo de acento para detalles y hover. */
       --fuente-principal: 'Manrope', sans-serif; /* Cambia aquí la fuente de toda la web. */
       --fuente-titulos: 'Sora', sans-serif; /* Fuente premium de títulos y encabezados. */
@@ -207,7 +207,7 @@
 
     /* LOGOTIPO: AJUSTA LA ALTURA AQUÍ PARA HACERLO MÁS GRANDE O PEQUEÑO */
     .logo-imagen {
-      height: 44px;
+      height: 55px;
       width: auto;
       display: block;
     }
@@ -365,7 +365,8 @@
       position: absolute;
       z-index: -1;
       inset: 0;
-      background: linear-gradient(90deg, rgba(0, 0, 0, 0.82) 15%, rgba(0, 0, 0, 0.25) 70%), linear-gradient(0deg, rgba(0, 0, 0, 0.8), transparent 55%);
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.4) 15%, rgba(0, 0, 0, 0.1) 70%), 
+      linear-gradient(0deg, rgba(0, 0, 0, 0.4), transparent 55%);
     }
 
     .contenido-hero { max-width: 780px; }
@@ -438,7 +439,9 @@
 
     .flecha-carrusel:hover,
     .flecha-carrusel:focus-visible {
-      background: var(--mi-degradado);
+      background: radial-gradient(ellipse at center, #e50914 30%, #8b0007 80%) !important;
+      border-radius: 50px;
+      border: none !important;
       box-shadow: var(--sombra-roja);
     }
 
@@ -1000,7 +1003,7 @@
           <div class="bloque-datos"><h3 class="titulo-dato">Datos directos</h3><a class="enlace-dato" href="tel:+529611460138"><svg class="icono-outline" aria-hidden="true" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.79.62 2.65a2 2 0 0 1-.45 2.11L8 9.76a16 16 0 0 0 6 6l1.28-1.28a2 2 0 0 1 2.11-.45c.86.29 1.75.5 2.65.62A2 2 0 0 1 22 16.92z"/></svg>+52 (961) 146 01 38&nbsp;&nbsp;</a><a class="enlace-dato" href="mailto:polarizadosmexico@gmail.com"><svg class="icono-outline" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 7 9 6 9-6"/></svg>polarizadosmexico@gmail.com</a></div>
           <!-- === CÓMO CAMBIAR EL MAPA: 1) Busca tu negocio en Google Maps. 2) Pulsa Compartir. 3) Elige Insertar un mapa. 4) Copia el enlace dentro de src="..." y reemplaza SOLO el valor de src de este iframe. === -->
           <br>
-          <iframe class="mapa-contacto" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.7349445355057!2d-93.0989558!3d16.789857599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ecd8aa1594ded7%3A0xf6a019c6ccdc6295!2sPOLARIMEX!5e0!3m2!1ses!2smx!4v1785177495842!5m2!1ses!2smx" width="548" height="210" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1606.0020235370835!2d-93.0991216209669!3d16.789702409004935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ecd8aa1594ded7%3A0xf6a019c6ccdc6295!2sPOLARIMEX!5e0!3m2!1ses!2smx!4v1785957281939!5m2!1ses!2smx" width="548" height="210" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
         </div>
         <!-- === COLUMNA 2: FORMULARIO DE COTIZACIÓN === -->
         <div class="formulario-cotizacion" data-animar style="--retraso: 200ms"><p class="etiqueta">COTIZACIÓN</p><h2 class="titulo-seccion">Solicita tu cotización</h2>
