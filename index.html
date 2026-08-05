@@ -6,6 +6,11 @@
   <meta name="description" content="Polarimex - Polarizado y Blindaje Ligero.">
   <title>Polarimex | Polarizado y Blindaje Ligero</title>
 
+  <!-- TIPOGRAFÍAS PREMIUM (GOOGLE FONTS): CAMBIA LAS FAMILIAS AQUÍ SI LO DESEAS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     /* ================================================================
        CONFIGURACIÓN GLOBAL: EDITA ESTAS VARIABLES PARA CAMBIAR TODA
@@ -13,15 +18,23 @@
        ================================================================ */
     :root {
       --color-principal: var(--mi-degradado); /* Fondo negro y elementos con más fuerza visual. */
-      --color-secundario: #1a1a1a; /* Fondo gris oscuro de secciones y tarjetas. */
+      --color-secundario: #161616; /* Fondo gris oscuro de secciones y tarjetas. */
       --color-acento: #ffffff; /* Blanco para textos principales y contrastes. */
-      --color-texto-mutado: #ffffff; /* Gris claro para textos secundarios. */
-      --fuente-principal: 'Arial', sans-serif; /* Cambia aquí la fuente de toda la web. */
+      --color-texto-mutado: #c9c9c9; /* Gris claro para textos secundarios. */
+      --color-rojo: #ff1a1a; /* Rojo de acento para detalles y hover. */
+      --fuente-principal: 'Manrope', sans-serif; /* Cambia aquí la fuente de toda la web. */
+      --fuente-titulos: 'Sora', sans-serif; /* Fuente premium de títulos y encabezados. */
       --ancho-contenido: 1200px; /* Ancho máximo del contenido central. */
       --espaciado-seccion: 7rem; /* Aire vertical entre secciones de escritorio. */
-      --borde-suave: rgb(255, 255, 255); /* Color de líneas y separadores. */
-      --mi-degradado: linear-gradient(90deg, #200000, #ff0000);
-
+      --borde-suave: rgba(255, 255, 255, 0.16); /* Color de líneas y separadores. */
+      --mi-degradado: linear-gradient(90deg, #200000, #ff0000); /* Degradado insignia de la marca. */
+      --degradado-sutil: linear-gradient(135deg, #161616, #2b0000); /* Degradado suave para paneles. */
+      --sombra-suave: 0 24px 60px rgba(0, 0, 0, 0.5); /* Sombra grande para paneles y formularios. */
+      --sombra-carta: 0 12px 32px rgba(0, 0, 0, 0.35); /* Sombra media para tarjetas. */
+      --sombra-roja: 0 14px 34px rgba(255, 0, 0, 0.28); /* Resplandor rojo para botones. */
+      --radio-suave: 18px; /* Radio de esquinas redondeadas de tarjetas. */
+      --radio-pequeno: 10px; /* Radio de esquinas de campos e imágenes. */
+      --transicion: 280ms cubic-bezier(0.22, 0.61, 0.36, 1); /* Curva de animación premium. */
     }
 
     /* ================================================================
@@ -36,12 +49,24 @@
       background: var(--color-principal);
       color: var(--color-acento);
       font-family: var(--fuente-principal);
-      line-height: 1.6;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
+
+    /* TEXTO SELECCIONADO Y BARRA DE DESPLAZAMIENTO: DETALLES PREMIUM */
+    ::selection { background: var(--color-rojo); color: #ffffff; }
+
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #4d0000, #ff0000); border-radius: 999px; border: 2px solid #0a0a0a; }
 
     img { display: block; max-width: 100%; }
 
     a { color: inherit; text-decoration: none; }
+
+    /* MARGEN SUPERIOR PARA QUE LOS ANCLAJES NO QUEDEN PEGADOS AL MENÚ */
+    section[id] { scroll-margin-top: 90px; }
 
     /* ================================================================
        CLASES REUTILIZABLES: ESTILOS COMPARTIDOS PARA MANTENER EL HTML
@@ -52,44 +77,82 @@
       margin-inline: auto;
     }
 
+    /* ETIQUETA CON BARRA DE ACENTO ROJO DECORATIVA */
     .etiqueta {
       margin: 0 0 1rem;
       color: var(--color-texto-mutado);
-      font-size: 0.75rem;
+      font-family: var(--fuente-titulos);
+      font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
+    }
+
+    .etiqueta::before {
+      content: '';
+      display: inline-block;
+      width: 26px;
+      height: 2px;
+      margin-right: 0.6rem;
+      vertical-align: middle;
+      background: var(--mi-degradado);
     }
 
     .titulo-seccion {
       max-width: 760px;
       margin: 0;
+      font-family: var(--fuente-titulos);
       font-size: clamp(2.2rem, 5vw, 4.5rem);
       line-height: 1.05;
-      letter-spacing: -0.04em;
+      letter-spacing: -0.045em;
+      text-wrap: balance;
     }
 
+    /* BOTÓN PÍLDORA CON BRILLO DESLIZANTE Y RESPLANDOR ROJO */
     .boton {
+      position: relative;
+      overflow: hidden;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       min-height: 48px;
-      padding: 0.75rem 1.35rem;
-      border: 1px solid var(--color-acento);
+      padding: 0.8rem 1.7rem;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 999px;
       background: var(--mi-degradado);
-      color: var(--color-principal);
-      font-size: 0.8rem;
+      color: #ffffff;
+      font-family: var(--fuente-titulos);
+      font-size: 0.75rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      transition: background 180ms ease, color 180ms ease;
+      box-shadow: var(--sombra-roja);
+      transition: transform var(--transicion), box-shadow var(--transicion), background var(--transicion);
+    }
+
+    .boton::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -80%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transform: skewX(-20deg);
+      transition: left 600ms ease;
     }
 
     .boton:hover,
     .boton:focus-visible {
-      background: transparent;
-      color: var(--color-acento);
+      transform: translateY(-3px);
+      box-shadow: 0 20px 44px rgba(255, 0, 0, 0.45);
     }
+
+    .boton:hover::before { left: 140%; }
+
+    .boton:active { transform: translateY(-1px); }
+
+    .boton:focus-visible { outline: 2px solid var(--color-acento); outline-offset: 3px; }
 
     /* ================================================================
        INICIO DEL ENCABEZADO Y MENÚ DE NAVEGACIÓN.
@@ -101,7 +164,16 @@
       top: 0;
       width: 100%;
       border-bottom: 1px solid var(--borde-suave);
-      background-color: #000000;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.2));
+      transition: background var(--transicion), box-shadow var(--transicion), backdrop-filter var(--transicion);
+    }
+
+    /* AL HACER SCROLL EL MENÚ SE VUELVE SÓLIDO CON DESENFOQUE (VER JS) */
+    .encabezado.fijo {
+      background: rgba(8, 8, 8, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
     }
 
     .barra-navegacion {
@@ -110,7 +182,7 @@
       justify-content: space-between;
       gap: 2rem;
       min-height: 88px;
-      background-color: #000000; /* Esto cambia el fondo a negro absoluto */
+      background: transparent;
     }
 
     .logo {
@@ -118,16 +190,28 @@
       align-items: center;
       gap: 0.75rem;
       flex-shrink: 0;
+      font-family: var(--fuente-titulos);
       font-size: 1.1rem;
       font-weight: 800;
       letter-spacing: 0.25em;
+      transition: transform var(--transicion);
     }
+
+    .logo:hover { transform: scale(1.03); }
 
     /* LOGOTIPO: AJUSTA LA ALTURA AQUÍ PARA HACERLO MÁS GRANDE O PEQUEÑO */
     .logo-imagen {
       height: 44px;
       width: auto;
       display: block;
+    }
+
+    /* NOMBRE DE LA MARCA CON DEGRADADO PREMIUM */
+    .logo span {
+      background: linear-gradient(90deg, #ffffff, #ffb3b3);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
     .enlaces-navegacion {
@@ -139,15 +223,33 @@
     }
 
     .enlaces-navegacion a {
+      position: relative;
       color: var(--color-texto-mutado);
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       transition: color 180ms ease;
+    }
+
+    /* SUBRAYADO ANIMADO QUE SE DESPLIEGA BAJO CADA ENLACE */
+    .enlaces-navegacion a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 100%;
+      height: 2px;
+      background: var(--mi-degradado);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transicion);
     }
 
     .enlaces-navegacion a:hover,
     .enlaces-navegacion a:focus-visible { color: var(--color-acento); }
+
+    .enlaces-navegacion a:hover::after,
+    .enlaces-navegacion a:focus-visible::after { transform: scaleX(1); }
 
     /* ================================================================
        INICIO DE LA SECCIÓN HERO / CARRUSEL: PRIMER IMPACTO VISUAL.
@@ -195,7 +297,6 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-       /* Aca le movi */
       opacity: 100%;
       filter: saturate(120%);
       /* EFECTO SUTIL DE ZOOM LENTO MIENTRAS LA IMAGEN ESTÁ ACTIVA */
@@ -205,12 +306,13 @@
 
     .carrusel-slide.activa .imagen-hero { transform: scale(1); }
 
+    /* CAPA DE OSCURECIMIENTO: GARANTIZA LECTURA DEL TEXTO SOBRE CUALQUIER FOTO */
     .carrusel-slide::after {
       content: '';
       position: absolute;
       z-index: -1;
       inset: 0;
-      /* background: linear-gradient(90deg, rgba(0, 0, 0, 0.88), rgba(0, 0, 0, 0.4)), linear-gradient(0deg, rgba(0, 0, 0, 0.72), transparent 0%);*/
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.82) 15%, rgba(0, 0, 0, 0.25) 70%), linear-gradient(0deg, rgba(0, 0, 0, 0.8), transparent 55%);
     }
 
     .contenido-hero { max-width: 780px; }
@@ -233,17 +335,20 @@
     .subtitulo-hero {
       margin: 0 0 1.25rem;
       color: var(--color-texto-mutado);
+      font-family: var(--fuente-titulos);
       font-size: clamp(0.78rem, 1.5vw, 0.95rem);
       font-weight: 700;
-      letter-spacing: 0.35em;
+      letter-spacing: 0.4em;
       text-transform: uppercase;
     }
 
     .titulo-hero {
       margin: 0;
+      font-family: var(--fuente-titulos);
       font-size: clamp(3rem, 8vw, 7rem);
       line-height: 0.93;
-      letter-spacing: -0.065em;
+      letter-spacing: -0.07em;
+      text-wrap: balance;
     }
 
     /* TEXTO SUBTÍTULO DESCRIPTIVO DEBAJO DEL TÍTULO DE CADA SLIDE */
@@ -264,20 +369,30 @@
       top: 50%;
       z-index: 5;
       transform: translateY(-50%);
-      width: 52px;
-      height: 52px;
+      width: 54px;
+      height: 54px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid var(--color-acento);
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      border-radius: 50%;
       background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(8px);
       color: var(--color-acento);
       cursor: pointer;
-      transition: background 180ms ease, transform 180ms ease;
+      transition: background var(--transicion), transform var(--transicion), box-shadow var(--transicion);
     }
 
     .flecha-carrusel:hover,
-    .flecha-carrusel:focus-visible { background: rgba(255, 0, 0, 0.35); }
+    .flecha-carrusel:focus-visible {
+      background: var(--mi-degradado);
+      box-shadow: var(--sombra-roja);
+    }
+
+    .flecha-carrusel:focus-visible { outline: 2px solid var(--color-acento); outline-offset: 3px; }
+
+    .flecha-anterior:hover { transform: translate(-4px, -50%); }
+    .flecha-siguiente:hover { transform: translate(4px, -50%); }
 
     .flecha-carrusel svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; }
 
@@ -297,6 +412,7 @@
       transform: translateX(-50%);
     }
 
+    /* EL PUNTO ACTIVO SE ESTIRA COMO UNA PÍLDORA PARA INDICAR PROGRESO */
     .punto {
       width: 10px;
       height: 10px;
@@ -305,10 +421,17 @@
       background: transparent;
       padding: 0;
       cursor: pointer;
-      transition: background 180ms ease, transform 180ms ease;
+      transition: width var(--transicion), background var(--transicion), transform var(--transicion);
     }
 
-    .punto.activo { background: var(--color-acento); transform: scale(1.2); }
+    .punto:hover { transform: scale(1.25); }
+
+    .punto.activo {
+      width: 34px;
+      border-radius: 999px;
+      background: var(--mi-degradado);
+      border-color: transparent;
+    }
 
     /* ================================================================
        INICIO DE LA SECCIÓN ¿QUIÉNES SOMOS?: PRESENTACIÓN DE POLARIMEX.
@@ -344,15 +467,48 @@
     .rejilla-valores {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      border-top: 5px solid var(--color-acento);
-      border-bottom: 5px solid var(--color-acento);
+      border-top: 1px solid var(--borde-suave);
+      border-bottom: 1px solid var(--borde-suave);
     }
 
-    .tarjeta-valor { padding: clamp(2.5rem, 6vw, 5rem); }
-    .tarjeta-valor + .tarjeta-valor { border-left: 5px solid var(--color-acento); }
+    .tarjeta-valor {
+      position: relative;
+      padding: clamp(2.5rem, 6vw, 5rem);
+      transition: background var(--transicion);
+    }
+
+    .tarjeta-valor + .tarjeta-valor { border-left: 1px solid var(--borde-suave); }
+
+    /* HALO ROJO SUTIL QUE APARECE EN LA TARJETA AL PASAR EL CURSOR */
+    .tarjeta-valor::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255, 0, 0, 0.08), transparent 60%);
+      opacity: 0;
+      transition: opacity var(--transicion);
+      pointer-events: none;
+    }
+
+    .tarjeta-valor:hover::before { opacity: 1; }
+
+    /* NÚMERO DECORATIVO DE CADA TARJETA (01 / 02) CON DEGRADADO */
+    .numero-valor {
+      display: block;
+      margin-bottom: 1rem;
+      font-family: var(--fuente-titulos);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.35em;
+      background: var(--mi-degradado);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
 
     .titulo-valor {
       margin: 0 0 2rem;
+      font-family: var(--fuente-titulos);
       font-size: clamp(1.5rem, 3vw, 2.5rem);
       letter-spacing: -0.03em;
     }
@@ -368,8 +524,23 @@
        INICIO DEL PIE DE PÁGINA: ESPACIO FINAL PARA DATOS DE CONTACTO.
        CAMBIA EL CORREO Y EL TELÉFONO POR LOS DATOS OFICIALES.
        ================================================================ */
-    .pie-pagina { padding: 2rem 0; border-top: 1px solid var(--borde-suave); background-color:#222222; }
+    .pie-pagina {
+      position: relative;
+      padding: 2rem 0;
+      border-top: 1px solid var(--borde-suave);
+      background-color: #111111;
+    }
 
+    /* LÍNEA DE ACENTO DEGRADADO EN LA PARTE SUPERIOR DEL PIE */
+    .pie-pagina::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--mi-degradado);
+    }
 
     .contenido-pie {
       display: flex;
@@ -377,6 +548,148 @@
       gap: 1rem;
       color: var(--color-texto-mutado);
       font-size: 0.78rem;
+    }
+
+    /* === ESTILOS DE CONTACTO: DOS COLUMNAS Y FORMULARIO RESPONSIVE === */
+    .contacto { padding: var(--espaciado-seccion) 0; }
+
+    .rejilla-contacto {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(3rem, 8vw, 9rem);
+      align-items: start;
+    }
+
+    .texto-contacto {
+      max-width: 560px;
+      margin: 1.5rem 0 2.5rem;
+      color: var(--color-texto-mutado);
+      font-size: 1.05rem;
+    }
+
+    .bloque-datos {
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--borde-suave);
+    }
+
+    .bloque-datos:last-of-type { border-bottom: 1px solid var(--borde-suave); }
+
+    .titulo-dato,
+    .grupo-campo label {
+      margin: 0 0 0.5rem;
+      color: var(--color-texto-mutado);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .bloque-datos p { margin: 0; }
+    .bloque-datos p + p { margin-top: 0.2rem; color: var(--color-texto-mutado); }
+
+    .enlace-dato {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.75rem;
+      transition: color var(--transicion), transform var(--transicion);
+    }
+
+    .enlace-dato:hover { color: var(--color-acento); transform: translateX(4px); }
+
+    .enlace-dato:last-child { margin-bottom: 0; }
+
+    .icono-outline {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+    }
+
+    .mapa-contacto {
+      max-width: 100%;
+      min-height: 300px;
+      margin-top: 2rem;
+      border: 1px solid var(--borde-suave);
+      border-radius: var(--radio-suave);
+      filter: grayscale(100%) invert(92%) contrast(90%);
+      box-shadow: var(--sombra-suave);
+    }
+
+    .formulario-cotizacion {
+      padding: clamp(0.75rem, 4vw, 3rem);
+      border: 1px solid var(--borde-suave);
+      border-radius: var(--radio-suave);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+      box-shadow: var(--sombra-suave);
+    }
+
+    .formulario-cotizacion .titulo-seccion {
+      margin-bottom: 2.5rem;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+    }
+
+    .fila-formulario {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .grupo-campo { margin-bottom: 1.25rem; }
+
+    .grupo-campo label { display: block; }
+
+    .grupo-campo input,
+    .grupo-campo select,
+    .grupo-campo textarea {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: var(--radio-pequeno);
+      outline: 0;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--color-acento);
+      font: inherit;
+      transition: border-color var(--transicion), box-shadow var(--transicion), background var(--transicion);
+    }
+
+    .grupo-campo select option { background: #161616; color: var(--color-acento); }
+
+    .grupo-campo textarea { min-height: 140px; resize: vertical; }
+
+    /* FOCO DEL CAMPO: RESPLANDOR ROJO SUTIL PARA DESTACAR DONDE ESCRIBES */
+    .grupo-campo input:focus,
+    .grupo-campo select:focus,
+    .grupo-campo textarea:focus {
+      border-color: var(--color-rojo);
+      background: rgba(255, 255, 255, 0.06);
+      box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.14);
+    }
+
+    .grupo-campo input::placeholder,
+    .grupo-campo textarea::placeholder { color: rgba(255, 255, 255, 0.35); }
+
+    /* ================================================================
+       ANIMACIONES DE ENTRADA AL HACER SCROLL:
+       AGREGA data-animar A CUALQUIER ELEMENTO Y APARECERÁ CON UN
+       EFECTO FADE-UP SUAVE. USA style="--retraso: 150ms" PARA ESCALONAR.
+       ================================================================ */
+    .js-animaciones [data-animar] {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 700ms ease var(--retraso, 0ms), transform 700ms ease var(--retraso, 0ms);
+    }
+
+    .js-animaciones [data-animar].visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* SI EL USUARIO PREFIERE MENOS MOVIMIENTO, TODO APARECE SIN ANIMAR */
+    @media (prefers-reduced-motion: reduce) {
+      .js-animaciones [data-animar] { opacity: 1; transform: none; }
+      * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
     }
 
     /* ================================================================
@@ -393,19 +706,19 @@
     }
 
     @media (max-width: 560px) {
-       /* SOLUCIÓN PARA TU FORMULARIO Y TEXTO: */
-  .rejilla-contacto {
-    grid-template-columns: 1fr !important; /* Obliga a que se pongan uno abajo del otro */
-    gap: 2.5rem; /* Deja un espacio cómodo entre el texto y el formulario */
-  }
+      /* SOLUCIÓN PARA TU FORMULARIO Y TEXTO: */
+      .rejilla-contacto {
+        grid-template-columns: 1fr !important; /* Obliga a que se pongan uno abajo del otro */
+        gap: 2.5rem; /* Deja un espacio cómodo entre el texto y el formulario */
+      }
 
-  /* Si tienes un mapa abajo que también se sale, esto lo domará: */
-  .rejilla-contacto iframe, 
-  .rejilla-contacto map,
-  #map {
-    width: 100% !important;
-    height: 300px; /* Una altura cómoda para celular */
-  }
+      /* Si tienes un mapa abajo que también se sale, esto lo domará: */
+      .rejilla-contacto iframe,
+      .rejilla-contacto map,
+      #map {
+        width: 100% !important;
+        height: 300px; /* Una altura cómoda para celular */
+      }
 
       :root { --espaciado-seccion: 4.5rem; }
       .contenedor { width: min(100% - 2rem, var(--ancho-contenido)); }
@@ -420,8 +733,7 @@
       .tarjeta-valor + .tarjeta-valor { border-top: 1px solid var(--borde-suave); border-left: 0; }
       .contenido-pie { flex-direction: column; }
     }
-      /* === ESTILOS DE CONTACTO: DOS COLUMNAS Y FORMULARIO RESPONSIVE === */
-    .contacto { padding:var(--espaciado-seccion) 0; } .rejilla-contacto { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(3rem,8vw,9rem); align-items:start; } .texto-contacto { max-width:560px; margin:1.5rem 0 2.5rem; color:var(--color-texto-mutado); font-size:1.05rem; } .bloque-datos { padding:1.5rem 0; border-top:3px solid var(--borde-suave); } .bloque-datos:last-of-type { border-bottom:3px solid var(--borde-suave); } .titulo-dato,.grupo-campo label { margin:0 0 .5rem; color:var(--color-texto-mutado); font-size:.72rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; } .bloque-datos p { margin:0; } .bloque-datos p+p { margin-top:.2rem; color:var(--color-texto-mutado); } .enlace-dato { display:inline-flex; align-items:center; gap:.7rem; margin-bottom:.75rem; } .enlace-dato:last-child { margin-bottom:0; } .icono-outline { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.5; } .mapa-contacto { max-width: 100%; min-height:300px; margin-top:2rem; border:1px solid var(--borde-suave); filter:grayscale(100%) invert(92%) contrast(90%); } .formulario-cotizacion { padding:clamp(0.75rem,4vw,3rem); border:5px solid var(--color-acento); } .formulario-cotizacion .titulo-seccion { margin-bottom:2.5rem; font-size:clamp(2rem,4vw,3.5rem); } .fila-formulario { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; } .grupo-campo { margin-bottom:1.25rem; } .grupo-campo label { display:block; } .grupo-campo input,.grupo-campo select,.grupo-campo textarea { width:100%; padding:.9rem 1rem; border:3px solid var(--color-acento); border-radius:0; outline:0; background:transparent; color:var(--color-acento); font:inherit; } .grupo-campo select option { background:var(--color-acento); color:var(--color-secundario); } .grupo-campo textarea { min-height:140px; resize:vertical; } .grupo-campo input:focus,.grupo-campo select:focus,.grupo-campo textarea:focus { border-color:var(--color-acento); background:rgba(255, 255, 255, 0.04); } @media (max-width:850px) { .rejilla-contacto { grid-template-columns:1fr; } } @media (max-width:560px) { .fila-formulario { grid-template-columns:1fr; gap:0; } .formulario-cotizacion { padding:1.5rem; } }</style>
+  </style>
 </head>
 
 <body>
@@ -518,11 +830,11 @@
          ================================================================ -->
     <section class="quienes-somos" id="quienes-somos" aria-labelledby="titulo-quienes-somos">
       <div class="contenedor rejilla-presentacion">
-        <div>
+        <div data-animar>
           <p class="etiqueta">POLARIMEX</p>
           <h2 class="titulo-seccion" id="titulo-quienes-somos">¿Quiénes somos?</h2>
         </div>
-        <div class="texto-presentacion">
+        <div class="texto-presentacion" data-animar style="--retraso: 150ms">
           <p>Somos una empresa comprometida a garantizar confort, comodidad y seguridad en cualquier vehículo de transporte o bien inmueble que contenga cristales.</p>
           <p>Nos especializamos en la distribución e instalación de películas en general: de control solar, decorativas, seguridad y privacidad.</p>
           <p>Ofrecemos las marcas más prestigiadas del mercado a los precios más competitivos.</p>
@@ -536,13 +848,15 @@
          ================================================================ -->
     <section class="mision-vision" aria-label="Misión y visión de Polarimex">
       <div class="contenedor">
-        <p class="etiqueta">NUESTRO COMPROMISO</p>
+        <p class="etiqueta" data-animar>NUESTRO COMPROMISO</p>
         <div class="rejilla-valores">
-          <article class="tarjeta-valor">
+          <article class="tarjeta-valor" data-animar style="--retraso: 100ms">
+            <span class="numero-valor" aria-hidden="true">01</span>
             <h2 class="titulo-valor">MISIÓN</h2>
             <p>Proporcionar seguridad y confort a nuestros clientes, logrando con esto una relación estratégica y de confianza mutua. Ofreciendo productos de alta calidad a precios competitivos.</p>
           </article>
-          <article class="tarjeta-valor">
+          <article class="tarjeta-valor" data-animar style="--retraso: 250ms">
+            <span class="numero-valor" aria-hidden="true">02</span>
             <h2 class="titulo-valor">VISIÓN</h2>
             <p>Ser la compañía líder, instalando las mejores películas en tecnología de punta, en las áreas de seguridad, decoración y control solar para ser identificados como símbolo de excelencia.</p>
           </article>
@@ -553,7 +867,7 @@
     <section class="contacto" id="contacto" aria-labelledby="titulo-contacto">
       <div class="contenedor rejilla-contacto">
         <!-- === COLUMNA 1: INFORMACIÓN DIRECTA Y UBICACIÓN === -->
-        <div>
+        <div data-animar>
           <p class="etiqueta">CONTACTO</p><h2 class="titulo-seccion" id="titulo-contacto">Asesoría gratuita y sin compromiso</h2>
           <p class="texto-contacto">Si tienes dudas con respecto al polarizado, ya sea, de control solar, decorativo o de seguridad, en Polarimex estamos dispuestos a brindarte asesoría y cotización del servicio que ofrecemos sin costo y sin compromiso.</p>
           <!-- CAMBIA AQUÍ LA DIRECCIÓN FÍSICA DE LA EMPRESA. -->
@@ -561,11 +875,11 @@
           <!-- CAMBIA AQUÍ EL TELÉFONO Y CORREO DE CONTACTO. LOS SVG SON ICONOS OUTLINE EDITABLES. -->
           <div class="bloque-datos"><h3 class="titulo-dato">Datos directos</h3><a class="enlace-dato" href="tel:+529611460138"><svg class="icono-outline" aria-hidden="true" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.79.62 2.65a2 2 0 0 1-.45 2.11L8 9.76a16 16 0 0 0 6 6l1.28-1.28a2 2 0 0 1 2.11-.45c.86.29 1.75.5 2.65.62A2 2 0 0 1 22 16.92z"/></svg>+52 (961) 146 01 38&nbsp;&nbsp;</a><a class="enlace-dato" href="mailto:polarizadosmexico@gmail.com"><svg class="icono-outline" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 7 9 6 9-6"/></svg>polarizadosmexico@gmail.com</a></div>
           <!-- === CÓMO CAMBIAR EL MAPA: 1) Busca tu negocio en Google Maps. 2) Pulsa Compartir. 3) Elige Insertar un mapa. 4) Copia el enlace dentro de src="..." y reemplaza SOLO el valor de src de este iframe. === -->
-          <br>  
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.7349445355057!2d-93.0989558!3d16.789857599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ecd8aa1594ded7%3A0xf6a019c6ccdc6295!2sPOLARIMEX!5e0!3m2!1ses!2smx!4v1785177495842!5m2!1ses!2smx" width="548" height="210" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          <br>
+          <iframe class="mapa-contacto" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.7349445355057!2d-93.0989558!3d16.789857599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ecd8aa1594ded7%3A0xf6a019c6ccdc6295!2sPOLARIMEX!5e0!3m2!1ses!2smx!4v1785177495842!5m2!1ses!2smx" width="548" height="210" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
         </div>
         <!-- === COLUMNA 2: FORMULARIO DE COTIZACIÓN === -->
-        <div class="formulario-cotizacion"><p class="etiqueta">COTIZACIÓN</p><h2 class="titulo-seccion">Solicita tu cotización</h2>
+        <div class="formulario-cotizacion" data-animar style="--retraso: 200ms"><p class="etiqueta">COTIZACIÓN</p><h2 class="titulo-seccion">Solicita tu cotización</h2>
           <!-- CAMBIA ESTE CORREO POR EL DE TU EMPRESA PARA QUE TE LLEGUEN LAS COTIZACIONES -->
           <!-- FormSubmit enviará los datos a este correo. La primera vez, confirma la activación desde el correo recibido. -->
           <form action="https://formsubmit.co/polarizadosmexico@gmail.com" method="POST"><input type="hidden" name="_subject" value="Nueva solicitud de cotización - Polarimex"><input type="hidden" name="_captcha" value="false">
@@ -576,7 +890,8 @@
           </form>
         </div>
       </div>
-    </section>  </main>
+    </section>
+  </main>
 
   <!-- ================================================================
        INICIO DEL PIE DE PÁGINA.
@@ -652,7 +967,37 @@
       iniciarAutoplay();
     })();
   </script>
+
+  <!-- ================================================================
+       EFECTOS GLOBALES PREMIUM:
+       - ENCABEZADO: SE VUELVE SÓLIDO CON DESENFOQUE AL HACER SCROLL.
+       - ENTRADAS SUAVES: LOS ELEMENTOS CON data-animar APARECEN AL VERSE.
+       ================================================================ -->
+  <script>
+    (function () {
+      // ENCABEZADO: ACTIVA/DESACTIVA LA CLASE .fijo AL HACER SCROLL
+      const encabezado = document.querySelector('.encabezado');
+      const actualizarEncabezado = () => encabezado.classList.toggle('fijo', window.scrollY > 60);
+      window.addEventListener('scroll', actualizarEncabezado, { passive: true });
+      actualizarEncabezado();
+
+      // ANIMACIONES DE ENTRADA: [data-animar] aparece al entrar en pantalla
+      document.body.classList.add('js-animaciones');
+      const elementosAnimables = document.querySelectorAll('[data-animar]');
+      if ('IntersectionObserver' in window) {
+        const observador = new IntersectionObserver((entradas) => {
+          entradas.forEach((entrada) => {
+            if (entrada.isIntersecting) {
+              entrada.target.classList.add('visible');
+              observador.unobserve(entrada.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        elementosAnimables.forEach((el) => observador.observe(el));
+      } else {
+        document.body.classList.remove('js-animaciones');
+      }
+    })();
+  </script>
 </body>
 </html>
-
-

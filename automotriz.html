@@ -6,6 +6,11 @@
   <meta name="description" content="Polarimex - Servicio Automotriz de Polarizado y Blindaje Ligero.">
   <title>Automotriz | Polarimex</title>
 
+  <!-- TIPOGRAFÍAS PREMIUM (GOOGLE FONTS): CAMBIA LAS FAMILIAS AQUÍ SI LO DESEAS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     /* ================================================================
        CONFIGURACIÓN GLOBAL: EDITA ESTAS VARIABLES PARA CAMBIAR TODA
@@ -14,14 +19,23 @@
        ================================================================ */
     :root {
       --color-principal: var(--mi-degradado); /* Fondo negro y elementos con más fuerza visual. */
-      --color-secundario: #1a1a1a; /* Fondo gris oscuro de secciones y tarjetas. */
+      --color-secundario: #161616; /* Fondo gris oscuro de secciones y tarjetas. */
       --color-acento: #ffffff; /* Blanco para textos principales y contrastes. */
-      --color-texto-mutado: #ffffff; /* Gris claro para textos secundarios. */
-      --fuente-principal: 'Arial', sans-serif; /* Cambia aquí la fuente de toda la web. */
+      --color-texto-mutado: #c9c9c9; /* Gris claro para textos secundarios. */
+      --color-rojo: #ff1a1a; /* Rojo de acento para detalles y hover. */
+      --fuente-principal: 'Manrope', sans-serif; /* Cambia aquí la fuente de toda la web. */
+      --fuente-titulos: 'Sora', sans-serif; /* Fuente premium de títulos y encabezados. */
       --ancho-contenido: 1200px; /* Ancho máximo del contenido central. */
       --espaciado-seccion: 7rem; /* Aire vertical entre secciones de escritorio. */
-      --borde-suave: rgb(255, 255, 255); /* Color de líneas y separadores. */
-      --mi-degradado: linear-gradient(90deg, #200000, #ff0000);
+      --borde-suave: rgba(255, 255, 255, 0.16); /* Color de líneas y separadores. */
+      --mi-degradado: linear-gradient(90deg, #200000, #ff0000); /* Degradado insignia de la marca. */
+      --degradado-sutil: linear-gradient(135deg, #161616, #2b0000); /* Degradado suave para paneles. */
+      --sombra-suave: 0 24px 60px rgba(0, 0, 0, 0.5); /* Sombra grande para paneles y formularios. */
+      --sombra-carta: 0 12px 32px rgba(0, 0, 0, 0.35); /* Sombra media para tarjetas. */
+      --sombra-roja: 0 14px 34px rgba(255, 0, 0, 0.28); /* Resplandor rojo para botones. */
+      --radio-suave: 18px; /* Radio de esquinas redondeadas de tarjetas. */
+      --radio-pequeno: 10px; /* Radio de esquinas de campos e imágenes. */
+      --transicion: 280ms cubic-bezier(0.22, 0.61, 0.36, 1); /* Curva de animación premium. */
     }
 
     /* ================================================================
@@ -36,12 +50,24 @@
       background: var(--color-principal);
       color: var(--color-acento);
       font-family: var(--fuente-principal);
-      line-height: 1.6;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
+
+    /* TEXTO SELECCIONADO Y BARRA DE DESPLAZAMIENTO: DETALLES PREMIUM */
+    ::selection { background: var(--color-rojo); color: #ffffff; }
+
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #4d0000, #ff0000); border-radius: 999px; border: 2px solid #0a0a0a; }
 
     img { display: block; max-width: 100%; }
 
     a { color: inherit; text-decoration: none; }
+
+    /* MARGEN SUPERIOR PARA QUE LOS ANCLAJES NO QUEDEN PEGADOS AL MENÚ */
+    section[id] { scroll-margin-top: 90px; }
 
     /* ================================================================
        CLASES REUTILIZABLES: ESTILOS COMPARTIDOS PARA MANTENER EL HTML
@@ -52,44 +78,82 @@
       margin-inline: auto;
     }
 
+    /* ETIQUETA CON BARRA DE ACENTO ROJO DECORATIVA */
     .etiqueta {
       margin: 0 0 1rem;
       color: var(--color-texto-mutado);
-      font-size: 0.75rem;
+      font-family: var(--fuente-titulos);
+      font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
+    }
+
+    .etiqueta::before {
+      content: '';
+      display: inline-block;
+      width: 26px;
+      height: 2px;
+      margin-right: 0.6rem;
+      vertical-align: middle;
+      background: var(--mi-degradado);
     }
 
     .titulo-seccion {
       max-width: 760px;
       margin: 0;
+      font-family: var(--fuente-titulos);
       font-size: clamp(2.2rem, 5vw, 4.5rem);
       line-height: 1.05;
-      letter-spacing: -0.04em;
+      letter-spacing: -0.045em;
+      text-wrap: balance;
     }
 
+    /* BOTÓN PÍLDORA CON BRILLO DESLIZANTE Y RESPLANDOR ROJO */
     .boton {
+      position: relative;
+      overflow: hidden;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       min-height: 48px;
-      padding: 0.75rem 1.35rem;
-      border: 1px solid var(--color-acento);
+      padding: 0.8rem 1.7rem;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 999px;
       background: var(--mi-degradado);
-      color: var(--color-principal);
-      font-size: 0.8rem;
+      color: #ffffff;
+      font-family: var(--fuente-titulos);
+      font-size: 0.75rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      transition: background 180ms ease, color 180ms ease;
+      box-shadow: var(--sombra-roja);
+      transition: transform var(--transicion), box-shadow var(--transicion), background var(--transicion);
+    }
+
+    .boton::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -80%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transform: skewX(-20deg);
+      transition: left 600ms ease;
     }
 
     .boton:hover,
     .boton:focus-visible {
-      background: transparent;
-      color: var(--color-acento);
+      transform: translateY(-3px);
+      box-shadow: 0 20px 44px rgba(255, 0, 0, 0.45);
     }
+
+    .boton:hover::before { left: 140%; }
+
+    .boton:active { transform: translateY(-1px); }
+
+    .boton:focus-visible { outline: 2px solid var(--color-acento); outline-offset: 3px; }
 
     /* ================================================================
        INICIO DEL ENCABEZADO Y MENÚ DE NAVEGACIÓN.
@@ -101,6 +165,16 @@
       top: 0;
       width: 100%;
       border-bottom: 1px solid var(--borde-suave);
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.2));
+      transition: background var(--transicion), box-shadow var(--transicion), backdrop-filter var(--transicion);
+    }
+
+    /* AL HACER SCROLL EL MENÚ SE VUELVE SÓLIDO CON DESENFOQUE (VER JS) */
+    .encabezado.fijo {
+      background: rgba(8, 8, 8, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
     }
 
     .barra-navegacion {
@@ -109,24 +183,37 @@
       justify-content: space-between;
       gap: 2rem;
       min-height: 88px;
+      background: transparent;
     }
 
     .logo {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-shrink: 0;
-  font-size: 1.1rem;
-  font-weight: 800;
-  letter-spacing: 0.25em;
-}
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+      font-family: var(--fuente-titulos);
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: 0.25em;
+      transition: transform var(--transicion);
+    }
 
-/* LOGOTIPO: AJUSTA LA ALTURA AQUÍ PARA HACERLO MÁS GRANDE O PEQUEÑO */
-.logo-imagen {
-  height: 44px;
-  width: auto;
-  display: block;
-}
+    .logo:hover { transform: scale(1.03); }
+
+    /* LOGOTIPO: AJUSTA LA ALTURA AQUÍ PARA HACERLO MÁS GRANDE O PEQUEÑO */
+    .logo-imagen {
+      height: 44px;
+      width: auto;
+      display: block;
+    }
+
+    /* NOMBRE DE LA MARCA CON DEGRADADO PREMIUM */
+    .logo span {
+      background: linear-gradient(90deg, #ffffff, #ffb3b3);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
 
     .enlaces-navegacion {
       display: flex;
@@ -137,18 +224,37 @@
     }
 
     .enlaces-navegacion a {
+      position: relative;
       color: var(--color-texto-mutado);
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       transition: color 180ms ease;
+    }
+
+    /* SUBRAYADO ANIMADO QUE SE DESPLIEGA BAJO CADA ENLACE */
+    .enlaces-navegacion a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 100%;
+      height: 2px;
+      background: var(--mi-degradado);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transicion);
     }
 
     .enlaces-navegacion a:hover,
     .enlaces-navegacion a:focus-visible { color: var(--color-acento); }
 
+    .enlaces-navegacion a:hover::after,
+    .enlaces-navegacion a:focus-visible::after { transform: scaleX(1); }
+
     /* Enlace activo: resalta la sección Automotriz dentro del menú */
-    .enlaces-navegacion a[aria-current="page"] { color: var(--color-acento); text-decoration: underline; text-underline-offset: 4px; }
+    .enlaces-navegacion a[aria-current="page"] { color: var(--color-acento); }
+    .enlaces-navegacion a[aria-current="page"]::after { transform: scaleX(1); }
 
     /* ================================================================
        INICIO DE LA SECCIÓN HERO DE AUTOMOTRIZ.
@@ -189,17 +295,20 @@
     .subtitulo-hero {
       margin: 0 0 1.25rem;
       color: var(--color-texto-mutado);
+      font-family: var(--fuente-titulos);
       font-size: clamp(0.78rem, 1.5vw, 0.95rem);
       font-weight: 700;
-      letter-spacing: 0.35em;
+      letter-spacing: 0.4em;
       text-transform: uppercase;
     }
 
     .titulo-hero {
       margin: 0;
+      font-family: var(--fuente-titulos);
       font-size: clamp(2.6rem, 7vw, 6rem);
       line-height: 0.95;
       letter-spacing: -0.065em;
+      text-wrap: balance;
     }
 
     /* ================================================================
@@ -224,9 +333,12 @@
     .texto-seguridad p { margin: 0 0 1.5rem; }
     .texto-seguridad p:last-child { margin-bottom: 0; }
 
+    /* MARCO PREMIUM CON SOMBRA Y ZOOM SUTIL AL PASAR EL CURSOR */
     .marco-imagen-seguridad {
       border: 1px solid var(--borde-suave);
+      border-radius: var(--radio-pequeno);
       overflow: hidden;
+      box-shadow: var(--sombra-suave);
     }
 
     .imagen-seguridad {
@@ -235,6 +347,12 @@
       min-height: 320px;
       object-fit: cover;
       filter: grayscale(100%);
+      transition: transform 700ms ease, filter 500ms ease;
+    }
+
+    .marco-imagen-seguridad:hover .imagen-seguridad {
+      transform: scale(1.04);
+      filter: grayscale(20%);
     }
 
     /* ================================================================
@@ -251,17 +369,32 @@
     .rejilla-gamas {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      border-top: 5px solid var(--color-acento);
-      border-bottom: 5px solid var(--color-acento);
+      border-top: 1px solid var(--borde-suave);
+      border-bottom: 1px solid var(--borde-suave);
     }
 
     .tarjeta-gama {
+      position: relative;
       display: flex;
       flex-direction: column;
       padding: clamp(1.75rem, 3vw, 2.5rem);
+      transition: background var(--transicion);
     }
 
-    .tarjeta-gama + .tarjeta-gama { border-left: 5px solid var(--color-acento); }
+    .tarjeta-gama + .tarjeta-gama { border-left: 1px solid var(--borde-suave); }
+
+    /* HALO ROJO SUTIL QUE APARECE EN LA TARJETA AL PASAR EL CURSOR */
+    .tarjeta-gama::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255, 0, 0, 0.08), transparent 60%);
+      opacity: 0;
+      transition: opacity var(--transicion);
+      pointer-events: none;
+    }
+
+    .tarjeta-gama:hover::before { opacity: 1; }
 
     .imagen-gama {
       width: 100%;
@@ -270,10 +403,15 @@
       margin-bottom: 1.5rem;
       filter: grayscale(100%);
       border: 1px solid var(--borde-suave);
+      border-radius: var(--radio-pequeno);
+      transition: filter 500ms ease;
     }
+
+    .tarjeta-gama:hover .imagen-gama { filter: grayscale(20%); }
 
     .titulo-gama {
       margin: 0 0 1rem;
+      font-family: var(--fuente-titulos);
       font-size: clamp(1.1rem, 2vw, 1.4rem);
       letter-spacing: -0.02em;
       text-transform: uppercase;
@@ -290,7 +428,23 @@
        INICIO DEL PIE DE PÁGINA: ESPACIO FINAL PARA DATOS DE CONTACTO.
        CAMBIA EL CORREO Y EL TELÉFONO POR LOS DATOS OFICIALES.
        ================================================================ */
-    .pie-pagina { padding: 2rem 0; border-top: 1px solid var(--borde-suave); background-color: #222222; }
+    .pie-pagina {
+      position: relative;
+      padding: 2rem 0;
+      border-top: 1px solid var(--borde-suave);
+      background-color: #111111;
+    }
+
+    /* LÍNEA DE ACENTO DEGRADADO EN LA PARTE SUPERIOR DEL PIE */
+    .pie-pagina::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--mi-degradado);
+    }
 
     .contenido-pie {
       display: flex;
@@ -298,6 +452,28 @@
       gap: 1rem;
       color: var(--color-texto-mutado);
       font-size: 0.78rem;
+    }
+
+    /* ================================================================
+       ANIMACIONES DE ENTRADA AL HACER SCROLL:
+       AGREGA data-animar A CUALQUIER ELEMENTO Y APARECERÁ CON UN
+       EFECTO FADE-UP SUAVE. USA style="--retraso: 150ms" PARA ESCALONAR.
+       ================================================================ */
+    .js-animaciones [data-animar] {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 700ms ease var(--retraso, 0ms), transform 700ms ease var(--retraso, 0ms);
+    }
+
+    .js-animaciones [data-animar].visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* SI EL USUARIO PREFIERE MENOS MOVIMIENTO, TODO APARECE SIN ANIMAR */
+    @media (prefers-reduced-motion: reduce) {
+      .js-animaciones [data-animar] { opacity: 1; transform: none; }
+      * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
     }
 
     /* ================================================================
@@ -310,9 +486,9 @@
       .hero { min-height: 560px; padding-top: 190px; }
       .rejilla-seguridad { grid-template-columns: 1fr; gap: 2rem; }
       .rejilla-gamas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .tarjeta-gama:nth-child(2n) { border-left: 5px solid var(--color-acento); }
+      .tarjeta-gama:nth-child(2n) { border-left: 1px solid var(--borde-suave); }
       .tarjeta-gama:nth-child(3),
-      .tarjeta-gama:nth-child(4) { border-top: 5px solid var(--color-acento); }
+      .tarjeta-gama:nth-child(4) { border-top: 1px solid var(--borde-suave); }
     }
 
     @media (max-width: 560px) {
@@ -340,11 +516,10 @@
   <header class="encabezado">
     <nav class="barra-navegacion contenedor" aria-label="Navegación principal">
       <!-- LOGOTIPO: REEMPLAZA logo.png POR TU ARCHIVO SI LO ACTUALIZAS -->
-      <!-- LOGOTIPO: REEMPLAZA logo.png POR TU ARCHIVO SI LO ACTUALIZAS -->
-<a class="logo" href="index.html" aria-label="Ir al inicio de Polarimex">
-  <img class="logo-imagen" src="Logo.png" alt="Polarimex">
-  <span>POLARIMEX</span>
-</a>
+      <a class="logo" href="index.html" aria-label="Ir al inicio de Polarimex">
+        <img class="logo-imagen" src="Logo.png" alt="Polarimex">
+        <span>POLARIMEX</span>
+      </a>
       <div class="enlaces-navegacion">
         <a href="index.html">INICIO</a>
         <a href="automotriz.html" aria-current="page">AUTOMOTRIZ</a>
@@ -367,9 +542,9 @@
       <!-- EDITAR IMAGEN PANORÁMICA SUPERIOR AQUÍ (reemplazar src) -->
       <img class="imagen-hero" src="https://via.placeholder.com/1920x1080/555555/FFFFFF?text=IMAGEN+PANORAMICA+AUTOMOTRIZ" alt="Marcador temporal de 1920 por 1080 píxeles para la imagen panorámica de la sección automotriz">
       <div class="contenedor contenido-hero">
-        <p class="subtitulo-hero">POLARIMEX</p>
+        <p class="subtitulo-hero" data-animar>POLARIMEX</p>
         <!-- EDITAR TÍTULO PRINCIPAL DE LA SECCIÓN AUTOMOTRIZ AQUÍ -->
-        <h1 class="titulo-hero" id="titulo-hero-automotriz">Servicio Automotriz</h1>
+        <h1 class="titulo-hero" id="titulo-hero-automotriz" data-animar style="--retraso: 150ms">Servicio Automotriz</h1>
       </div>
     </section>
 
@@ -379,7 +554,7 @@
          ================================================================ -->
     <section class="seguridad-automotriz" id="seguridad-automotriz" aria-labelledby="titulo-seguridad-automotriz">
       <div class="contenedor rejilla-seguridad">
-        <div>
+        <div data-animar>
           <p class="etiqueta">PROTECCIÓN VEHICULAR</p>
           <h2 class="titulo-seccion" id="titulo-seguridad-automotriz">Películas de Seguridad Automotriz</h2>
           <!-- EDITAR TEXTO DESCRIPTIVO DE SEGURIDAD AUTOMOTRIZ AQUÍ -->
@@ -389,7 +564,7 @@
           </div>
         </div>
         <!-- EDITAR IMAGEN DEMOSTRATIVA DE SEGURIDAD AUTOMOTRIZ AQUÍ (reemplazar src) -->
-        <div class="marco-imagen-seguridad">
+        <div class="marco-imagen-seguridad" data-animar style="--retraso: 200ms">
           <img class="imagen-seguridad" src="https://via.placeholder.com/900x700/555555/FFFFFF?text=IMAGEN+DEMOSTRATIVA+SEGURIDAD" alt="Marcador temporal de imagen demostrativa de la instalación de película de seguridad en un vehículo">
         </div>
       </div>
@@ -403,14 +578,14 @@
     <section class="gamas-calidad" id="gamas-calidad" aria-labelledby="titulo-gamas-calidad">
       <div class="contenedor">
         <div class="encabezado-gamas">
-          <p class="etiqueta">NUESTROS PRODUCTOS</p>
-          <h2 class="titulo-seccion" id="titulo-gamas-calidad">Gamas de Calidad</h2>
+          <p class="etiqueta" data-animar>NUESTROS PRODUCTOS</p>
+          <h2 class="titulo-seccion" id="titulo-gamas-calidad" data-animar style="--retraso: 120ms">Gamas de Calidad</h2>
         </div>
 
         <div class="rejilla-gamas">
           <!-- ============ TARJETA 1: GAMA STANDARD ============ -->
           <!-- EDITAR TEXTO DE GAMA STANDARD AQUÍ -->
-          <article class="tarjeta-gama">
+          <article class="tarjeta-gama" data-animar>
             <img class="imagen-gama" src="https://via.placeholder.com/500x400/555555/FFFFFF?text=GAMA+STANDARD" alt="Marcador temporal de imagen para la Gama Standard de película automotriz">
             <h3 class="titulo-gama">Gama Standard</h3>
             <p>Protección solar básica con buena relación costo-beneficio. Reduce el calor y el deslumbramiento, ideal para quienes buscan confort esencial al mejor precio.</p>
@@ -418,7 +593,7 @@
 
           <!-- ============ TARJETA 2: GAMA CARBÓN ============ -->
           <!-- EDITAR TEXTO DE GAMA CARBÓN AQUÍ -->
-          <article class="tarjeta-gama">
+          <article class="tarjeta-gama" data-animar style="--retraso: 100ms">
             <img class="imagen-gama" src="https://via.placeholder.com/500x400/555555/FFFFFF?text=GAMA+CARBON" alt="Marcador temporal de imagen para la Gama Carbón de película automotriz">
             <h3 class="titulo-gama">Gama Carbón</h3>
             <p>Fabricada a base de carbono, no se decolora con el tiempo. Ofrece un acabado mate elegante y mayor rechazo de calor que la gama Standard.</p>
@@ -426,7 +601,7 @@
 
           <!-- ============ TARJETA 3: GAMA NANOCERÁMICA ============ -->
           <!-- EDITAR TEXTO DE GAMA NANOCERÁMICA AQUÍ -->
-          <article class="tarjeta-gama">
+          <article class="tarjeta-gama" data-animar style="--retraso: 200ms">
             <img class="imagen-gama" src="https://via.placeholder.com/500x400/555555/FFFFFF?text=GAMA+NANOCERAMICA" alt="Marcador temporal de imagen para la Gama Nanocerámica de película automotriz">
             <h3 class="titulo-gama">Gama Nanocerámica</h3>
             <p>Tecnología cerámica de alto rendimiento que bloquea hasta el 99% de los rayos UV y una gran cantidad de calor infrarrojo, sin interferir con señales electrónicas.</p>
@@ -434,7 +609,7 @@
 
           <!-- ============ TARJETA 4: GAMA FOTOCROMÁTICA ============ -->
           <!-- EDITAR TEXTO DE GAMA FOTOCROMÁTICA AQUÍ -->
-          <article class="tarjeta-gama">
+          <article class="tarjeta-gama" data-animar style="--retraso: 300ms">
             <img class="imagen-gama" src="https://via.placeholder.com/500x400/555555/FFFFFF?text=GAMA+FOTOCROMATICA" alt="Marcador temporal de imagen para la Gama Fotocromática de película automotriz">
             <h3 class="titulo-gama">Gama Fotocromática</h3>
             <p>Se adapta a la intensidad de la luz solar, oscureciéndose o aclarándose de forma automática para brindar el máximo confort visual en cualquier condición.</p>
@@ -454,5 +629,37 @@
       <span>polarizadosmexico@gmail.com · +52 (961) 146 0138</span>
     </div>
   </footer>
+
+  <!-- ================================================================
+       EFECTOS GLOBALES PREMIUM:
+       - ENCABEZADO: SE VUELVE SÓLIDO CON DESENFOQUE AL HACER SCROLL.
+       - ENTRADAS SUAVES: LOS ELEMENTOS CON data-animar APARECEN AL VERSE.
+       ================================================================ -->
+  <script>
+    (function () {
+      // ENCABEZADO: ACTIVA/DESACTIVA LA CLASE .fijo AL HACER SCROLL
+      const encabezado = document.querySelector('.encabezado');
+      const actualizarEncabezado = () => encabezado.classList.toggle('fijo', window.scrollY > 60);
+      window.addEventListener('scroll', actualizarEncabezado, { passive: true });
+      actualizarEncabezado();
+
+      // ANIMACIONES DE ENTRADA: [data-animar] aparece al entrar en pantalla
+      document.body.classList.add('js-animaciones');
+      const elementosAnimables = document.querySelectorAll('[data-animar]');
+      if ('IntersectionObserver' in window) {
+        const observador = new IntersectionObserver((entradas) => {
+          entradas.forEach((entrada) => {
+            if (entrada.isIntersecting) {
+              entrada.target.classList.add('visible');
+              observador.unobserve(entrada.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        elementosAnimables.forEach((el) => observador.observe(el));
+      } else {
+        document.body.classList.remove('js-animaciones');
+      }
+    })();
+  </script>
 </body>
 </html>
