@@ -258,6 +258,53 @@
     .enlaces-navegacion a[aria-current="page"]::after { transform: scaleX(1); }
 
     /* ================================================================
+       BOTÓN MENÚ HAMBURGUESA (☰): SE MUESTRA SOLO EN PANTALLAS
+       PEQUEÑAS DENTRO DE @media (max-width: 768px). LAS TRES LÍNEAS
+       SE TRANSFORMAN EN UNA "X" CUANDO EL MENÚ ESTÁ ABIERTO.
+       ================================================================ */
+    .boton-menu {
+      display: none;
+      position: relative;
+      width: 46px;
+      height: 46px;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      transition: background var(--transicion), border-color var(--transicion);
+    }
+
+    .boton-menu:hover,
+    .boton-menu:focus-visible {
+      background: rgba(255, 0, 0, 0.2);
+      border-color: var(--color-rojo);
+    }
+
+    .boton-menu:focus-visible { outline: 2px solid var(--color-acento); outline-offset: 3px; }
+
+    .linea-menu {
+      position: absolute;
+      left: 50%;
+      width: 22px;
+      height: 2px;
+      background: var(--color-acento);
+      transform: translateX(-50%);
+      transition: transform var(--transicion), opacity var(--transicion), top var(--transicion);
+    }
+
+    .linea-menu:nth-child(1) { top: 14px; }
+    .linea-menu:nth-child(2) { top: 22px; }
+    .linea-menu:nth-child(3) { top: 30px; }
+
+    /* TRANSFORMACIÓN A "X" CUANDO EL MENÚ ESTÁ ABIERTO */
+    .boton-menu.activo .linea-menu:nth-child(1) { top: 22px; transform: translateX(-50%) rotate(45deg); }
+    .boton-menu.activo .linea-menu:nth-child(2) { opacity: 0; }
+    .boton-menu.activo .linea-menu:nth-child(3) { top: 22px; transform: translateX(-50%) rotate(-45deg); }
+
+    /* ================================================================
        INICIO DE LA SECCIÓN HERO DE DECORATIVA.
        IMAGEN PRINCIPAL DE ANCHO COMPLETO CON TÍTULO SUPERPUESTO.
        ================================================================ */
@@ -552,14 +599,76 @@
       .foto-galeria img { height: 340px; } /* GALERÍA EN TABLET: FOTOS UN POCO MÁS BAJAS PARA CABER EN 2 COLUMNAS */
     }
 
+    /* ================================================================
+       MENÚ RESPONSIVE EN MÓVIL (MENOR A 768px):
+       - EL ENCABEZADO PASA A position: sticky CON UNA ALTURA CLARA
+         PARA NO APLASTAR NI ENCIMARSE SOBRE EL CONTENIDO.
+       - EL MENÚ HORIZONTAL SE OCULTA Y SE SUSTITUYE POR EL BOTÓN ☰,
+         QUE DESPLIEGA UN PANEL VERTICAL DEBAJO DEL ENCABEZADO.
+       ================================================================ */
+    @media (max-width: 768px) {
+      .encabezado {
+        position: sticky;
+        top: 0;
+        background: rgba(8, 8, 8, 0.92);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+      }
+
+      .encabezado.fijo { background: rgba(8, 8, 8, 0.96); }
+
+      .barra-navegacion {
+        flex-wrap: nowrap;
+        gap: 0.75rem;
+        min-height: 72px;
+        padding: 0.6rem 0;
+      }
+
+      .logo { font-size: 1rem; letter-spacing: 0.18em; }
+      .logo-imagen { height: 36px; }
+
+      /* MENÚ HORIZONTAL OCULTO: SE CONVIERTE EN PANEL DESPLEGABLE */
+      .enlaces-navegacion {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        margin-left: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.2rem;
+        padding: 1rem 1.5rem 1.4rem;
+        background: #0c0c0c;
+        border-bottom: 1px solid var(--borde-suave);
+        box-shadow: var(--sombra-suave);
+      }
+
+      .encabezado.menu-abierto .enlaces-navegacion { display: flex; }
+
+      .enlaces-navegacion a {
+        font-size: 0.9rem;
+        letter-spacing: 0.14em;
+        padding: 0.75rem 0.25rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .enlaces-navegacion a:last-child { border-bottom: 0; }
+
+      .boton-menu { display: inline-flex; }
+
+      /* ESPACIO DEL HERO PARA QUE EL TEXTO NUNCA CHOQUE CON EL MENÚ */
+      .hero { min-height: 480px; padding-top: 3.5rem; }
+    }
+
     @media (max-width: 560px) {
       :root { --espaciado-seccion: 4.5rem; }
       .contenedor { width: min(100% - 2rem, var(--ancho-contenido)); }
       .logo { font-size: 1rem; }
       .encabezado .boton { min-height: 40px; padding: 0.55rem 0.8rem; font-size: 0.65rem; }
-      .enlaces-navegacion { flex-wrap: wrap; justify-content: flex-start; }
-      .enlaces-navegacion a { font-size: 0.63rem; }
-      .hero { min-height: 460px; padding-top: 175px; }
+      .hero { min-height: 440px; padding-top: 3rem; }
+      /* TÍTULO MÁS COMPACTO EN MÓVIL PARA QUE NO INVAJA OTRAS SECCIONES */
+      .titulo-hero { font-size: clamp(2.2rem, 10vw, 3.2rem); }
 
       /* EN MÓVIL PEQUEÑO EL PANEL DIAGONAL SE VUELVE UN RECTÁNGULO SIMPLE */
       .rama-imagen-derecha .panel-diagonal,
@@ -589,7 +698,7 @@
         <img class="logo-imagen" src="logo.png" alt="Polarimex">
         <span>POLARIMEX</span>
       </a>
-      <div class="enlaces-navegacion">
+      <div class="enlaces-navegacion" id="enlaces-navegacion">
         <a href="index.html">INICIO</a>
         <a href="automotriz.html">AUTOMOTRIZ</a>
         <a href="decorativa.html" aria-current="page">DECORATIVA</a>
@@ -598,6 +707,12 @@
         <a href="index.html#seguridad">SEGURIDAD</a>
       </div>
       <a class="boton" href="index.html#contacto">Contáctanos</a>
+      <!-- BOTÓN MENÚ HAMBURGUESA: SOLO VISIBLE EN PANTALLAS PEQUEÑAS -->
+      <button class="boton-menu" id="boton-menu" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="enlaces-navegacion">
+        <span class="linea-menu"></span>
+        <span class="linea-menu"></span>
+        <span class="linea-menu"></span>
+      </button>
     </nav>
   </header>
 
@@ -770,6 +885,25 @@
         elementosAnimables.forEach((el) => observador.observe(el));
       } else {
         document.body.classList.remove('js-animaciones');
+      }
+
+      // MENÚ HAMBURGUESA: ABRE/CIERRA EL PANEL DE NAVEGACIÓN EN MÓVIL
+      const botonMenu = document.getElementById('boton-menu');
+      if (botonMenu) {
+        botonMenu.addEventListener('click', () => {
+          const abierto = encabezado.classList.toggle('menu-abierto');
+          botonMenu.classList.toggle('activo', abierto);
+          botonMenu.setAttribute('aria-expanded', abierto ? 'true' : 'false');
+        });
+
+        // CIERRA EL MENÚ AL TOCAR CUALQUIER ENLACE DEL PANEL
+        encabezado.querySelectorAll('.enlaces-navegacion a, .boton').forEach((enlace) => {
+          enlace.addEventListener('click', () => {
+            encabezado.classList.remove('menu-abierto');
+            botonMenu.classList.remove('activo');
+            botonMenu.setAttribute('aria-expanded', 'false');
+          });
+        });
       }
     })();
   </script>
