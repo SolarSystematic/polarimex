@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Polarimex - Servicio Automotriz de Polarizado y Blindaje Ligero.">
-  <title>Automotriz | Polarimex</title>
+  <meta name="description" content="Polarimex - Películas de Seguridad y Anti-Asalto para Vehículos e Inmuebles.">
+  <title>Seguridad y Anti-Asalto | Polarimex</title>
 
   <!-- TIPOGRAFÍAS PREMIUM (GOOGLE FONTS): CAMBIA LAS FAMILIAS AQUÍ SI LO DESEAS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,7 +15,7 @@
     /* ================================================================
        CONFIGURACIÓN GLOBAL: EDITA ESTAS VARIABLES PARA CAMBIAR TODA
        LA APARIENCIA DEL SITIO DESDE UN ÚNICO LUGAR.
-       (MISMAS VARIABLES QUE LA PÁGINA PRINCIPAL PARA MANTENER CONSISTENCIA)
+       (MISMAS VARIABLES QUE EL RESTO DEL SITIO PARA MANTENER CONSISTENCIA)
        ================================================================ */
     :root {
       --color-principal: var(--mi-degradado); /* Fondo negro y elementos con más fuerza visual. */
@@ -23,6 +23,8 @@
       --color-acento: #ffffff; /* Blanco para textos principales y contrastes. */
       --color-texto-mutado: #c9c9c9; /* Gris claro para textos secundarios. */
       --color-rojo: #ff1a1a; /* Rojo de acento para detalles y hover. */
+      --color-alerta: #ff3333; /* Rojo de peligro para cristal sin película. */
+      --color-exito: #00e676; /* Verde/Acento de éxito para película de seguridad. */
       --fuente-principal: 'Manrope', sans-serif; /* Cambia aquí la fuente de toda la web. */
       --fuente-titulos: 'Sora', sans-serif; /* Fuente premium de títulos y encabezados. */
       --ancho-contenido: 1200px; /* Ancho máximo del contenido central. */
@@ -33,6 +35,7 @@
       --sombra-suave: 0 24px 60px rgba(0, 0, 0, 0.5); /* Sombra grande para paneles y formularios. */
       --sombra-carta: 0 12px 32px rgba(0, 0, 0, 0.35); /* Sombra media para tarjetas. */
       --sombra-roja: 0 14px 34px rgba(255, 0, 0, 0.28); /* Resplandor rojo para botones. */
+      --sombra-glow: 0 0 30px rgba(255, 26, 26, 0.4); /* Resplandor intenso de seguridad. */
       --radio-suave: 18px; /* Radio de esquinas redondeadas de tarjetas. */
       --radio-pequeno: 10px; /* Radio de esquinas de campos e imágenes. */
       --transicion: 280ms cubic-bezier(0.22, 0.61, 0.36, 1); /* Curva de animación premium. */
@@ -51,6 +54,7 @@
       color: var(--color-acento);
       font-family: var(--fuente-principal);
       line-height: 1.7;
+      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
@@ -70,8 +74,7 @@
     section[id] { scroll-margin-top: 90px; }
 
     /* ================================================================
-       CLASES REUTILIZABLES: ESTILOS COMPARTIDOS PARA MANTENER EL HTML
-       LIMPIO Y HACER AJUSTES RÁPIDOS.
+       CLASES REUTILIZABLES.
        ================================================================ */
     .contenedor {
       width: min(100% - 3rem, var(--ancho-contenido));
@@ -120,9 +123,7 @@
       padding: 0.8rem 1.7rem;
       border: 1px solid rgba(255, 255, 255, 0.35);
       border-radius: 999px;
-      background: radial-gradient(ellipse at center, #e50914 30%, #8b0007 80%) !important;
-      border-radius: 50px;
-      border: none !important;
+      background: var(--mi-degradado);
       color: #ffffff;
       font-family: var(--fuente-titulos);
       font-size: 0.75rem;
@@ -130,6 +131,7 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       box-shadow: var(--sombra-roja);
+      cursor: pointer;
       transition: transform var(--transicion), box-shadow var(--transicion), background var(--transicion);
     }
 
@@ -159,7 +161,7 @@
 
     /* ================================================================
        INICIO DEL ENCABEZADO Y MENÚ DE NAVEGACIÓN.
-       CAMBIA LOS href DE LOS ENLACES PARA CONECTAR SUBPÁGINAS REALES.
+       MISMO MENÚ QUE EL RESTO DEL SITIO.
        ================================================================ */
     .encabezado {
       position: absolute;
@@ -254,14 +256,12 @@
     .enlaces-navegacion a:hover::after,
     .enlaces-navegacion a:focus-visible::after { transform: scaleX(1); }
 
-    /* Enlace activo: resalta la sección Automotriz dentro del menú */
+    /* Enlace activo: resalta la página actual dentro del menú */
     .enlaces-navegacion a[aria-current="page"] { color: var(--color-acento); }
     .enlaces-navegacion a[aria-current="page"]::after { transform: scaleX(1); }
 
     /* ================================================================
-       BOTÓN MENÚ HAMBURGUESA (☰): SE MUESTRA SOLO EN PANTALLAS
-       PEQUEÑAS DENTRO DE @media (max-width: 768px). LAS TRES LÍNEAS
-       SE TRANSFORMAN EN UNA "X" CUANDO EL MENÚ ESTÁ ABIERTO.
+       BOTÓN MENÚ HAMBURGUESA (☰): SE MUESTRA SOLO EN PANTALLAS PEQUEÑAS.
        ================================================================ */
     .boton-menu {
       display: none;
@@ -300,14 +300,12 @@
     .linea-menu:nth-child(2) { top: 22px; }
     .linea-menu:nth-child(3) { top: 30px; }
 
-    /* TRANSFORMACIÓN A "X" CUANDO EL MENÚ ESTÁ ABIERTO */
     .boton-menu.activo .linea-menu:nth-child(1) { top: 22px; transform: translateX(-50%) rotate(45deg); }
     .boton-menu.activo .linea-menu:nth-child(2) { opacity: 0; }
     .boton-menu.activo .linea-menu:nth-child(3) { top: 22px; transform: translateX(-50%) rotate(-45deg); }
 
     /* ================================================================
-       INICIO DE LA SECCIÓN HERO DE AUTOMOTRIZ.
-       SUSTITUYE EL src DE LA IMAGEN POR UNA FOTOGRAFÍA PANORÁMICA REAL.
+       1. SECCIÓN HERO DE IMPACTO: SEGURIDAD Y ANTI-ASALTO.
        ================================================================ */
     .hero {
       position: relative;
@@ -327,8 +325,8 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.45;
-      filter: grayscale(100%);
+      opacity: 0.55;
+      filter: contrast(110%) saturate(110%);
     }
 
     .hero::after {
@@ -336,10 +334,10 @@
       position: absolute;
       z-index: -1;
       inset: 0;
-      background: linear-gradient(90deg, rgba(0, 0, 0, 0.88), rgba(0, 0, 0, 0.4)), linear-gradient(0deg, rgba(0, 0, 0, 0.72), transparent 55%);
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.92) 20%, rgba(0, 0, 0, 0.4)), linear-gradient(0deg, rgba(0, 0, 0, 0.8), transparent 60%);
     }
 
-    .contenido-hero { max-width: 780px; }
+    .contenido-hero { max-width: 820px; }
 
     .subtitulo-hero {
       margin: 0 0 1.25rem;
@@ -354,128 +352,324 @@
     .titulo-hero {
       margin: 0;
       font-family: var(--fuente-titulos);
-      font-size: clamp(2.6rem, 7vw, 6rem);
-      line-height: 0.95;
-      letter-spacing: -0.065em;
+      font-size: clamp(2.6rem, 6.5vw, 5.8rem);
+      line-height: 0.98;
+      letter-spacing: -0.05em;
       text-wrap: balance;
     }
 
-    /* ================================================================
-       INICIO DE LA SECCIÓN PELÍCULAS DE SEGURIDAD AUTOMOTRIZ.
-       DOS COLUMNAS: TEXTO DESCRIPTIVO + IMAGEN DEMOSTRATIVA.
-       ================================================================ */
-    .seguridad-automotriz { padding: var(--espaciado-seccion) 0; }
-
-    .rejilla-seguridad {
-      display: grid;
-      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-      gap: clamp(2.5rem, 8vw, 9rem);
-      align-items: center;
-    }
-
-    .texto-seguridad {
+    .texto-hero {
       max-width: 580px;
+      margin: 1.5rem 0 2rem;
       color: var(--color-texto-mutado);
-      font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+      font-size: clamp(1.05rem, 1.7vw, 1.25rem);
     }
 
-    .texto-seguridad p { margin: 0 0 1.5rem; }
-    .texto-seguridad p:last-child { margin-bottom: 0; }
+    /* ================================================================
+       2. SECCIÓN INTERACTIVA DE COMPARATIVA (EL CONTRASTE):
+       TARJETAS DE ALTO CONTRASTE LADO A LADO PARA IMPACTO VISUAL.
+       ================================================================ */
+    .seccion-comparativa {
+      padding: var(--espaciado-seccion) 0;
+      background: var(--color-secundario);
+      position: relative;
+    }
 
-    /* MARCO PREMIUM CON SOMBRA Y ZOOM SUTIL AL PASAR EL CURSOR */
-    .marco-imagen-seguridad {
-      border: 1px solid var(--borde-suave);
-      border-radius: var(--radio-pequeno);
+    .encabezado-comparativa {
+      text-align: center;
+      margin-bottom: clamp(3rem, 6vw, 5rem);
+    }
+
+    .encabezado-comparativa .etiqueta::before { display: none; }
+
+    .encabezado-comparativa .titulo-seccion {
+      margin-inline: auto;
+    }
+
+    .rejilla-comparativa {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(2rem, 4vw, 3.5rem);
+      align-items: stretch;
+    }
+
+    /* TARJETA DE COMPARATIVA BASE */
+    .tarjeta-comparativa {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      border-radius: var(--radio-suave);
+      padding: clamp(2rem, 4vw, 3rem);
+      background: rgba(18, 18, 18, 0.95);
+      backdrop-filter: blur(8px);
+      transition: transform var(--transicion), box-shadow var(--transicion), border-color var(--transicion);
+    }
+
+    /* TARJETA IZQUIERDA: TRADICIONAL (RIESGO/ALERTA) */
+    .tarjeta-tradicional {
+      border: 1px solid rgba(255, 51, 51, 0.35);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .tarjeta-tradicional:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255, 51, 51, 0.7);
+      box-shadow: 0 24px 50px rgba(255, 0, 0, 0.25);
+    }
+
+    /* TARJETA DERECHA: POLARIMEX (PROTEGIDO / GLOW DESTACADO) */
+    .tarjeta-polarimex {
+      border: 2px solid var(--color-rojo);
+      box-shadow: var(--sombra-glow);
+      background: linear-gradient(160deg, rgba(30, 0, 0, 0.6), rgba(15, 15, 15, 0.95));
+    }
+
+    .tarjeta-polarimex:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 0 45px rgba(255, 26, 26, 0.6);
+    }
+
+    /* INSIGNIA BANDERÍN EN LA ESQUINA DE LA TARJETA */
+    .insignIA-tarjeta {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      font-family: var(--fuente-titulos);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    .insignia-alerta {
+      background: rgba(255, 51, 51, 0.18);
+      color: #ff6666;
+      border: 1px solid rgba(255, 51, 51, 0.4);
+    }
+
+    .insignia-exito {
+      background: rgba(255, 0, 0, 0.25);
+      color: #ffffff;
+      border: 1px solid var(--color-rojo);
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+    }
+
+    .titulo-comparativa {
+      margin: 0 0 1.25rem;
+      font-family: var(--fuente-titulos);
+      font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+      letter-spacing: -0.03em;
+    }
+
+    /* MARCO DEL PLACEHOLDER DE IMAGEN DE IMPACTO */
+    .marco-imagen-comparativa {
+      position: relative;
+      width: 100%;
+      height: 260px;
       overflow: hidden;
-      box-shadow: var(--sombra-suave);
+      border-radius: var(--radio-pequeno);
+      border: 1px solid var(--borde-suave);
+      margin-bottom: 1.5rem;
+      background: #0d0d0d;
     }
 
-    .imagen-seguridad {
+    .imagen-comparativa {
       width: 100%;
       height: 100%;
-      min-height: 320px;
       object-fit: cover;
-      filter: grayscale(100%);
-      transition: transform 700ms ease, filter 500ms ease;
+      transition: transform 600ms ease, filter 500ms ease;
     }
 
-    .marco-imagen-seguridad:hover .imagen-seguridad {
-      transform: scale(1.04);
-      filter: grayscale(20%);
+    .tarjeta-comparativa:hover .imagen-comparativa {
+      transform: scale(1.05);
+    }
+
+    .lista-puntos-comparativa {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      color: var(--color-texto-mutado);
+      font-size: 0.98rem;
+    }
+
+    .lista-puntos-comparativa li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .icono-punto {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+
+    .icono-punto.alerta { color: var(--color-alerta); }
+    .icono-punto.exito { color: var(--color-rojo); }
+
+    /* ================================================================
+       3. SECCIÓN DEMOSTRATIVA EN VIDEO: PRUEBAS EN VIVO.
+       ================================================================ */
+    .seccion-video {
+      padding: var(--espaciado-seccion) 0;
+      background: var(--color-principal);
+    }
+
+    .encabezado-video {
+      text-align: center;
+      margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    }
+
+    .encabezado-video .etiqueta::before { display: none; }
+    .encabezado-video .titulo-seccion { margin-inline: auto; }
+
+    /* CONTENEDOR DE VIDEO REPRODUCTOR 16:9 */
+    .contenedor-video {
+      position: relative;
+      max-width: 960px;
+      margin: 0 auto;
+      aspect-ratio: 16 / 9;
+      border-radius: var(--radio-suave);
+      overflow: hidden;
+      border: 1px solid var(--borde-suave);
+      box-shadow: var(--sombra-suave), var(--sombra-glow);
+      background: #0a0a0a;
+    }
+
+    .contenedor-video video,
+    .contenedor-video iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+      object-fit: cover;
+    }
+
+    .leyenda-video {
+      max-width: 720px;
+      margin: 1.75rem auto 0;
+      text-align: center;
+      color: var(--color-texto-mutado);
+      font-size: 0.95rem;
     }
 
     /* ================================================================
-       INICIO DE LA SECCIÓN GAMAS DE CALIDAD.
-       CUADRÍCULA DE TARJETAS SIMÉTRICAS PARA CADA GAMA DE PELÍCULA.
+       4. GAMAS Y NIVELES DE PROTECCIÓN (MICRAS / MILS).
        ================================================================ */
-    .gamas-calidad {
+    .seccion-gamas {
       padding: var(--espaciado-seccion) 0;
       background: var(--color-secundario);
     }
 
-    .encabezado-gamas { margin-bottom: clamp(2.5rem, 6vw, 4.5rem); }
-
-    .rejilla-gamas {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      border-top: 1px solid var(--borde-suave);
-      border-bottom: 1px solid var(--borde-suave);
+    .encabezado-gamas {
+      margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
     }
 
-    .tarjeta-gama {
+    .rejilla-mils {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.75rem;
+    }
+
+    .tarjeta-mil {
       position: relative;
       display: flex;
       flex-direction: column;
-      padding: clamp(1.75rem, 3vw, 2.5rem);
-      transition: background var(--transicion);
+      padding: clamp(2rem, 3.5vw, 2.75rem);
+      border: 1px solid var(--borde-suave);
+      border-radius: var(--radio-suave);
+      background: rgba(20, 20, 20, 0.8);
+      box-shadow: var(--sombra-carta);
+      transition: transform var(--transicion), box-shadow var(--transicion), border-color var(--transicion);
     }
 
-    .tarjeta-gama + .tarjeta-gama { border-left: 1px solid var(--borde-suave); }
-
-    /* HALO ROJO SUTIL QUE APARECE EN LA TARJETA AL PASAR EL CURSOR */
-    .tarjeta-gama::before {
+    .tarjeta-mil::before {
       content: '';
       position: absolute;
       inset: 0;
+      border-radius: var(--radio-suave);
       background: linear-gradient(180deg, rgba(255, 0, 0, 0.08), transparent 60%);
       opacity: 0;
       transition: opacity var(--transicion);
       pointer-events: none;
     }
 
-    .tarjeta-gama:hover::before { opacity: 1; }
-
-    .imagen-gama {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      margin-bottom: 1.5rem;
-      filter: grayscale(100%);
-      border: 1px solid var(--borde-suave);
-      border-radius: var(--radio-pequeno);
-      transition: filter 500ms ease;
+    .tarjeta-mil:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255, 26, 26, 0.5);
+      box-shadow: var(--sombra-suave);
     }
 
-    .tarjeta-gama:hover .imagen-gama { filter: grayscale(20%); }
+    .tarjeta-mil:hover::before { opacity: 1; }
 
-    .titulo-gama {
+    .badge-mil {
+      display: inline-block;
+      align-self: flex-start;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      background: var(--mi-degradado);
+      color: #ffffff;
+      font-family: var(--fuente-titulos);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      margin-bottom: 1.25rem;
+    }
+
+    .numero-grosor {
+      font-family: var(--fuente-titulos);
+      font-size: clamp(2.4rem, 4vw, 3.8rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin: 0 0 0.5rem;
+      background: linear-gradient(90deg, #ffffff, #ff7777);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .titulo-mil {
       margin: 0 0 1rem;
       font-family: var(--fuente-titulos);
-      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      font-size: clamp(1.1rem, 1.8vw, 1.4rem);
       letter-spacing: -0.02em;
-      text-transform: uppercase;
     }
 
-    .tarjeta-gama p {
-      margin: 0;
+    .descripcion-mil {
+      margin: 0 0 1.5rem;
       color: var(--color-texto-mutado);
-      font-size: 0.92rem;
+      font-size: 0.95rem;
       flex-grow: 1;
     }
 
+    .especificaciones-mil {
+      margin: 0;
+      padding: 1rem 0 0;
+      border-top: 1px solid var(--borde-suave);
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      color: var(--color-texto-mutado);
+    }
+
+    .especificaciones-mil span {
+      color: var(--color-acento);
+      font-weight: 700;
+    }
+
     /* ================================================================
-       INICIO DEL PIE DE PÁGINA: ESPACIO FINAL PARA DATOS DE CONTACTO.
-       CAMBIA EL CORREO Y EL TELÉFONO POR LOS DATOS OFICIALES.
+       INICIO DEL PIE DE PÁGINA.
        ================================================================ */
     .pie-pagina {
       position: relative;
@@ -528,25 +722,10 @@
     /* ================================================================
        DISEÑO RESPONSIVE: AJUSTES PARA TABLETAS Y PANTALLAS PEQUEÑAS.
        ================================================================ */
-    @media (max-width: 850px) {
-      .barra-navegacion { min-height: auto; padding: 1.3rem 0; flex-wrap: wrap; }
-      .enlaces-navegacion { order: 3; width: 100%; margin-left: 0; justify-content: space-between; gap: 0.6rem; }
-      .encabezado .boton { margin-left: auto; }
-      .hero { min-height: 560px; padding-top: 190px; }
-      .rejilla-seguridad { grid-template-columns: 1fr; gap: 2rem; }
-      .rejilla-gamas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .tarjeta-gama:nth-child(2n) { border-left: 1px solid var(--borde-suave); }
-      .tarjeta-gama:nth-child(3),
-      .tarjeta-gama:nth-child(4) { border-top: 1px solid var(--borde-suave); }
+    @media (max-width: 900px) {
+      .rejilla-mils { grid-template-columns: 1fr; }
     }
 
-    /* ================================================================
-       MENÚ RESPONSIVE EN MÓVIL (MENOR A 768px):
-       - EL ENCABEZADO PASA A position: sticky CON UNA ALTURA CLARA
-         PARA NO APLASTAR NI ENCIMARSE SOBRE EL CONTENIDO.
-       - EL MENÚ HORIZONTAL SE OCULTA Y SE SUSTITUYE POR EL BOTÓN ☰,
-         QUE DESPLIEGA UN PANEL VERTICAL DEBAJO DEL ENCABEZADO.
-       ================================================================ */
     @media (max-width: 768px) {
       .encabezado {
         position: sticky;
@@ -598,8 +777,11 @@
 
       .boton-menu { display: inline-flex; }
 
-      /* ESPACIO DEL HERO PARA QUE EL TEXTO NUNCA CHOQUE CON EL MENÚ */
+      /* ESPACIO DEL HERO EN MÓVIL */
       .hero { min-height: 480px; padding-top: 3.5rem; }
+
+      /* LA COMPARATIVA VISUAL SE APIA VERTICALMENTE EN MÓVIL */
+      .rejilla-comparativa { grid-template-columns: 1fr; gap: 2rem; }
     }
 
     @media (max-width: 560px) {
@@ -607,12 +789,9 @@
       .contenedor { width: min(100% - 2rem, var(--ancho-contenido)); }
       .logo { font-size: 1rem; }
       .encabezado .boton { min-height: 40px; padding: 0.55rem 0.8rem; font-size: 0.65rem; }
-      .hero { min-height: 480px; padding-top: 3rem; }
-      /* TÍTULO MÁS COMPACTO EN MÓVIL PARA QUE NO INVAJA OTRAS SECCIONES */
+      .hero { min-height: 440px; padding-top: 3rem; }
       .titulo-hero { font-size: clamp(2.2rem, 10vw, 3.2rem); }
-      .rejilla-gamas { grid-template-columns: 1fr; }
-      .tarjeta-gama { border-left: 0 !important; border-top: 1px solid var(--borde-suave); }
-      .tarjeta-gama:first-child { border-top: 0; }
+      .marco-imagen-comparativa { height: 210px; }
       .contenido-pie { flex-direction: column; }
     }
   </style>
@@ -620,9 +799,7 @@
 
 <body>
   <!-- ================================================================
-       INICIO DEL MENÚ DE NAVEGACIÓN.
-       MISMO MENÚ QUE LA PÁGINA PRINCIPAL. EL LOGO Y "INICIO" REGRESAN
-       A index.html. EDITA LOS href PARA CONECTAR EL RESTO DE SUBPÁGINAS.
+       1. INICIO DEL ENCABEZADO Y MENÚ DE NAVEGACIÓN.
        ================================================================ -->
   <header class="encabezado">
     <nav class="barra-navegacion contenedor" aria-label="Navegación principal">
@@ -632,12 +809,12 @@
         <span>POLARIMEX</span>
       </a>
       <div class="enlaces-navegacion" id="enlaces-navegacion">
-        <a href="https://polarimex.com/">INICIO</a>
-        <a href="automotriz.html" aria-current="page">AUTOMOTRIZ</a>
+        <a href="index.html">INICIO</a>
+        <a href="automotriz.html">AUTOMOTRIZ</a>
         <a href="decorativa.html">DECORATIVA</a>
         <a href="index.html#comercial">COMERCIAL</a>
         <a href="index.html#residencial">RESIDENCIAL</a>
-        <a href="seguridad.html">SEGURIDAD</a>
+        <a href="seguridad.html" aria-current="page">SEGURIDAD</a>
       </div>
       <a class="boton" href="index.html#contacto">Contáctanos</a>
       <!-- BOTÓN MENÚ HAMBURGUESA: SOLO VISIBLE EN PANTALLAS PEQUEÑAS -->
@@ -651,89 +828,197 @@
 
   <main>
     <!-- ================================================================
-         INICIO DE LA SECCIÓN HERO DE AUTOMOTRIZ.
-         REEMPLAZA LA URL DEL src POR UNA FOTO PANORÁMICA REAL (VEHÍCULOS,
-         INSTALACIÓN, TALLER, ETC.).
+         2. SECCIÓN HERO DE IMPACTO: SEGURIDAD Y ANTI-ASALTO.
          ================================================================ -->
-    <section class="hero" id="inicio-automotriz" aria-labelledby="titulo-hero-automotriz">
-      <!-- EDITAR IMAGEN PANORÁMICA SUPERIOR AQUÍ (reemplazar src) -->
-      <img class="imagen-hero" src="https://via.placeholder.com/1920x1080/555555/FFFFFF?text=IMAGEN+PANORAMICA+AUTOMOTRIZ" alt="Marcador temporal de 1920 por 1080 píxeles para la imagen panorámica de la sección automotriz">
+    <section class="hero" id="inicio-seguridad" aria-labelledby="titulo-hero-seguridad">
+      <!-- ============ CAMBIAR IMAGEN PRINCIPAL DEL BANNER HERO AQUÍ ============ -->
+      <img class="imagen-hero" src="https://via.placeholder.com/1920x1080/222222/FFFFFF?text=BANNER+CRISTALES+Y+VEHICULOS+DE+SEGURIDAD" alt="Vehículo y cristales de alta resistencia con película de seguridad Polarimex">
       <div class="contenedor contenido-hero">
-        <p class="subtitulo-hero" data-animar>POLARIMEX</p>
-        <!-- EDITAR TÍTULO PRINCIPAL DE LA SECCIÓN AUTOMOTRIZ AQUÍ -->
-        <h1 class="titulo-hero" id="titulo-hero-automotriz" data-animar style="--retraso: 150ms">Servicio Automotriz</h1>
+        <p class="subtitulo-hero" data-animar>POLARIMEX · PROTECCIÓN EXTREMA</p>
+
+        <!-- EDITAR TÍTULO PRINCIPAL Y SUBTÍTULO DEL HERO AQUÍ -->
+        <h1 class="titulo-hero" id="titulo-hero-seguridad" data-animar style="--retraso: 150ms">Películas de Seguridad y Anti-Asalto</h1>
+        <p class="texto-hero" data-animar style="--retraso: 250ms">Protección extrema contra impactos, robos y accidentes para tu vehículo o inmueble.</p>
+
+        <a class="boton" data-animar style="--retraso: 350ms" href="index.html#contacto">Solicitar Asesoría Gratuita</a>
       </div>
     </section>
 
     <!-- ================================================================
-         INICIO DE LA SECCIÓN PELÍCULAS DE SEGURIDAD AUTOMOTRIZ.
-         PERSONALIZA EL TEXTO DESCRIPTIVO Y LA IMAGEN DEMOSTRATIVA.
+         3. SECCIÓN INTERACTIVA DE COMPARATIVA (EL CONTRASTE):
+         COMPARA CRISTAL TRADICIONAL VS CRISTAL CON PELÍCULA POLARIMEX.
          ================================================================ -->
-    <section class="seguridad-automotriz" id="seguridad-automotriz" aria-labelledby="titulo-seguridad-automotriz">
-      <div class="contenedor rejilla-seguridad">
-        <div data-animar>
-          <p class="etiqueta">PROTECCIÓN VEHICULAR</p>
-          <h2 class="titulo-seccion" id="titulo-seguridad-automotriz">Películas de Seguridad Automotriz</h2>
-          <!-- EDITAR TEXTO DESCRIPTIVO DE SEGURIDAD AUTOMOTRIZ AQUÍ -->
-          <div class="texto-seguridad">
-            <p>Nuestras películas de seguridad automotriz refuerzan el cristal de tu vehículo, reduciendo el riesgo de fragmentación ante impactos, intentos de robo o accidentes.</p>
-            <p>Además de proteger a los ocupantes, bloquean gran parte de la radiación solar y los rayos UV, cuidando tanto tu salud como los interiores del vehículo.</p>
-          </div>
-        </div>
-        <!-- EDITAR IMAGEN DEMOSTRATIVA DE SEGURIDAD AUTOMOTRIZ AQUÍ (reemplazar src) -->
-        <div class="marco-imagen-seguridad" data-animar style="--retraso: 200ms">
-          <img class="imagen-seguridad" src="https://via.placeholder.com/900x700/555555/FFFFFF?text=IMAGEN+DEMOSTRATIVA+SEGURIDAD" alt="Marcador temporal de imagen demostrativa de la instalación de película de seguridad en un vehículo">
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================================
-         INICIO DE LA SECCIÓN GAMAS DE CALIDAD.
-         CUATRO TARJETAS EN ESTE ORDEN: STANDARD, CARBÓN, NANOCERÁMICA,
-         FOTOCROMÁTICA. EDITA CADA TARJETA DE FORMA INDEPENDIENTE.
-         ================================================================ -->
-    <section class="gamas-calidad" id="gamas-calidad" aria-labelledby="titulo-gamas-calidad">
+    <section class="seccion-comparativa" id="comparativa" aria-labelledby="titulo-comparativa-seccion">
       <div class="contenedor">
-        <div class="encabezado-gamas">
-          <p class="etiqueta" data-animar>NUESTROS PRODUCTOS</p>
-          <h2 class="titulo-seccion" id="titulo-gamas-calidad" data-animar style="--retraso: 120ms">Gamas de Calidad</h2>
+        <div class="encabezado-comparativa" data-animar>
+          <p class="etiqueta">PRUEBA DE RESISTENCIA</p>
+          <h2 class="titulo-seccion" id="titulo-comparativa-seccion">La diferencia que salva vidas</h2>
         </div>
 
-        <div class="rejilla-gamas">
-          <!-- ============ TARJETA 1: GAMA STANDARD ============ -->
-          <!-- EDITAR TEXTO DE GAMA STANDARD AQUÍ -->
-          <article class="tarjeta-gama" data-animar>
-            <img class="imagen-gama" src="https://via.placeholder.com/500x400/555555/FFFFFF?text=GAMA+STANDARD" alt="Marcador temporal de imagen para la Gama Standard de película automotriz">
-            <h3 class="titulo-gama">Gama Standard</h3>
-            <p>Protección solar básica con buena relación costo-beneficio. Reduce el calor y el deslumbramiento, ideal para quienes buscan confort esencial al mejor precio.</p>
+        <div class="rejilla-comparativa">
+
+          <!-- ============ LADO IZQUIERDO: CRISTAL TRADICIONAL (SIN PELÍCULA) ============ -->
+          <article class="tarjeta-comparativa tarjeta-tradicional" data-animar style="--retraso: 100ms">
+            <span class="insignia-tarjeta insignia-alerta">
+              <svg class="icono-punto alerta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              SIN PELÍCULA DE SEGURIDAD
+            </span>
+
+            <!-- EDITAR TÍTULO LADO IZQUIERDO AQUÍ -->
+            <h3 class="titulo-comparativa">Cristal Tradicional</h3>
+
+            <!-- ============ CAMBIAR FOTO CRISTAL DESTRUIDO AQUÍ ============ -->
+            <div class="marco-imagen-comparativa">
+              <img class="imagen-comparativa" src="https://via.placeholder.com/800x600/331111/FF5555?text=CRISTAL+DESTRUIDO+Y+DESPRENDIDO" alt="Cristal tradicional destruido en trozos peligrosos tras un impacto de martillo">
+            </div>
+
+            <!-- EDITAR TEXTO DESCRIPTIVO Y RIESGOS AQUÍ -->
+            <ul class="lista-puntos-comparativa">
+              <li>
+                <svg class="icono-punto alerta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <span><strong>Desprendimiento total:</strong> El cristal se colapsa de inmediato ante un golpe o intento de asalto.</span>
+              </li>
+              <li>
+                <svg class="icono-punto alerta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <span><strong>Proyección de esquirlas:</strong> Miles de fragmentos filosos salen disparados hacia el interior, causando cortaduras severas.</span>
+              </li>
+              <li>
+                <svg class="icono-punto alerta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <span><strong>Acceso instantáneo:</strong> Un agresor o ladrón ingresa en menos de 2 segundos sin resistencia física.</span>
+              </li>
+            </ul>
           </article>
 
-          <!-- ============ TARJETA 2: GAMA CARBÓN ============ -->
-          <!-- EDITAR TEXTO DE GAMA CARBÓN AQUÍ -->
-          <article class="tarjeta-gama" data-animar style="--retraso: 100ms">
-            <img class="imagen-gama" src="https://via.placeholder.com/500x400/555555/FFFFFF?text=GAMA+CARBON" alt="Marcador temporal de imagen para la Gama Carbón de película automotriz">
-            <h3 class="titulo-gama">Gama Carbón</h3>
-            <p>Fabricada a base de carbono, no se decolora con el tiempo. Ofrece un acabado mate elegante y mayor rechazo de calor que la gama Standard.</p>
+          <!-- ============ LADO DERECHO: CON PELÍCULA DE SEGURIDAD POLARIMEX ============ -->
+          <article class="tarjeta-comparativa tarjeta-polarimex" data-animar style="--retraso: 250ms">
+            <span class="insignia-tarjeta insignia-exito">
+              <svg class="icono-punto exito" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              CON PELÍCULA POLARIMEX
+            </span>
+
+            <!-- EDITAR TÍTULO LADO DERECHO AQUÍ -->
+            <h3 class="titulo-comparativa">Cristal con Película de Seguridad</h3>
+
+            <!-- ============ CAMBIAR FOTO CRISTAL CON RETENCIÓN DE IMPACTO AQUÍ ============ -->
+            <div class="marco-imagen-comparativa">
+              <img class="imagen-comparativa" src="https://via.placeholder.com/800x600/1a0000/FFFFFF?text=CRISTAL+ESTRELLADO+EN+TELARANA+RETENIDO" alt="Cristal estrellado en patrón de telaraña retenido firmemente por la película de seguridad Polarimex">
+            </div>
+
+            <!-- EDITAR TEXTO DESCRIPTIVO Y BENEFICIOS AQUÍ -->
+            <ul class="lista-puntos-comparativa">
+              <li>
+                <svg class="icono-punto exito" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                <span><strong>Retención de fragmentos:</strong> El cristal se fractura en forma de telaraña pero permanece unido y firme.</span>
+              </li>
+              <li>
+                <svg class="icono-punto exito" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                <span><strong>Retardo de intrusión:</strong> Brinda tiempo valioso para reaccionar y escapar en intentos de bujiazo o asalto.</span>
+              </li>
+              <li>
+                <svg class="icono-punto exito" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                <span><strong>Protección UV & Confort:</strong> Bloquea hasta el 99% de los rayos UV perjudiciales y reduce el calor interior.</span>
+              </li>
+            </ul>
           </article>
 
-          <!-- ============ TARJETA 3: GAMA NANOCERÁMICA ============ -->
-          <!-- EDITAR TEXTO DE GAMA NANOCERÁMICA AQUÍ -->
-          <article class="tarjeta-gama" data-animar style="--retraso: 200ms">
-            <img class="imagen-gama" src="https://via.placeholder.com/500x400/555555/FFFFFF?text=GAMA+NANOCERAMICA" alt="Marcador temporal de imagen para la Gama Nanocerámica de película automotriz">
-            <h3 class="titulo-gama">Gama Nanocerámica</h3>
-            <p>Tecnología cerámica de alto rendimiento que bloquea hasta el 99% de los rayos UV y una gran cantidad de calor infrarrojo, sin interferir con señales electrónicas.</p>
-          </article>
-
-          <!-- ============ TARJETA 4: GAMA FOTOCROMÁTICA ============ -->
-          <!-- EDITAR TEXTO DE GAMA FOTOCROMÁTICA AQUÍ -->
-          <article class="tarjeta-gama" data-animar style="--retraso: 300ms">
-            <img class="imagen-gama" src="https://via.placeholder.com/500x400/555555/FFFFFF?text=GAMA+FOTOCROMATICA" alt="Marcador temporal de imagen para la Gama Fotocromática de película automotriz">
-            <h3 class="titulo-gama">Gama Fotocromática</h3>
-            <p>Se adapta a la intensidad de la luz solar, oscureciéndose o aclarándose de forma automática para brindar el máximo confort visual en cualquier condición.</p>
-          </article>
         </div>
       </div>
     </section>
+
+    <!-- ================================================================
+         4. SECCIÓN DEMOSTRATIVA EN VIDEO: PRUEBA DE RESISTENCIA A IMPACTO.
+         ================================================================ -->
+    <section class="seccion-video" id="demostracion-video" aria-labelledby="titulo-video-seccion">
+      <div class="contenedor">
+        <div class="encabezado-video" data-animar>
+          <p class="etiqueta">DEMOSTRACIÓN EN VIVO</p>
+          <h2 class="titulo-seccion" id="titulo-video-seccion">Prueba de Resistencia e Impacto</h2>
+        </div>
+
+        <!-- ================================================================ -->
+        <!-- PEGA AQUÍ TU ENLACE DE YOUTUBE O RUTA DE VIDEO LOCAL -->
+        <!-- REEMPLAZA EL src DEL VIDEO O DESCOMENTA LA ETIQUETA IFRAME DE ABAJO -->
+        <!-- ================================================================ -->
+        <div class="contenedor-video" data-animar style="--retraso: 150ms">
+
+          <!-- OPCIÓN 1: VIDEO LOCAL EN FORMATO MP4 -->
+          <video controls poster="https://via.placeholder.com/1280x720/111111/FFFFFF?text=PORTADA+DEL+VIDEO+DE+PRUEBAS+DE+IMPACTO">
+            <source src="video-seguridad.mp4" type="video/mp4">
+            Tu navegador no soporta la reproducción de video HTML5.
+          </video>
+
+          <!-- OPCIÓN 2: SI PREFIERES USAR UN VIDEO DE YOUTUBE, DESCOMENTA ESTE IFRAME Y PEGA TU ENLACE:
+          <iframe src="https://www.youtube.com/embed/TU_ID_DE_VIDEO" title="Demostración de Película de Seguridad Polarimex" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          -->
+
+        </div>
+
+        <p class="leyenda-video" data-animar style="--retraso: 250ms">
+          <!-- EDITAR LEYENDA DEL VIDEO AQUÍ -->
+          Observa cómo nuestras películas absorben y distribuyen la energía del golpe, evitando que el cristal colapse y protegiendo a los ocupantes en todo momento.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         5. GAMAS Y NIVELES DE PROTECCIÓN (MICRAS / MILS).
+         EDITA AQUÍ LAS ESPECIFICACIONES TÉCNICAS Y NIVELES DE GROSOR.
+         ================================================================ -->
+    <section class="seccion-gamas" id="niveles-seguridad" aria-labelledby="titulo-gamas-seccion">
+      <div class="contenedor">
+        <div class="encabezado-gamas" data-animar>
+          <p class="etiqueta">NIVELES DE SEGURIDAD</p>
+          <h2 class="titulo-seccion" id="titulo-gamas-seccion">Grosor y Niveles de Protección</h2>
+        </div>
+
+        <div class="rejilla-mils">
+
+          <!-- ============ TARJETA 1: 4 MILS ============ -->
+          <article class="tarjeta-mil" data-animar>
+            <span class="badge-mil">NIVEL 1 · ESTÁNDAR</span>
+            <h3 class="numero-grosor">4 Mils</h3>
+            <!-- EDITAR TEXTO DE 4 MILS AQUÍ -->
+            <h4 class="titulo-mil">Anti-Desprendimiento</h4>
+            <p class="descripcion-mil">Ideal para prevención de accidentes viales, vandalismo leve y contención de fragmentos en cristales laterales.</p>
+            <ul class="especificaciones-mil">
+              <li>Grosor aprox: <span>100 micras</span></li>
+              <li>Protección UV: <span>99%</span></li>
+              <li>Uso recomendado: <span>Autos sedán, cristales pequeños</span></li>
+            </ul>
+          </article>
+
+          <!-- ============ TARJETA 2: 8 MILS ============ -->
+          <article class="tarjeta-mil" data-animar style="--retraso: 120ms">
+            <span class="badge-mil">NIVEL 2 · INTERMEDIO</span>
+            <h3 class="numero-grosor">8 Mils</h3>
+            <!-- EDITAR TEXTO DE 8 MILS AQUÍ -->
+            <h4 class="titulo-mil">Anti-Asalto Urbano</h4>
+            <p class="descripcion-mil">Protección reforzada contra bujiazos, martillazos y robos de oportunidad en semáforos o estacionamientos.</p>
+            <ul class="especificaciones-mil">
+              <li>Grosor aprox: <span>200 micras</span></li>
+              <li>Protección UV: <span>99%</span></li>
+              <li>Uso recomendado: <span>SUVs, flotillas y ventanales</span></li>
+            </ul>
+          </article>
+
+          <!-- ============ TARJETA 3: 12 MILS ============ -->
+          <article class="tarjeta-mil" data-animar style="--retraso: 240ms">
+            <span class="badge-mil">NIVEL 3 · EXTREMO</span>
+            <h3 class="numero-grosor">12 Mils</h3>
+            <!-- EDITAR TEXTO DE 12 MILS AQUÍ -->
+            <h4 class="titulo-mil">Alto Impacto & Blindaje Ligero</h4>
+            <p class="descripcion-mil">Máxima resistencia mecánica diseñada para soportar múltiples impactos continuos con herramientas pesadas e intentos de intrusión violenta.</p>
+            <ul class="especificaciones-mil">
+              <li>Grosor aprox: <span>300 micras</span></li>
+              <li>Protección UV: <span>99%</span></li>
+              <li>Uso recomendado: <span>Vehículos ejecutivos, comercios y bancos</span></li>
+            </ul>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- ================================================================
@@ -751,6 +1036,7 @@
        EFECTOS GLOBALES PREMIUM:
        - ENCABEZADO: SE VUELVE SÓLIDO CON DESENFOQUE AL HACER SCROLL.
        - ENTRADAS SUAVES: LOS ELEMENTOS CON data-animar APARECEN AL VERSE.
+       - MENÚ HAMBURGUESA RESPONSIVE PARA DISPOSITIVOS MÓVILES.
        ================================================================ -->
   <script>
     (function () {
