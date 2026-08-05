@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Polarimex - Servicio Automotriz de Polarizado y Blindaje Ligero.">
-  <title>Automotriz | Polarimex</title>
+  <meta name="description" content="Polarimex - Soluciones de Control Solar y Seguridad Comercial para Negocios, Edificios y Oficinas.">
+  <title>Comercial | Polarimex</title>
 
   <!-- TIPOGRAFÍAS PREMIUM (GOOGLE FONTS): CAMBIA LAS FAMILIAS AQUÍ SI LO DESEAS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,7 +15,7 @@
     /* ================================================================
        CONFIGURACIÓN GLOBAL: EDITA ESTAS VARIABLES PARA CAMBIAR TODA
        LA APARIENCIA DEL SITIO DESDE UN ÚNICO LUGAR.
-       (MISMAS VARIABLES QUE LA PÁGINA PRINCIPAL PARA MANTENER CONSISTENCIA)
+       (MISMAS VARIABLES QUE EL RESTO DEL SITIO PARA MANTENER CONSISTENCIA)
        ================================================================ */
     :root {
       --color-principal: var(--mi-degradado); /* Fondo negro y elementos con más fuerza visual. */
@@ -51,11 +51,11 @@
       color: var(--color-acento);
       font-family: var(--fuente-principal);
       line-height: 1.7;
+      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* TEXTO SELECCIONADO Y BARRA DE DESPLAZAMIENTO: DETALLES PREMIUM */
     ::selection { background: var(--color-rojo); color: #ffffff; }
 
     ::-webkit-scrollbar { width: 10px; }
@@ -66,19 +66,16 @@
 
     a { color: inherit; text-decoration: none; }
 
-    /* MARGEN SUPERIOR PARA QUE LOS ANCLAJES NO QUEDEN PEGADOS AL MENÚ */
     section[id] { scroll-margin-top: 90px; }
 
     /* ================================================================
-       CLASES REUTILIZABLES: ESTILOS COMPARTIDOS PARA MANTENER EL HTML
-       LIMPIO Y HACER AJUSTES RÁPIDOS.
+       CLASES REUTILIZABLES.
        ================================================================ */
     .contenedor {
       width: min(100% - 3rem, var(--ancho-contenido));
       margin-inline: auto;
     }
 
-    /* ETIQUETA CON BARRA DE ACENTO ROJO DECORATIVA */
     .etiqueta {
       margin: 0 0 1rem;
       color: var(--color-texto-mutado);
@@ -109,7 +106,6 @@
       text-wrap: balance;
     }
 
-    /* BOTÓN PÍLDORA CON BRILLO DESLIZANTE Y RESPLANDOR ROJO */
     .boton {
       position: relative;
       overflow: hidden;
@@ -120,9 +116,7 @@
       padding: 0.8rem 1.7rem;
       border: 1px solid rgba(255, 255, 255, 0.35);
       border-radius: 999px;
-      background: radial-gradient(ellipse at center, #e50914 30%, #8b0007 80%) !important;
-      border-radius: 50px;
-      border: none !important;
+      background: var(--mi-degradado);
       color: #ffffff;
       font-family: var(--fuente-titulos);
       font-size: 0.75rem;
@@ -130,6 +124,7 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       box-shadow: var(--sombra-roja);
+      cursor: pointer;
       transition: transform var(--transicion), box-shadow var(--transicion), background var(--transicion);
     }
 
@@ -152,14 +147,11 @@
     }
 
     .boton:hover::before { left: 140%; }
-
     .boton:active { transform: translateY(-1px); }
-
     .boton:focus-visible { outline: 2px solid var(--color-acento); outline-offset: 3px; }
 
     /* ================================================================
        INICIO DEL ENCABEZADO Y MENÚ DE NAVEGACIÓN.
-       CAMBIA LOS href DE LOS ENLACES PARA CONECTAR SUBPÁGINAS REALES.
        ================================================================ */
     .encabezado {
       position: absolute;
@@ -171,7 +163,6 @@
       transition: background var(--transicion), box-shadow var(--transicion), backdrop-filter var(--transicion);
     }
 
-    /* AL HACER SCROLL EL MENÚ SE VUELVE SÓLIDO CON DESENFOQUE (VER JS) */
     .encabezado.fijo {
       background: rgba(8, 8, 8, 0.88);
       backdrop-filter: blur(16px);
@@ -202,14 +193,12 @@
 
     .logo:hover { transform: scale(1.03); }
 
-    /* LOGOTIPO: AJUSTA LA ALTURA AQUÍ PARA HACERLO MÁS GRANDE O PEQUEÑO */
     .logo-imagen {
       height: 44px;
       width: auto;
       display: block;
     }
 
-    /* NOMBRE DE LA MARCA CON DEGRADADO PREMIUM */
     .logo span {
       background: linear-gradient(90deg, #ffffff, #ffb3b3);
       -webkit-background-clip: text;
@@ -234,7 +223,6 @@
       transition: color 180ms ease;
     }
 
-    /* SUBRAYADO ANIMADO QUE SE DESPLIEGA BAJO CADA ENLACE */
     .enlaces-navegacion a::after {
       content: '';
       position: absolute;
@@ -254,14 +242,11 @@
     .enlaces-navegacion a:hover::after,
     .enlaces-navegacion a:focus-visible::after { transform: scaleX(1); }
 
-    /* Enlace activo: resalta la sección Automotriz dentro del menú */
     .enlaces-navegacion a[aria-current="page"] { color: var(--color-acento); }
     .enlaces-navegacion a[aria-current="page"]::after { transform: scaleX(1); }
 
     /* ================================================================
-       BOTÓN MENÚ HAMBURGUESA (☰): SE MUESTRA SOLO EN PANTALLAS
-       PEQUEÑAS DENTRO DE @media (max-width: 768px). LAS TRES LÍNEAS
-       SE TRANSFORMAN EN UNA "X" CUANDO EL MENÚ ESTÁ ABIERTO.
+       BOTÓN MENÚ HAMBURGUESA (☰).
        ================================================================ */
     .boton-menu {
       display: none;
@@ -300,14 +285,12 @@
     .linea-menu:nth-child(2) { top: 22px; }
     .linea-menu:nth-child(3) { top: 30px; }
 
-    /* TRANSFORMACIÓN A "X" CUANDO EL MENÚ ESTÁ ABIERTO */
     .boton-menu.activo .linea-menu:nth-child(1) { top: 22px; transform: translateX(-50%) rotate(45deg); }
     .boton-menu.activo .linea-menu:nth-child(2) { opacity: 0; }
     .boton-menu.activo .linea-menu:nth-child(3) { top: 22px; transform: translateX(-50%) rotate(-45deg); }
 
     /* ================================================================
-       INICIO DE LA SECCIÓN HERO DE AUTOMOTRIZ.
-       SUSTITUYE EL src DE LA IMAGEN POR UNA FOTOGRAFÍA PANORÁMICA REAL.
+       1. SECCIÓN HERO COMERCIAL.
        ================================================================ */
     .hero {
       position: relative;
@@ -327,8 +310,8 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.45;
-      filter: grayscale(100%);
+      opacity: 0.5;
+      filter: saturate(110%);
     }
 
     .hero::after {
@@ -336,10 +319,10 @@
       position: absolute;
       z-index: -1;
       inset: 0;
-      background: linear-gradient(90deg, rgba(0, 0, 0, 0.88), rgba(0, 0, 0, 0.4)), linear-gradient(0deg, rgba(0, 0, 0, 0.72), transparent 55%);
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.9) 20%, rgba(0, 0, 0, 0.35)), linear-gradient(0deg, rgba(0, 0, 0, 0.78), transparent 55%);
     }
 
-    .contenido-hero { max-width: 780px; }
+    .contenido-hero { max-width: 820px; }
 
     .subtitulo-hero {
       margin: 0 0 1.25rem;
@@ -354,128 +337,167 @@
     .titulo-hero {
       margin: 0;
       font-family: var(--fuente-titulos);
-      font-size: clamp(2.6rem, 7vw, 6rem);
-      line-height: 0.95;
-      letter-spacing: -0.065em;
+      font-size: clamp(2.6rem, 6.5vw, 5.6rem);
+      line-height: 0.98;
+      letter-spacing: -0.05em;
       text-wrap: balance;
     }
 
-    /* ================================================================
-       INICIO DE LA SECCIÓN PELÍCULAS DE SEGURIDAD AUTOMOTRIZ.
-       DOS COLUMNAS: TEXTO DESCRIPTIVO + IMAGEN DEMOSTRATIVA.
-       ================================================================ */
-    .seguridad-automotriz { padding: var(--espaciado-seccion) 0; }
-
-    .rejilla-seguridad {
-      display: grid;
-      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-      gap: clamp(2.5rem, 8vw, 9rem);
-      align-items: center;
-    }
-
-    .texto-seguridad {
+    .texto-hero {
       max-width: 580px;
+      margin: 1.5rem 0 2rem;
       color: var(--color-texto-mutado);
-      font-size: clamp(1.05rem, 1.8vw, 1.35rem);
-    }
-
-    .texto-seguridad p { margin: 0 0 1.5rem; }
-    .texto-seguridad p:last-child { margin-bottom: 0; }
-
-    /* MARCO PREMIUM CON SOMBRA Y ZOOM SUTIL AL PASAR EL CURSOR */
-    .marco-imagen-seguridad {
-      border: 1px solid var(--borde-suave);
-      border-radius: var(--radio-pequeno);
-      overflow: hidden;
-      box-shadow: var(--sombra-suave);
-    }
-
-    .imagen-seguridad {
-      width: 100%;
-      height: 100%;
-      min-height: 320px;
-      object-fit: cover;
-      filter: grayscale(100%);
-      transition: transform 700ms ease, filter 500ms ease;
-    }
-
-    .marco-imagen-seguridad:hover .imagen-seguridad {
-      transform: scale(1.04);
-      filter: grayscale(20%);
+      font-size: clamp(1.05rem, 1.7vw, 1.25rem);
     }
 
     /* ================================================================
-       INICIO DE LA SECCIÓN GAMAS DE CALIDAD.
-       CUADRÍCULA DE TARJETAS SIMÉTRICAS PARA CADA GAMA DE PELÍCULA.
+       2. CARRUSEL INFINITO DE GALERÍA COMERCIAL (AUTO-SCROLL MARQUEE).
        ================================================================ */
-    .gamas-calidad {
+    .seccion-galeria {
       padding: var(--espaciado-seccion) 0;
       background: var(--color-secundario);
+      overflow: hidden;
     }
 
-    .encabezado-gamas { margin-bottom: clamp(2.5rem, 6vw, 4.5rem); }
+    .encabezado-galeria {
+      text-align: center;
+      margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    }
 
-    .rejilla-gamas {
+    .encabezado-galeria .etiqueta::before { display: none; }
+    .encabezado-galeria .titulo-seccion { margin-inline: auto; }
+
+    .carrusel-galeria {
+      position: relative;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    }
+
+    .carrusel-track {
+      display: flex;
+      gap: 1.5rem;
+      width: max-content;
+      animation: scroll-carrusel 35s linear infinite;
+    }
+
+    .carrusel-galeria:hover .carrusel-track {
+      animation-play-state: paused;
+    }
+
+    @keyframes scroll-carrusel {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .carrusel-item {
+      flex-shrink: 0;
+      width: 340px;
+      height: 240px;
+      border-radius: var(--radio-pequeno);
+      overflow: hidden;
+      border: 1px solid var(--borde-suave);
+      box-shadow: var(--sombra-carta);
+      transition: transform var(--transicion), box-shadow var(--transicion);
+    }
+
+    .carrusel-item:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: var(--sombra-suave);
+      border-color: rgba(255, 26, 26, 0.4);
+    }
+
+    .carrusel-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 700ms ease;
+    }
+
+    .carrusel-item:hover img { transform: scale(1.08); }
+
+    /* ================================================================
+       3. SECCIÓN DESTACADA: AGENCIAS DE AUTOS QUE CONFÍAN EN NOSOTROS.
+       ================================================================ */
+    .seccion-agencias {
+      padding: var(--espaciado-seccion) 0;
+      background: var(--color-principal);
+    }
+
+    .encabezado-agencias {
+      text-align: center;
+      margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    }
+
+    .encabezado-agencias .etiqueta::before { display: none; }
+    .encabezado-agencias .titulo-seccion { margin-inline: auto; }
+
+    .rejilla-agencias {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      border-top: 1px solid var(--borde-suave);
-      border-bottom: 1px solid var(--borde-suave);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(2rem, 4vw, 3.5rem);
     }
 
-    .tarjeta-gama {
+    .tarjeta-agencia {
       position: relative;
       display: flex;
       flex-direction: column;
-      padding: clamp(1.75rem, 3vw, 2.5rem);
-      transition: background var(--transicion);
+      padding: clamp(2rem, 4vw, 3rem);
+      border: 1px solid var(--borde-suave);
+      border-radius: var(--radio-suave);
+      background: rgba(18, 18, 18, 0.85);
+      box-shadow: var(--sombra-carta);
+      transition: transform var(--transicion), box-shadow var(--transicion), border-color var(--transicion);
     }
 
-    .tarjeta-gama + .tarjeta-gama { border-left: 1px solid var(--borde-suave); }
-
-    /* HALO ROJO SUTIL QUE APARECE EN LA TARJETA AL PASAR EL CURSOR */
-    .tarjeta-gama::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(255, 0, 0, 0.08), transparent 60%);
-      opacity: 0;
-      transition: opacity var(--transicion);
-      pointer-events: none;
+    .tarjeta-agencia:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255, 26, 26, 0.5);
+      box-shadow: var(--sombra-suave);
     }
 
-    .tarjeta-gama:hover::before { opacity: 1; }
-
-    .imagen-gama {
+    .marco-logo-agencia {
       width: 100%;
       height: 180px;
-      object-fit: cover;
-      margin-bottom: 1.5rem;
-      filter: grayscale(100%);
-      border: 1px solid var(--borde-suave);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       border-radius: var(--radio-pequeno);
-      transition: filter 500ms ease;
+      border: 1px solid var(--borde-suave);
+      background: var(--degradado-sutil);
+      margin-bottom: 1.5rem;
+      overflow: hidden;
     }
 
-    .tarjeta-gama:hover .imagen-gama { filter: grayscale(20%); }
+    .marco-logo-agencia img {
+      max-width: 80%;
+      max-height: 70%;
+      object-fit: contain;
+      filter: brightness(0) invert(1) opacity(0.85);
+      transition: transform var(--transicion), filter var(--transicion);
+    }
 
-    .titulo-gama {
+    .tarjeta-agencia:hover .marco-logo-agencia img {
+      transform: scale(1.05);
+      filter: brightness(0) invert(1) opacity(1);
+    }
+
+    .nombre-agencia {
       margin: 0 0 1rem;
       font-family: var(--fuente-titulos);
-      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
       letter-spacing: -0.02em;
-      text-transform: uppercase;
     }
 
-    .tarjeta-gama p {
+    .descripcion-agencia {
       margin: 0;
       color: var(--color-texto-mutado);
-      font-size: 0.92rem;
+      font-size: 1rem;
       flex-grow: 1;
     }
 
     /* ================================================================
-       INICIO DEL PIE DE PÁGINA: ESPACIO FINAL PARA DATOS DE CONTACTO.
-       CAMBIA EL CORREO Y EL TELÉFONO POR LOS DATOS OFICIALES.
+       INICIO DEL PIE DE PÁGINA.
        ================================================================ */
     .pie-pagina {
       position: relative;
@@ -484,7 +506,6 @@
       background-color: #111111;
     }
 
-    /* LÍNEA DE ACENTO DEGRADADO EN LA PARTE SUPERIOR DEL PIE */
     .pie-pagina::before {
       content: '';
       position: absolute;
@@ -504,9 +525,7 @@
     }
 
     /* ================================================================
-       ANIMACIONES DE ENTRADA AL HACER SCROLL:
-       AGREGA data-animar A CUALQUIER ELEMENTO Y APARECERÁ CON UN
-       EFECTO FADE-UP SUAVE. USA style="--retraso: 150ms" PARA ESCALONAR.
+       ANIMACIONES DE ENTRADA AL HACER SCROLL.
        ================================================================ */
     .js-animaciones [data-animar] {
       opacity: 0;
@@ -519,33 +538,13 @@
       transform: translateY(0);
     }
 
-    /* SI EL USUARIO PREFIERE MENOS MOVIMIENTO, TODO APARECE SIN ANIMAR */
     @media (prefers-reduced-motion: reduce) {
       .js-animaciones [data-animar] { opacity: 1; transform: none; }
       * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
     }
 
     /* ================================================================
-       DISEÑO RESPONSIVE: AJUSTES PARA TABLETAS Y PANTALLAS PEQUEÑAS.
-       ================================================================ */
-    @media (max-width: 850px) {
-      .barra-navegacion { min-height: auto; padding: 1.3rem 0; flex-wrap: wrap; }
-      .enlaces-navegacion { order: 3; width: 100%; margin-left: 0; justify-content: space-between; gap: 0.6rem; }
-      .encabezado .boton { margin-left: auto; }
-      .hero { min-height: 560px; padding-top: 190px; }
-      .rejilla-seguridad { grid-template-columns: 1fr; gap: 2rem; }
-      .rejilla-gamas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .tarjeta-gama:nth-child(2n) { border-left: 1px solid var(--borde-suave); }
-      .tarjeta-gama:nth-child(3),
-      .tarjeta-gama:nth-child(4) { border-top: 1px solid var(--borde-suave); }
-    }
-
-    /* ================================================================
-       MENÚ RESPONSIVE EN MÓVIL (MENOR A 768px):
-       - EL ENCABEZADO PASA A position: sticky CON UNA ALTURA CLARA
-         PARA NO APLASTAR NI ENCIMARSE SOBRE EL CONTENIDO.
-       - EL MENÚ HORIZONTAL SE OCULTA Y SE SUSTITUYE POR EL BOTÓN ☰,
-         QUE DESPLIEGA UN PANEL VERTICAL DEBAJO DEL ENCABEZADO.
+       DISEÑO RESPONSIVE.
        ================================================================ */
     @media (max-width: 768px) {
       .encabezado {
@@ -568,7 +567,6 @@
       .logo { font-size: 1rem; letter-spacing: 0.18em; }
       .logo-imagen { height: 36px; }
 
-      /* MENÚ HORIZONTAL OCULTO: SE CONVIERTE EN PANEL DESPLEGABLE */
       .enlaces-navegacion {
         display: none;
         position: absolute;
@@ -598,8 +596,9 @@
 
       .boton-menu { display: inline-flex; }
 
-      /* ESPACIO DEL HERO PARA QUE EL TEXTO NUNCA CHOQUE CON EL MENÚ */
       .hero { min-height: 480px; padding-top: 3.5rem; }
+      .carrusel-item { width: 260px; height: 180px; }
+      .rejilla-agencias { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 560px) {
@@ -607,12 +606,9 @@
       .contenedor { width: min(100% - 2rem, var(--ancho-contenido)); }
       .logo { font-size: 1rem; }
       .encabezado .boton { min-height: 40px; padding: 0.55rem 0.8rem; font-size: 0.65rem; }
-      .hero { min-height: 480px; padding-top: 3rem; }
-      /* TÍTULO MÁS COMPACTO EN MÓVIL PARA QUE NO INVAJA OTRAS SECCIONES */
-      .titulo-hero { font-size: clamp(2.2rem, 10vw, 3.2rem); }
-      .rejilla-gamas { grid-template-columns: 1fr; }
-      .tarjeta-gama { border-left: 0 !important; border-top: 1px solid var(--borde-suave); }
-      .tarjeta-gama:first-child { border-top: 0; }
+      .hero { min-height: 440px; padding-top: 3rem; }
+      .titulo-hero { font-size: clamp(2.2rem, 10vw, 3rem); }
+      .carrusel-item { width: 220px; height: 160px; }
       .contenido-pie { flex-direction: column; }
     }
   </style>
@@ -620,9 +616,7 @@
 
 <body>
   <!-- ================================================================
-       INICIO DEL MENÚ DE NAVEGACIÓN.
-       MISMO MENÚ QUE LA PÁGINA PRINCIPAL. EL LOGO Y "INICIO" REGRESAN
-       A index.html. EDITA LOS href PARA CONECTAR EL RESTO DE SUBPÁGINAS.
+       INICIO DEL ENCABEZADO Y MENÚ DE NAVEGACIÓN.
        ================================================================ -->
   <header class="encabezado">
     <nav class="barra-navegacion contenedor" aria-label="Navegación principal">
@@ -632,10 +626,10 @@
         <span>POLARIMEX</span>
       </a>
       <div class="enlaces-navegacion" id="enlaces-navegacion">
-        <a href="https://polarimex.com/">INICIO</a>
-        <a href="automotriz.html" aria-current="page">AUTOMOTRIZ</a>
+        <a href="index.html">INICIO</a>
+        <a href="automotriz.html">AUTOMOTRIZ</a>
         <a href="decorativa.html">DECORATIVA</a>
-        <a href="comercial.html">COMERCIAL</a>
+        <a href="comercial.html" aria-current="page">COMERCIAL</a>
         <a href="index.html#residencial">RESIDENCIAL</a>
         <a href="seguridad.html">SEGURIDAD</a>
       </div>
@@ -651,89 +645,149 @@
 
   <main>
     <!-- ================================================================
-         INICIO DE LA SECCIÓN HERO DE AUTOMOTRIZ.
-         REEMPLAZA LA URL DEL src POR UNA FOTO PANORÁMICA REAL (VEHÍCULOS,
-         INSTALACIÓN, TALLER, ETC.).
+         1. SECCIÓN HERO COMERCIAL.
          ================================================================ -->
-    <section class="hero" id="inicio-automotriz" aria-labelledby="titulo-hero-automotriz">
-      <!-- EDITAR IMAGEN PANORÁMICA SUPERIOR AQUÍ (reemplazar src) -->
-      <img class="imagen-hero" src="https://via.placeholder.com/1920x1080/555555/FFFFFF?text=IMAGEN+PANORAMICA+AUTOMOTRIZ" alt="Marcador temporal de 1920 por 1080 píxeles para la imagen panorámica de la sección automotriz">
+    <section class="hero" id="inicio-comercial" aria-labelledby="titulo-hero-comercial">
+      <!-- ============ CAMBIAR IMAGEN PANORÁMICA DEL BANNER AQUÍ ============ -->
+      <img class="imagen-hero" src="https://via.placeholder.com/1920x1080/2a2a2a/FFFFFF?text=EDIFICIO+COMERCIAL+CON+PELICULA+SOLAR" alt="Edificio comercial moderno con película de control solar instalada por Polarimex">
       <div class="contenedor contenido-hero">
-        <p class="subtitulo-hero" data-animar>POLARIMEX</p>
-        <!-- EDITAR TÍTULO PRINCIPAL DE LA SECCIÓN AUTOMOTRIZ AQUÍ -->
-        <h1 class="titulo-hero" id="titulo-hero-automotriz" data-animar style="--retraso: 150ms">Servicio Automotriz</h1>
+        <p class="subtitulo-hero" data-animar>POLARIMEX · SOLUCIONES COMERCIALES</p>
+
+        <!-- EDITAR TÍTULO PRINCIPAL Y SUBTÍTULO DEL HERO AQUÍ -->
+        <h1 class="titulo-hero" id="titulo-hero-comercial" data-animar style="--retraso: 150ms">Soluciones de Control Solar y Seguridad Comercial</h1>
+        <p class="texto-hero" data-animir style="--retraso: 250ms">Eficiencia energética, privacidad y protección para tu negocio u oficina.</p>
+
+        <a class="boton" data-animar style="--retraso: 350ms" href="index.html#contacto">Solicitar Cotización</a>
       </div>
     </section>
 
     <!-- ================================================================
-         INICIO DE LA SECCIÓN PELÍCULAS DE SEGURIDAD AUTOMOTRIZ.
-         PERSONALIZA EL TEXTO DESCRIPTIVO Y LA IMAGEN DEMOSTRATIVA.
+         2. CARRUSEL INFINITO DE GALERÍA COMERCIAL (AUTO-SCROLL).
+         EL CARRUSEL GIRA DE FORMA CONSTANTE Y FLUIDA SIN INTERVENCIÓN.
          ================================================================ -->
-    <section class="seguridad-automotriz" id="seguridad-automotriz" aria-labelledby="titulo-seguridad-automotriz">
-      <div class="contenedor rejilla-seguridad">
-        <div data-animar>
-          <p class="etiqueta">PROTECCIÓN VEHICULAR</p>
-          <h2 class="titulo-seccion" id="titulo-seguridad-automotriz">Películas de Seguridad Automotriz</h2>
-          <!-- EDITAR TEXTO DESCRIPTIVO DE SEGURIDAD AUTOMOTRIZ AQUÍ -->
-          <div class="texto-seguridad">
-            <p>Nuestras películas de seguridad automotriz refuerzan el cristal de tu vehículo, reduciendo el riesgo de fragmentación ante impactos, intentos de robo o accidentes.</p>
-            <p>Además de proteger a los ocupantes, bloquean gran parte de la radiación solar y los rayos UV, cuidando tanto tu salud como los interiores del vehículo.</p>
-          </div>
-        </div>
-        <!-- EDITAR IMAGEN DEMOSTRATIVA DE SEGURIDAD AUTOMOTRIZ AQUÍ (reemplazar src) -->
-        <div class="marco-imagen-seguridad" data-animar style="--retraso: 200ms">
-          <img class="imagen-seguridad" src="https://via.placeholder.com/900x700/555555/FFFFFF?text=IMAGEN+DEMOSTRATIVA+SEGURIDAD" alt="Marcador temporal de imagen demostrativa de la instalación de película de seguridad en un vehículo">
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================================
-         INICIO DE LA SECCIÓN GAMAS DE CALIDAD.
-         CUATRO TARJETAS EN ESTE ORDEN: STANDARD, CARBÓN, NANOCERÁMICA,
-         FOTOCROMÁTICA. EDITA CADA TARJETA DE FORMA INDEPENDIENTE.
-         ================================================================ -->
-    <section class="gamas-calidad" id="gamas-calidad" aria-labelledby="titulo-gamas-calidad">
+    <section class="seccion-galeria" id="galeria-comercial" aria-labelledby="titulo-galeria">
       <div class="contenedor">
-        <div class="encabezado-gamas">
-          <p class="etiqueta" data-animar>NUESTROS PRODUCTOS</p>
-          <h2 class="titulo-seccion" id="titulo-gamas-calidad" data-animar style="--retraso: 120ms">Gamas de Calidad</h2>
+        <div class="encabezado-galeria" data-animar>
+          <p class="etiqueta">PROYECTOS REALIZADOS</p>
+          <h2 class="titulo-seccion" id="titulo-galeria">Galería de Instalaciones Comerciales</h2>
+        </div>
+      </div>
+
+      <!-- CONTENEDOR DEL CARRUSEL (VENTANA VISIBLE) -->
+      <div class="carrusel-galeria" data-animar style="--retraso: 150ms">
+        <!-- PISTA EN MOVIMIENTO: IMÁGENES ORIGINALES + DUPLICADAS PARA LOOP INFINITO -->
+        <div class="carrusel-track">
+
+          <!-- ============ BLOQUE ORIGINAL DE 6 FOTOS COMERCIALES ============ -->
+
+          <!-- ============ CAMBIAR FOTO 1 DE GALERÍA COMERCIAL AQUÍ ============ -->
+          <div class="carrusel-item">
+            <img src="https://via.placeholder.com/800x600/333333/FFFFFF?text=EDIFICIO+OFICINAS+1" alt="Instalación de película solar en edificio de oficinas corporativas">
+          </div>
+
+          <!-- ============ CAMBIAR FOTO 2 DE GALERÍA COMERCIAL AQUÍ ============ -->
+          <div class="carrusel-item">
+            <img src="https://via.placeholder.com/800x600/444444/FFFFFF?text=FACHADA+COMERCIAL+2" alt="Fachada comercial con película reflectiva de control solar Polarimex">
+          </div>
+
+          <!-- ============ CAMBIAR FOTO 3 DE GALERÍA COMERCIAL AQUÍ ============ -->
+          <div class="carrusel-item">
+            <img src="https://via.placeholder.com/800x600/222222/FFFFFF?text=LOCAL+COMERCIAL+3" alt="Local comercial con película de seguridad anti-asalto instalada">
+          </div>
+
+          <!-- ============ CAMBIAR FOTO 4 DE GALERÍA COMERCIAL AQUÍ ============ -->
+          <div class="carrusel-item">
+            <img src="https://via.placeholder.com/800x600/555555/FFFFFF?text=AGENCIA+VEHICULAR+4" alt="Agencia vehicular con polarizado de alta resistencia">
+          </div>
+
+          <!-- ============ CAMBIAR FOTO 5 DE GALERÍA COMERCIAL AQUÍ ============ -->
+          <div class="carrusel-item">
+            <img src="https://via.placeholder.com/800x600/3a3a3a/FFFFFF?text=CENTRO+COMERCIAL+5" alt="Centro comercial con películas decorativas y de seguridad">
+          </div>
+
+          <!-- ============ CAMBIAR FOTO 6 DE GALERÍA COMERCIAL AQUÍ ============ -->
+          <div class="carrusel-item">
+            <img src="https://via.placeholder.com/800x600/4a4a4a/FFFFFF?text=OFICINAS+CORPORATIVAS+6" alt="Oficinas corporativas con película de privacidad esmerilada">
+          </div>
+
+          <!-- ================================================================
+               DUPLICADAS PARA LOOP INFINITO (MISMO ORDEN, NO EDITAR MANUALMENTE)
+               ================================================================ -->
+          <div class="carrusel-item">
+            <img src="https://via.placeholder.com/800x600/333333/FFFFFF?text=EDIFICIO+OFICINAS+1" alt="Instalación de película solar en edificio de oficinas corporativas">
+          </div>
+          <div class="carrusel-item">
+            <img src="https://via.placeholder.com/800x600/444444/FFFFFF?text=FACHADA+COMERCIAL+2" alt="Fachada comercial con película reflectiva de control solar Polarimex">
+          </div>
+          <div class="carrusel-item">
+            <img src="https://via.placeholder.com/800x600/222222/FFFFFF?text=LOCAL+COMERCIAL+3" alt="Local comercial con película de seguridad anti-asalto instalada">
+          </div>
+          <div class="carrusel-item">
+            <img src="https://via.placeholder.com/800x600/555555/FFFFFF?text=AGENCIA+VEHICULAR+4" alt="Agencia vehicular con polarizado de alta resistencia">
+          </div>
+          <div class="carrusel-item">
+            <img src="https://via.placeholder.com/800x600/3a3a3a/FFFFFF?text=CENTRO+COMERCIAL+5" alt="Centro comercial con películas decorativas y de seguridad">
+          </div>
+          <div class="carrusel-item">
+            <img src="https://via.placeholder.com/800x600/4a4a4a/FFFFFF?text=OFICINAS+CORPORATIVAS+6" alt="Oficinas corporativas con película de privacidad esmerilada">
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ================================================================
+           PARA AGREGAR MÁS FOTOS AL CARRUSEL COMERCIAL, COPIA Y PEGA
+           ESTA ETIQUETA <div class="carrusel-item">...</div> DENTRO DEL
+           CONTENEDOR .carrusel-track, ANTES DE LA SECCIÓN DE DUPLICADAS.
+           LA SECCIÓN DUPLICADA SE REGENERA AUTOMÁTICAMENTE.
+           ================================================================ -->
+
+    </section>
+
+    <!-- ================================================================
+         3. SECCIÓN DESTACADA: AGENCIAS DE AUTOS QUE CONFÍAN EN NOSOTROS.
+         ================================================================ -->
+    <section class="seccion-agencias" id="agencias-confianza" aria-labelledby="titulo-agencias">
+      <div class="contenedor">
+        <div class="encabezado-agencias" data-animar>
+          <p class="etiqueta">CLIENTES QUE NOS RECOMIENDAN</p>
+          <h2 class="titulo-seccion" id="titulo-agencias">Agencias de Autos que Confían en Nosotros</h2>
         </div>
 
-        <div class="rejilla-gamas">
-          <!-- ============ TARJETA 1: GAMA STANDARD ============ -->
-          <!-- EDITAR TEXTO DE GAMA STANDARD AQUÍ -->
-          <article class="tarjeta-gama" data-animar>
-            <img class="imagen-gama" src="https://via.placeholder.com/500x400/555555/FFFFFF?text=GAMA+STANDARD" alt="Marcador temporal de imagen para la Gama Standard de película automotriz">
-            <h3 class="titulo-gama">Gama Standard</h3>
-            <p>Protección solar básica con buena relación costo-beneficio. Reduce el calor y el deslumbramiento, ideal para quienes buscan confort esencial al mejor precio.</p>
+        <div class="rejilla-agencias">
+
+          <!-- ============ TARJETA 1: AGENCIA DE AUTOS ============ -->
+          <article class="tarjeta-agencia" data-animar style="--retraso: 100ms">
+            <!-- ============ CAMBIAR LOGOTIPO O FACHADA DE LA AGENCIA 1 AQUÍ ============ -->
+            <div class="marco-logo-agencia">
+              <img src="https://via.placeholder.com/300x120/1a1a1a/FFFFFF?text=LOGO+AGENCIA+1" alt="Logotipo de la agencia de autos número uno">
+            </div>
+
+            <!-- EDITAR NOMBRE Y DESCRIPCIÓN DE LA AGENCIA 1 AQUÍ -->
+            <h3 class="nombre-agencia">Agencia Automotriz Premium</h3>
+            <p class="descripcion-agencia">
+              Instalación integral de películas de seguridad y control solar en todos los cristales de su showroom y área de servicios. Protección anti-asalto y rechazo térmico para sus vehículos y clientes.
+            </p>
           </article>
 
-          <!-- ============ TARJETA 2: GAMA CARBÓN ============ -->
-          <!-- EDITAR TEXTO DE GAMA CARBÓN AQUÍ -->
-          <article class="tarjeta-gama" data-animar style="--retraso: 100ms">
-            <img class="imagen-gama" src="https://via.placeholder.com/500x400/555555/FFFFFF?text=GAMA+CARBON" alt="Marcador temporal de imagen para la Gama Carbón de película automotriz">
-            <h3 class="titulo-gama">Gama Carbón</h3>
-            <p>Fabricada a base de carbono, no se decolora con el tiempo. Ofrece un acabado mate elegante y mayor rechazo de calor que la gama Standard.</p>
+          <!-- ============ TARJETA 2: AGENCIA DE AUTOS ============ -->
+          <article class="tarjeta-agencia" data-animar style="--retraso: 250ms">
+            <!-- ============ CAMBIAR LOGOTIPO O FACHADA DE LA AGENCIA 2 AQUÍ ============ -->
+            <div class="marco-logo-agencia">
+              <img src="https://via.placeholder.com/300x120/1a1a1a/FFFFFF?text=LOGO+AGENCIA+2" alt="Logotipo de la agencia de autos número dos">
+            </div>
+
+            <!-- EDITAR NOMBRE Y DESCRIPCIÓN DE LA AGENCIA 2 AQUÍ -->
+            <h3 class="nombre-agencia">Distribuidor Vehicular Nacional</h3>
+            <p class="descripcion-agencia">
+              Blindaje ligero y película de privacidad en oficinas administrativas y fachada comercial. Reducción del 70% de calor solar y mejora significativa en eficiencia energética del edificio.
+            </p>
           </article>
 
-          <!-- ============ TARJETA 3: GAMA NANOCERÁMICA ============ -->
-          <!-- EDITAR TEXTO DE GAMA NANOCERÁMICA AQUÍ -->
-          <article class="tarjeta-gama" data-animar style="--retraso: 200ms">
-            <img class="imagen-gama" src="https://via.placeholder.com/500x400/555555/FFFFFF?text=GAMA+NANOCERAMICA" alt="Marcador temporal de imagen para la Gama Nanocerámica de película automotriz">
-            <h3 class="titulo-gama">Gama Nanocerámica</h3>
-            <p>Tecnología cerámica de alto rendimiento que bloquea hasta el 99% de los rayos UV y una gran cantidad de calor infrarrojo, sin interferir con señales electrónicas.</p>
-          </article>
-
-          <!-- ============ TARJETA 4: GAMA FOTOCROMÁTICA ============ -->
-          <!-- EDITAR TEXTO DE GAMA FOTOCROMÁTICA AQUÍ -->
-          <article class="tarjeta-gama" data-animar style="--retraso: 300ms">
-            <img class="imagen-gama" src="https://via.placeholder.com/500x400/555555/FFFFFF?text=GAMA+FOTOCROMATICA" alt="Marcador temporal de imagen para la Gama Fotocromática de película automotriz">
-            <h3 class="titulo-gama">Gama Fotocromática</h3>
-            <p>Se adapta a la intensidad de la luz solar, oscureciéndose o aclarándose de forma automática para brindar el máximo confort visual en cualquier condición.</p>
-          </article>
         </div>
       </div>
     </section>
+
   </main>
 
   <!-- ================================================================
@@ -751,16 +805,16 @@
        EFECTOS GLOBALES PREMIUM:
        - ENCABEZADO: SE VUELVE SÓLIDO CON DESENFOQUE AL HACER SCROLL.
        - ENTRADAS SUAVES: LOS ELEMENTOS CON data-animar APARECEN AL VERSE.
+       - MENÚ HAMBURGUESA RESPONSIVE PARA DISPOSITIVOS MÓVILES.
+       - CARRUSEL INFINITO: ROTA AUTOMÁTICAMENTE SIN INTERVENCIÓN.
        ================================================================ -->
   <script>
     (function () {
-      // ENCABEZADO: ACTIVA/DESACTIVA LA CLASE .fijo AL HACER SCROLL
       const encabezado = document.querySelector('.encabezado');
       const actualizarEncabezado = () => encabezado.classList.toggle('fijo', window.scrollY > 60);
       window.addEventListener('scroll', actualizarEncabezado, { passive: true });
       actualizarEncabezado();
 
-      // ANIMACIONES DE ENTRADA: [data-animar] aparece al entrar en pantalla
       document.body.classList.add('js-animaciones');
       const elementosAnimables = document.querySelectorAll('[data-animar]');
       if ('IntersectionObserver' in window) {
@@ -777,7 +831,6 @@
         document.body.classList.remove('js-animaciones');
       }
 
-      // MENÚ HAMBURGUESA: ABRE/CIERRA EL PANEL DE NAVEGACIÓN EN MÓVIL
       const botonMenu = document.getElementById('boton-menu');
       if (botonMenu) {
         botonMenu.addEventListener('click', () => {
@@ -786,7 +839,6 @@
           botonMenu.setAttribute('aria-expanded', abierto ? 'true' : 'false');
         });
 
-        // CIERRA EL MENÚ AL TOCAR CUALQUIER ENLACE DEL PANEL
         encabezado.querySelectorAll('.enlaces-navegacion a, .boton').forEach((enlace) => {
           enlace.addEventListener('click', () => {
             encabezado.classList.remove('menu-abierto');
