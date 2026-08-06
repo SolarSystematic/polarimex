@@ -1144,12 +1144,12 @@
         <div class="formulario-cotizacion" data-animar style="--retraso: 200ms"><p class="etiqueta">COTIZACIÓN</p><h2 class="titulo-seccion">Solicita tu cotización</h2>
           <!-- CAMBIA ESTE CORREO POR EL DE TU EMPRESA PARA QUE TE LLEGUEN LAS COTIZACIONES -->
           <!-- FormSubmit enviará los datos a este correo. La primera vez, confirma la activación desde el correo recibido. -->
-          <form action="https://formsubmit.co/polarizadosmexico@gmail.com" method="POST">
+          <form action="https://formsubmit.co/polarizadosmexico@gmail.com" method="POST" enctype="multipart/form-data">
             <!-- CABECERAS Y CONFIGURACIÓN DE FORMSUBMIT -->
             <input type="hidden" name="_subject" value="Nueva solicitud de cotización - Polarimex">
             <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_next" value="gracias.html">
+            <input type="hidden" name="_next" value="https://polarimex.com/gracias.html">
             <!-- FILA 1: NOMBRE Y APELLIDOS. -->
             <div class="fila-formulario">
               <div class="grupo-campo">
