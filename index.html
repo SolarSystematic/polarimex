@@ -11,6 +11,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
 
+  <!-- GOOGLE RECAPTCHA v2: SCRIPT OFICIAL (ELIMINA ESTE COMENTARIO AL CONFIGURAR) -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
   <style>
     /* ================================================================
        CONFIGURACIÓN GLOBAL: EDITA ESTAS VARIABLES PARA CAMBIAR TODA
@@ -729,6 +732,23 @@
     .grupo-campo textarea::placeholder { color: rgba(255, 255, 255, 0.35); }
 
     /* ================================================================
+       RECAPTCHA v2: CENTRADO Y ESPACIADO DE LA CASILLA "NO SOY UN ROBOT"
+       ================================================================ */
+    .recaptcha-wrap {
+      display: flex;
+      justify-content: center;
+      margin: 1.5rem 0 1.75rem;
+    }
+
+    @media (max-width: 560px) {
+      .recaptcha-wrap {
+        transform: scale(0.92);
+        transform-origin: center;
+        margin: 1rem 0 1.5rem;
+      }
+    }
+
+    /* ================================================================
        ANIMACIONES DE ENTRADA AL HACER SCROLL:
        AGREGA data-animar A CUALQUIER ELEMENTO Y APARECERÁ CON UN
        EFECTO FADE-UP SUAVE. USA style="--retraso: 150ms" PARA ESCALONAR.
@@ -1128,7 +1148,22 @@
             <!-- FILA 1: NOMBRE Y APELLIDOS. --><div class="fila-formulario"><div class="grupo-campo"><label for="nombres">Nombre(s)</label><input id="nombres" name="nombres" type="text" autocomplete="given-name" required></div><div class="grupo-campo"><label for="apellidos">Apellidos</label><input id="apellidos" name="apellidos" type="text" autocomplete="family-name" required></div></div>
             <!-- FILA 2: NÚMERO DE TELÉFONO. --><div class="grupo-campo"><label for="telefono">Número de teléfono</label><input id="telefono" name="telefono" type="tel" placeholder="+52 000 000 0000" autocomplete="tel" required></div>
             <!-- FILA 3: SERVICIO DE INTERÉS. --><div class="grupo-campo"><label for="tipo-servicio">Tipo de servicio</label><select id="tipo-servicio" name="tipo_de_servicio" required><option value="" selected disabled>Selecciona una opción</option><option>Automotriz</option><option>Decorativa</option><option>Comercial</option><option>Residencial</option><option>Seguridad</option></select></div>
-            <!-- FILA 4: NOTAS ADICIONALES. --><div class="grupo-campo"><label for="notas">Notas</label><textarea id="notas" name="notas" placeholder="Cuéntanos brevemente qué necesitas."></textarea></div><button class="boton" type="submit">Enviar solicitud</button>
+            <!-- FILA 4: NOTAS ADICIONALES. --><div class="grupo-campo"><label for="notas">Notas</label><textarea id="notas" name="notas" placeholder="Cuéntanos brevemente qué necesitas."></textarea></div>
+
+            <!-- ================================================================
+                 GOOGLE RECAPTCHA v2: CASILLA "NO SOY UN ROBOT".
+                 REEMPLAZA "TU_CLAVE_DE_SITIO_AQUÍ" CON TU CLAVE PÚBLICA (SITE KEY) DE GOOGLE RECAPTCHA.
+                 INSTRUCCIONES:
+                 1. Regístrate en https://www.google.com/recaptcha/admin
+                 2. Crea un sitio nuevo seleccionando reCAPTCHA v2 > Casilla "No soy un robot"
+                 3. Copia la "Clave del sitio" (Site Key) y pégala en data-sitekey=""
+                 4. En tu panel de FormSubmit activa la opción de reCAPTCHA (Settings > reCAPTCHA)
+                 ================================================================ -->
+            <div class="grupo-campo recaptcha-wrap">
+              <div class="g-recaptcha" data-sitekey="6LepE3ktAAAAAGycEIazDRZlf3YvJMlKSNmnXriw"></div>
+            </div>
+
+            <button class="boton" type="submit">Enviar solicitud</button>
           </form>
         </div>
       </div>
