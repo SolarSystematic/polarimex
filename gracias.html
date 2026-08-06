@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Polarimex - Gracias por contactarnos.">
+  <title>¡Gracias! | Polarimex</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --color-principal: var(--mi-degradado);
+      --color-secundario: #161616;
+      --color-acento: #ffffff;
+      --color-texto-mutado: #c9c9c9;
+      --color-rojo: #ff1a1a;
+      --fuente-principal: 'Manrope', sans-serif;
+      --fuente-titulos: 'Sora', sans-serif;
+      --ancho-contenido: 1200px;
+      --borde-suave: rgba(255, 255, 255, 0.16);
+      --mi-degradado: linear-gradient(90deg, #200000, #ff0000);
+      --sombra-roja: 0 14px 34px rgba(255, 0, 0, 0.28);
+      --sombra-suave: 0 24px 60px rgba(0, 0, 0, 0.5);
+      --radio-suave: 18px;
+      --radio-pequeno: 10px;
+      --transicion: 280ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--color-principal);
+      color: var(--color-acento);
+      font-family: var(--fuente-principal);
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    ::selection { background: var(--color-rojo); color: #ffffff; }
+
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #4d0000, #ff0000); border-radius: 999px; border: 2px solid #0a0a0a; }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ================================================================
+       HEADER MINIMALISTA
+       ================================================================ */
+    .encabezado {
+      width: 100%;
+      border-bottom: 1px solid var(--borde-suave);
+      background: rgba(8, 8, 8, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .barra-navegacion {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      min-height: 88px;
+      width: min(100% - 3rem, var(--ancho-contenido));
+      margin-inline: auto;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+      font-family: var(--fuente-titulos);
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: 0.25em;
+      transition: transform var(--transicion);
+    }
+
+    .logo:hover { transform: scale(1.03); }
+
+    .logo-imagen { height: 44px; width: auto; display: block; }
+
+    .logo span {
+      background: linear-gradient(90deg, #ffffff, #ffb3b3);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* ================================================================
+       BOTÓN PÍLDORA
+       ================================================================ */
+    .boton {
+      position: relative;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0.8rem 1.7rem;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 999px;
+      background: var(--mi-degradado);
+      color: #ffffff;
+      font-family: var(--fuente-titulos);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      box-shadow: var(--sombra-roja);
+      cursor: pointer;
+      transition: transform var(--transicion), box-shadow var(--transicion), background var(--transicion);
+    }
+
+    .boton::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -80%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transform: skewX(-20deg);
+      transition: left 600ms ease;
+    }
+
+    .boton:hover,
+    .boton:focus-visible {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 44px rgba(255, 0, 0, 0.45);
+    }
+
+    .boton:hover::before { left: 140%; }
+    .boton:active { transform: translateY(-1px); }
+    .boton:focus-visible { outline: 2px solid var(--color-acento); outline-offset: 3px; }
+
+    /* ================================================================
+       SECCIÓN DE AGRADECIMIENTO
+       ================================================================ */
+    .seccion-gracias {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5rem 1.5rem;
+      text-align: center;
+    }
+
+    .contenido-gracias {
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .icono-exito {
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(255, 26, 26, 0.2), rgba(255, 26, 26, 0.08));
+      border: 1px solid rgba(255, 26, 26, 0.4);
+      margin: 0 auto 2rem;
+    }
+
+    .icono-exito svg {
+      width: 40px;
+      height: 40px;
+      stroke: var(--color-rojo);
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .titulo-gracias {
+      margin: 0 0 1.25rem;
+      font-family: var(--fuente-titulos);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      background: linear-gradient(90deg, #ffffff, #ff9999);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .mensaje-gracias {
+      margin: 0 0 2.5rem;
+      color: var(--color-texto-mutado);
+      font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+      line-height: 1.6;
+    }
+
+    .pie-pagina {
+      position: relative;
+      padding: 2rem 0;
+      border-top: 1px solid var(--borde-suave);
+      background-color: #111111;
+    }
+
+    .pie-pagina::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--mi-degradado);
+    }
+
+    .contenido-pie {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      width: min(100% - 3rem, var(--ancho-contenido));
+      margin-inline: auto;
+      color: var(--color-texto-mutado);
+      font-size: 0.78rem;
+    }
+
+    @media (max-width: 560px) {
+      .barra-navegacion { min-height: 68px; padding: 0.75rem 0; width: min(100% - 2rem, var(--ancho-contenido)); }
+      .logo { font-size: 1rem; }
+      .logo-imagen { height: 36px; }
+      .boton { min-height: 42px; padding: 0.6rem 1rem; font-size: 0.68rem; }
+      .seccion-gracias { padding: 3rem 1rem; }
+      .icono-exito { width: 64px; height: 64px; }
+      .icono-exito svg { width: 32px; height: 32px; }
+      .contenido-pie { flex-direction: column; width: min(100% - 2rem, var(--ancho-contenido)); }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ================================================================
+       HEADER
+       ================================================================ -->
+  <header class="encabezado">
+    <nav class="barra-navegacion" aria-label="Navegación principal">
+      <a class="logo" href="index.html" aria-label="Ir al inicio de Polarimex">
+        <img class="logo-imagen" src="Logo.png" alt="Polarimex">
+        <span>POLARIMEX</span>
+      </a>
+      <a class="boton" href="index.html">Volver al Inicio</a>
+    </nav>
+  </header>
+
+  <!-- ================================================================
+       MENSAJE DE AGRADECIMIENTO
+       ================================================================ -->
+  <main class="seccion-gracias">
+    <div class="contenido-gracias">
+      <div class="icono-exito" aria-hidden="true">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+
+      <h1 class="titulo-gracias">¡Gracias por escribirnos!</h1>
+
+      <p class="mensaje-gracias">
+        Un asesor de Polarimex se pondrá en contacto contigo muy pronto.
+      </p>
+
+      <a class="boton" href="index.html">Volver al Inicio</a>
+    </div>
+  </main>
+
+  <!-- ================================================================
+       PIE DE PÁGINA
+       ================================================================ -->
+  <footer class="pie-pagina">
+    <div class="contenido-pie">
+      <span>© 2026 POLARIMEX. Todos los derechos reservados.</span>
+      <span>polarizadosmexico@gmail.com · +52 (961) 146 0138</span>
+    </div>
+  </footer>
+</body>
+</html>

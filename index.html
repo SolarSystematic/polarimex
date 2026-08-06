@@ -1144,11 +1144,45 @@
         <div class="formulario-cotizacion" data-animar style="--retraso: 200ms"><p class="etiqueta">COTIZACIÓN</p><h2 class="titulo-seccion">Solicita tu cotización</h2>
           <!-- CAMBIA ESTE CORREO POR EL DE TU EMPRESA PARA QUE TE LLEGUEN LAS COTIZACIONES -->
           <!-- FormSubmit enviará los datos a este correo. La primera vez, confirma la activación desde el correo recibido. -->
-          <form action="https://formsubmit.co/polarizadosmexico@gmail.com" method="POST"><input type="hidden" name="_subject" value="Nueva solicitud de cotización - Polarimex"><input type="hidden" name="_captcha" value="false">
-            <!-- FILA 1: NOMBRE Y APELLIDOS. --><div class="fila-formulario"><div class="grupo-campo"><label for="nombres">Nombre(s)</label><input id="nombres" name="nombres" type="text" autocomplete="given-name" required></div><div class="grupo-campo"><label for="apellidos">Apellidos</label><input id="apellidos" name="apellidos" type="text" autocomplete="family-name" required></div></div>
-            <!-- FILA 2: NÚMERO DE TELÉFONO. --><div class="grupo-campo"><label for="telefono">Número de teléfono</label><input id="telefono" name="telefono" type="tel" placeholder="+52 000 000 0000" autocomplete="tel" required></div>
-            <!-- FILA 3: SERVICIO DE INTERÉS. --><div class="grupo-campo"><label for="tipo-servicio">Tipo de servicio</label><select id="tipo-servicio" name="tipo_de_servicio" required><option value="" selected disabled>Selecciona una opción</option><option>Automotriz</option><option>Decorativa</option><option>Comercial</option><option>Residencial</option><option>Seguridad</option></select></div>
-            <!-- FILA 4: NOTAS ADICIONALES. --><div class="grupo-campo"><label for="notas">Notas</label><textarea id="notas" name="notas" placeholder="Cuéntanos brevemente qué necesitas."></textarea></div>
+          <form action="https://formsubmit.co/polarizadosmexico@gmail.com" method="POST">
+            <!-- CABECERAS Y CONFIGURACIÓN DE FORMSUBMIT -->
+            <input type="hidden" name="_subject" value="Nueva solicitud de cotización - Polarimex">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_next" value="gracias.html">
+            <!-- FILA 1: NOMBRE Y APELLIDOS. -->
+            <div class="fila-formulario">
+              <div class="grupo-campo">
+                <label for="nombres">Nombre(s)</label>
+                <input id="nombres" name="Nombre" type="text" autocomplete="given-name" required>
+              </div>
+              <div class="grupo-campo">
+                <label for="apellidos">Apellidos</label>
+                <input id="apellidos" name="Apellidos" type="text" autocomplete="family-name" required>
+              </div>
+            </div>
+            <!-- FILA 2: NÚMERO DE TELÉFONO. -->
+            <div class="grupo-campo">
+              <label for="telefono">Número de teléfono</label>
+              <input id="telefono" name="Teléfono" type="tel" placeholder="+52 000 000 0000" autocomplete="tel" required>
+            </div>
+            <!-- FILA 3: SERVICIO DE INTERÉS. -->
+            <div class="grupo-campo">
+              <label for="tipo-servicio">Tipo de servicio</label>
+              <select id="tipo-servicio" name="Tipo de servicio" required>
+                <option value="" selected disabled>Selecciona una opción</option>
+                <option>Automotriz</option>
+                <option>Decorativa</option>
+                <option>Comercial</option>
+                <option>Residencial</option>
+                <option>Seguridad</option>
+              </select>
+            </div>
+            <!-- FILA 4: NOTAS ADICIONALES. -->
+            <div class="grupo-campo">
+              <label for="notas">Notas</label>
+              <textarea id="notas" name="Notas" placeholder="Cuéntanos brevemente qué necesitas."></textarea>
+            </div>
 
             <!-- ================================================================
                  GOOGLE RECAPTCHA v2: CASILLA "NO SOY UN ROBOT".
