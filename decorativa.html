@@ -684,7 +684,66 @@
       .foto-galeria img { height: 300px; } /* GALERÍA EN MÓVIL: UNA SOLA COLUMNA, FOTO GRANDE Y CLARA */
       .contenido-pie { flex-direction: column; }
     }
-  </style>
+  
+    /* ================================================================
+       BOTÓN FLOTANTE "IR ARRIBA" (BACK TO TOP).
+       APARECE SUAVEMENTE AL DESPLAZARSE 300px HACIA ABAJO.
+       ================================================================ */
+    .boton-arriba {
+      position: fixed;
+      z-index: 99;
+      bottom: 2rem;
+      right: 2rem;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 50%;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(8px);
+      color: var(--color-acento);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(12px);
+      transition: opacity var(--transicion), transform var(--transicion), visibility var(--transicion), background var(--transicion), border-color var(--transicion);
+    }
+
+    .boton-arriba.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .boton-arriba:hover,
+    .boton-arriba:focus-visible {
+      background: var(--mi-degradado);
+      border-color: var(--color-rojo);
+      transform: translateY(-3px);
+    }
+
+    .boton-arriba:focus-visible { outline: 2px solid var(--color-acento); outline-offset: 3px; }
+
+    .boton-arriba svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    @media (max-width: 560px) {
+      .boton-arriba {
+        bottom: 1.25rem;
+        right: 1.25rem;
+        width: 42px;
+        height: 42px;
+      }
+      .boton-arriba svg { width: 18px; height: 18px; }
+    }
+</style>
 </head>
 
 <body>
@@ -697,7 +756,7 @@
     <nav class="barra-navegacion contenedor" aria-label="Navegación principal">
       <!-- LOGOTIPO: REEMPLAZA logo.png POR TU ARCHIVO SI LO ACTUALIZAS -->
       <a class="logo" href="index.html" aria-label="Ir al inicio de Polarimex">
-        <img class="logo-imagen" src="Logo.png" alt="Polarimex">
+        <img loading="lazy"  class="logo-imagen" src="Logo.png" alt="Polarimex">
         <span>POLARIMEX</span>
       </a>
       <div class="enlaces-navegacion" id="enlaces-navegacion">
@@ -751,12 +810,12 @@
             <div class="rejilla-galeria">
               <!-- CAMBIAR FOTO 1 DE REFLECTIVAS AQUÍ -->
               <figure class="foto-galeria">
-                <img src="https://via.placeholder.com/500x600/555555/FFFFFF?text=REFLECTIVAS+1" alt="Marcador de imagen 1 de película reflectiva instalada, tamaño recomendado 500x600 píxeles">
+                <img loading="lazy"  src="https://via.placeholder.com/500x600/555555/FFFFFF?text=REFLECTIVAS+1" alt="Marcador de imagen 1 de película reflectiva instalada, tamaño recomendado 500x600 píxeles">
                 <figcaption>Fachada comercial con acabado espejo</figcaption>
               </figure>
               <!-- CAMBIAR FOTO 2 DE REFLECTIVAS AQUÍ -->
               <figure class="foto-galeria">
-                <img src="https://via.placeholder.com/500x600/555555/FFFFFF?text=REFLECTIVAS+2" alt="Marcador de imagen 2 de película reflectiva instalada, tamaño recomendado 500x600 píxeles">
+                <img loading="lazy"  src="https://via.placeholder.com/500x600/555555/FFFFFF?text=REFLECTIVAS+2" alt="Marcador de imagen 2 de película reflectiva instalada, tamaño recomendado 500x600 píxeles">
                 <figcaption>Detalle de reflejo y control solar</figcaption>
               </figure>
             </div>
@@ -766,7 +825,7 @@
         <!-- PANEL DE IMAGEN CON RECORTE DIAGONAL: CAMBIAR IMAGEN DESTACADA DE REFLECTIVAS AQUÍ -->
         <div class="panel-diagonal" data-animar style="--retraso: 150ms">
           <div class="acento-diagonal" aria-hidden="true"></div>
-          <img src="https://via.placeholder.com/900x900/555555/FFFFFF?text=REFLECTIVAS+DESTACADA" alt="Marcador de imagen destacada de películas reflectivas">
+          <img loading="lazy"  src="https://via.placeholder.com/900x900/555555/FFFFFF?text=REFLECTIVAS+DESTACADA" alt="Marcador de imagen destacada de películas reflectivas">
         </div>
       </div>
     </section>
@@ -779,7 +838,7 @@
         <!-- PANEL DE IMAGEN CON RECORTE DIAGONAL: CAMBIAR IMAGEN DESTACADA DE DECORATIVAS AQUÍ -->
         <div class="panel-diagonal" data-animar style="--retraso: 150ms">
           <div class="acento-diagonal" aria-hidden="true"></div>
-          <img src="https://via.placeholder.com/900x900/555555/FFFFFF?text=DECORATIVAS+DESTACADA" alt="Marcador de imagen destacada de películas decorativas">
+          <img loading="lazy"  src="https://via.placeholder.com/900x900/555555/FFFFFF?text=DECORATIVAS+DESTACADA" alt="Marcador de imagen destacada de películas decorativas">
         </div>
 
         <div>
@@ -795,12 +854,12 @@
             <div class="rejilla-galeria">
               <!-- CAMBIAR FOTO 1 DE DECORATIVAS AQUÍ -->
               <figure class="foto-galeria">
-                <img src="https://via.placeholder.com/500x600/555555/FFFFFF?text=DECORATIVAS+1" alt="Marcador de imagen 1 de película decorativa instalada, tamaño recomendado 500x600 píxeles">
+                <img loading="lazy"  src="https://via.placeholder.com/500x600/555555/FFFFFF?text=DECORATIVAS+1" alt="Marcador de imagen 1 de película decorativa instalada, tamaño recomendado 500x600 píxeles">
                 <figcaption>Acabado esmerilado en oficina</figcaption>
               </figure>
               <!-- CAMBIAR FOTO 2 DE DECORATIVAS AQUÍ -->
               <figure class="foto-galeria">
-                <img src="https://via.placeholder.com/500x600/555555/FFFFFF?text=DECORATIVAS+2" alt="Marcador de imagen 2 de película decorativa instalada, tamaño recomendado 500x600 píxeles">
+                <img loading="lazy"  src="https://via.placeholder.com/500x600/555555/FFFFFF?text=DECORATIVAS+2" alt="Marcador de imagen 2 de película decorativa instalada, tamaño recomendado 500x600 píxeles">
                 <figcaption>Patrón geométrico en separador de sala</figcaption>
               </figure>
             </div>
@@ -827,12 +886,12 @@
             <div class="rejilla-galeria">
               <!-- CAMBIAR FOTO 1 DE GRÁFICOS AQUÍ -->
               <figure class="foto-galeria">
-                <img src="https://via.placeholder.com/500x600/555555/FFFFFF?text=GRAFICOS+1" alt="Marcador de imagen 1 de vinilo gráfico instalado, tamaño recomendado 500x600 píxeles">
+                <img loading="lazy"  src="https://via.placeholder.com/500x600/555555/FFFFFF?text=GRAFICOS+1" alt="Marcador de imagen 1 de vinilo gráfico instalado, tamaño recomendado 500x600 píxeles">
                 <figcaption>Rotulación de vehículo corporativo</figcaption>
               </figure>
               <!-- CAMBIAR FOTO 2 DE GRÁFICOS AQUÍ -->
               <figure class="foto-galeria">
-                <img src="https://via.placeholder.com/500x600/555555/FFFFFF?text=GRAFICOS+2" alt="Marcador de imagen 2 de vinilo gráfico instalado, tamaño recomendado 500x600 píxeles">
+                <img loading="lazy"  src="https://via.placeholder.com/500x600/555555/FFFFFF?text=GRAFICOS+2" alt="Marcador de imagen 2 de vinilo gráfico instalado, tamaño recomendado 500x600 píxeles">
                 <figcaption>Logotipo aplicado en cristal de recepción</figcaption>
               </figure>
             </div>
@@ -842,11 +901,18 @@
         <!-- PANEL DE IMAGEN CON RECORTE DIAGONAL: CAMBIAR IMAGEN DESTACADA DE GRÁFICOS AQUÍ -->
         <div class="panel-diagonal" data-animar style="--retraso: 150ms">
           <div class="acento-diagonal" aria-hidden="true"></div>
-          <img src="https://via.placeholder.com/900x900/555555/FFFFFF?text=GRAFICOS+DESTACADA" alt="Marcador de imagen destacada de gráficos y vinilos">
+          <img loading="lazy"  src="https://via.placeholder.com/900x900/555555/FFFFFF?text=GRAFICOS+DESTACADA" alt="Marcador de imagen destacada de gráficos y vinilos">
         </div>
       </div>
     </section>
-  </main>
+  
+  <!-- ================================================================
+       BOTÓN FLOTANTE "IR ARRIBA": VISIBLE SOLO AL DESPLAZARSE 300px.
+       ================================================================ -->
+  <button class="boton-arriba" id="boton-arriba" aria-label="Volver arriba al inicio de la página">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+</main>
 
   <!-- ================================================================
        INICIO DEL PIE DE PÁGINA.
@@ -907,8 +973,24 @@
           });
         });
       }
+
+      // BOTÓN FLOTANTE "IR ARRIBA": MUESTRA/OCULTA SEGÚN SCROLL Y DESPLAZA SUAVE
+      (function () {
+        var botonArriba = document.getElementById('boton-arriba');
+        if (!botonArriba) return;
+        var alternarBoton = function () {
+          botonArriba.classList.toggle('visible', window.scrollY > 300);
+        };
+        window.addEventListener('scroll', alternarBoton, { passive: true });
+        alternarBoton();
+        botonArriba.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      })();
     })();
   </script>
 </body>
 </html>
+
+
 

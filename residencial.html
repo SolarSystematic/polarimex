@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -374,7 +374,7 @@
       gap: 1.5rem;
       width: max-content;
       animation: scroll-carrusel 30s linear infinite;
-    }
+      will-change: transform;}
 
     .carrusel-galeria:hover .carrusel-track { animation-play-state: paused; }
 
@@ -612,7 +612,66 @@
       .carrusel-item { width: 240px; height: 170px; }
       .contenido-pie { flex-direction: column; }
     }
-  </style>
+  
+    /* ================================================================
+       BOTÓN FLOTANTE "IR ARRIBA" (BACK TO TOP).
+       APARECE SUAVEMENTE AL DESPLAZARSE 300px HACIA ABAJO.
+       ================================================================ */
+    .boton-arriba {
+      position: fixed;
+      z-index: 99;
+      bottom: 2rem;
+      right: 2rem;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 50%;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(8px);
+      color: var(--color-acento);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(12px);
+      transition: opacity var(--transicion), transform var(--transicion), visibility var(--transicion), background var(--transicion), border-color var(--transicion);
+    }
+
+    .boton-arriba.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .boton-arriba:hover,
+    .boton-arriba:focus-visible {
+      background: var(--mi-degradado);
+      border-color: var(--color-rojo);
+      transform: translateY(-3px);
+    }
+
+    .boton-arriba:focus-visible { outline: 2px solid var(--color-acento); outline-offset: 3px; }
+
+    .boton-arriba svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    @media (max-width: 560px) {
+      .boton-arriba {
+        bottom: 1.25rem;
+        right: 1.25rem;
+        width: 42px;
+        height: 42px;
+      }
+      .boton-arriba svg { width: 18px; height: 18px; }
+    }
+</style>
 </head>
 
 <body>
@@ -622,7 +681,7 @@
   <header class="encabezado">
     <nav class="barra-navegacion contenedor" aria-label="Navegación principal">
       <a class="logo" href="index.html" aria-label="Ir al inicio de Polarimex">
-        <img class="logo-imagen" src="Logo.png" alt="Polarimex">
+        <img loading="lazy"  class="logo-imagen" src="Logo.png" alt="Polarimex">
         <span>POLARIMEX</span>
       </a>
       <div class="enlaces-navegacion" id="enlaces-navegacion">
@@ -678,38 +737,38 @@
 
           <!-- ============ CAMBIAR FOTO 1 DE GALERÍA RESIDENCIA AQUÍ ============ -->
           <div class="carrusel-item">
-            <img src="https://via.placeholder.com/800x600/333333/FFFFFF?text=SALA+DE+ESTAR+1" alt="Sala de estar con película de control solar instalada">
+            <img loading="lazy"  src="https://via.placeholder.com/800x600/333333/FFFFFF?text=SALA+DE+ESTAR+1" alt="Sala de estar con película de control solar instalada">
           </div>
 
           <!-- ============ CAMBIAR FOTO 2 DE GALERÍA RESIDENCIA AQUÍ ============ -->
           <div class="carrusel-item">
-            <img src="https://via.placeholder.com/800x600/444444/FFFFFF?text=HABITACION+2" alt="Habitación con película decorativa de privacidad">
+            <img loading="lazy"  src="https://via.placeholder.com/800x600/444444/FFFFFF?text=HABITACION+2" alt="Habitación con película decorativa de privacidad">
           </div>
 
           <!-- ============ CAMBIAR FOTO 3 DE GALERÍA RESIDENCIA AQUÍ ============ -->
           <div class="carrusel-item">
-            <img src="https://via.placeholder.com/800x600/222222/FFFFFF?text+VENTANA+PANORAMICA+3" alt="Ventana panorámica residencial con película solar">
+            <img loading="lazy"  src="https://via.placeholder.com/800x600/222222/FFFFFF?text+VENTANA+PANORAMICA+3" alt="Ventana panorámica residencial con película solar">
           </div>
 
           <!-- ============ CAMBIAR FOTO 4 DE GALERÍA RESIDENCIA AQUÍ ============ -->
           <div class="carrusel-item">
-            <img src="https://via.placeholder.com/800x600/555555/FFFFFF?text+COCINA+4" alt="Cocina con película decorativa esmerilada">
+            <img loading="lazy"  src="https://via.placeholder.com/800x600/555555/FFFFFF?text+COCINA+4" alt="Cocina con película decorativa esmerilada">
           </div>
 
           <!-- ================================================================
                DUPLICADAS PARA LOOP INFINITO (NO EDITAR)
                ================================================================ -->
           <div class="carrusel-item">
-            <img src="https://via.placeholder.com/800x600/333333/FFFFFF?text=SALA+DE+ESTAR+1" alt="Sala de estar con película de control solar instalada">
+            <img loading="lazy"  src="https://via.placeholder.com/800x600/333333/FFFFFF?text=SALA+DE+ESTAR+1" alt="Sala de estar con película de control solar instalada">
           </div>
           <div class="carrusel-item">
-            <img src="https://via.placeholder.com/800x600/444444/FFFFFF?text=HABITACION+2" alt="Habitación con película decorativa de privacidad">
+            <img loading="lazy"  src="https://via.placeholder.com/800x600/444444/FFFFFF?text=HABITACION+2" alt="Habitación con película decorativa de privacidad">
           </div>
           <div class="carrusel-item">
-            <img src="https://via.placeholder.com/800x600/222222/FFFFFF?text+VENTANA+PANORAMICA+3" alt="Ventana panorámica residencial con película solar">
+            <img loading="lazy"  src="https://via.placeholder.com/800x600/222222/FFFFFF?text+VENTANA+PANORAMICA+3" alt="Ventana panorámica residencial con película solar">
           </div>
           <div class="carrusel-item">
-            <img src="https://via.placeholder.com/800x600/555555/FFFFFF?text+COCINA+4" alt="Cocina con película decorativa esmerilada">
+            <img loading="lazy"  src="https://via.placeholder.com/800x600/555555/FFFFFF?text+COCINA+4" alt="Cocina con película decorativa esmerilada">
           </div>
 
         </div>
@@ -717,7 +776,7 @@
 
       <!-- ================================================================
            PARA AGREGAR MÁS FOTOS A LA GALERÍA RESIDENCIAL:
-           DUPLICA ESTA LÍNEA <img> Y CAMBIA EL src
+           DUPLICA ESTA LÍNEA <img loading="lazy" > Y CAMBIA EL src
            DENTRO DEL CONTENEDOR .carrusel-track, ANTES DE LAS DUPLICADAS
            ================================================================ -->
 
@@ -787,7 +846,14 @@
       </div>
     </section>
 
-  </main>
+  
+  <!-- ================================================================
+       BOTÓN FLOTANTE "IR ARRIBA": VISIBLE SOLO AL DESPLAZARSE 300px.
+       ================================================================ -->
+  <button class="boton-arriba" id="boton-arriba" aria-label="Volver arriba al inicio de la página">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+</main>
 
   <!-- ================================================================
        PIE DE PÁGINA
@@ -841,7 +907,24 @@
           });
         });
       }
+
+      // BOTÓN FLOTANTE "IR ARRIBA": MUESTRA/OCULTA SEGÚN SCROLL Y DESPLAZA SUAVE
+      (function () {
+        var botonArriba = document.getElementById('boton-arriba');
+        if (!botonArriba) return;
+        var alternarBoton = function () {
+          botonArriba.classList.toggle('visible', window.scrollY > 300);
+        };
+        window.addEventListener('scroll', alternarBoton, { passive: true });
+        alternarBoton();
+        botonArriba.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      })();
     })();
   </script>
 </body>
 </html>
+
+
+

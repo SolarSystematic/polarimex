@@ -615,7 +615,66 @@
       .tarjeta-gama:first-child { border-top: 0; }
       .contenido-pie { flex-direction: column; }
     }
-  </style>
+  
+    /* ================================================================
+       BOTÓN FLOTANTE "IR ARRIBA" (BACK TO TOP).
+       APARECE SUAVEMENTE AL DESPLAZARSE 300px HACIA ABAJO.
+       ================================================================ */
+    .boton-arriba {
+      position: fixed;
+      z-index: 99;
+      bottom: 2rem;
+      right: 2rem;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 50%;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(8px);
+      color: var(--color-acento);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(12px);
+      transition: opacity var(--transicion), transform var(--transicion), visibility var(--transicion), background var(--transicion), border-color var(--transicion);
+    }
+
+    .boton-arriba.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .boton-arriba:hover,
+    .boton-arriba:focus-visible {
+      background: var(--mi-degradado);
+      border-color: var(--color-rojo);
+      transform: translateY(-3px);
+    }
+
+    .boton-arriba:focus-visible { outline: 2px solid var(--color-acento); outline-offset: 3px; }
+
+    .boton-arriba svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    @media (max-width: 560px) {
+      .boton-arriba {
+        bottom: 1.25rem;
+        right: 1.25rem;
+        width: 42px;
+        height: 42px;
+      }
+      .boton-arriba svg { width: 18px; height: 18px; }
+    }
+</style>
 </head>
 
 <body>
@@ -628,7 +687,7 @@
     <nav class="barra-navegacion contenedor" aria-label="Navegación principal">
       <!-- LOGOTIPO: REEMPLAZA logo.png POR TU ARCHIVO SI LO ACTUALIZAS -->
       <a class="logo" href="index.html" aria-label="Ir al inicio de Polarimex">
-        <img class="logo-imagen" src="Logo.png" alt="Polarimex">
+        <img loading="lazy"  class="logo-imagen" src="Logo.png" alt="Polarimex">
         <span>POLARIMEX</span>
       </a>
       <div class="enlaces-navegacion" id="enlaces-navegacion">
@@ -682,7 +741,7 @@
         </div>
         <!-- EDITAR IMAGEN DEMOSTRATIVA DE SEGURIDAD AUTOMOTRIZ AQUÍ (reemplazar src) -->
         <div class="marco-imagen-seguridad" data-animar style="--retraso: 200ms">
-          <img class="imagen-seguridad" src="https://via.placeholder.com/900x700/555555/FFFFFF?text=IMAGEN+DEMOSTRATIVA+SEGURIDAD" alt="Marcador temporal de imagen demostrativa de la instalación de película de seguridad en un vehículo">
+          <img loading="lazy"  class="imagen-seguridad" src="https://via.placeholder.com/900x700/555555/FFFFFF?text=IMAGEN+DEMOSTRATIVA+SEGURIDAD" alt="Marcador temporal de imagen demostrativa de la instalación de película de seguridad en un vehículo">
         </div>
       </div>
     </section>
@@ -703,7 +762,7 @@
           <!-- ============ TARJETA 1: GAMA STANDARD ============ -->
           <!-- EDITAR TEXTO DE GAMA STANDARD AQUÍ -->
           <article class="tarjeta-gama" data-animar>
-            <img class="imagen-gama" src="https://via.placeholder.com/500x400/555555/FFFFFF?text=GAMA+STANDARD" alt="Marcador temporal de imagen para la Gama Standard de película automotriz">
+            <img loading="lazy"  class="imagen-gama" src="https://via.placeholder.com/500x400/555555/FFFFFF?text=GAMA+STANDARD" alt="Marcador temporal de imagen para la Gama Standard de película automotriz">
             <h3 class="titulo-gama">Gama Standard</h3>
             <p>Protección solar básica con buena relación costo-beneficio. Reduce el calor y el deslumbramiento, ideal para quienes buscan confort esencial al mejor precio.</p>
           </article>
@@ -711,7 +770,7 @@
           <!-- ============ TARJETA 2: GAMA CARBÓN ============ -->
           <!-- EDITAR TEXTO DE GAMA CARBÓN AQUÍ -->
           <article class="tarjeta-gama" data-animar style="--retraso: 100ms">
-            <img class="imagen-gama" src="https://via.placeholder.com/500x400/555555/FFFFFF?text=GAMA+CARBON" alt="Marcador temporal de imagen para la Gama Carbón de película automotriz">
+            <img loading="lazy"  class="imagen-gama" src="https://via.placeholder.com/500x400/555555/FFFFFF?text=GAMA+CARBON" alt="Marcador temporal de imagen para la Gama Carbón de película automotriz">
             <h3 class="titulo-gama">Gama Carbón</h3>
             <p>Fabricada a base de carbono, no se decolora con el tiempo. Ofrece un acabado mate elegante y mayor rechazo de calor que la gama Standard.</p>
           </article>
@@ -719,7 +778,7 @@
           <!-- ============ TARJETA 3: GAMA NANOCERÁMICA ============ -->
           <!-- EDITAR TEXTO DE GAMA NANOCERÁMICA AQUÍ -->
           <article class="tarjeta-gama" data-animar style="--retraso: 200ms">
-            <img class="imagen-gama" src="https://via.placeholder.com/500x400/555555/FFFFFF?text=GAMA+NANOCERAMICA" alt="Marcador temporal de imagen para la Gama Nanocerámica de película automotriz">
+            <img loading="lazy"  class="imagen-gama" src="https://via.placeholder.com/500x400/555555/FFFFFF?text=GAMA+NANOCERAMICA" alt="Marcador temporal de imagen para la Gama Nanocerámica de película automotriz">
             <h3 class="titulo-gama">Gama Nanocerámica</h3>
             <p>Tecnología cerámica de alto rendimiento que bloquea hasta el 99% de los rayos UV y una gran cantidad de calor infrarrojo, sin interferir con señales electrónicas.</p>
           </article>
@@ -727,14 +786,21 @@
           <!-- ============ TARJETA 4: GAMA FOTOCROMÁTICA ============ -->
           <!-- EDITAR TEXTO DE GAMA FOTOCROMÁTICA AQUÍ -->
           <article class="tarjeta-gama" data-animar style="--retraso: 300ms">
-            <img class="imagen-gama" src="https://via.placeholder.com/500x400/555555/FFFFFF?text=GAMA+FOTOCROMATICA" alt="Marcador temporal de imagen para la Gama Fotocromática de película automotriz">
+            <img loading="lazy"  class="imagen-gama" src="https://via.placeholder.com/500x400/555555/FFFFFF?text=GAMA+FOTOCROMATICA" alt="Marcador temporal de imagen para la Gama Fotocromática de película automotriz">
             <h3 class="titulo-gama">Gama Fotocromática</h3>
             <p>Se adapta a la intensidad de la luz solar, oscureciéndose o aclarándose de forma automática para brindar el máximo confort visual en cualquier condición.</p>
           </article>
         </div>
       </div>
     </section>
-  </main>
+  
+  <!-- ================================================================
+       BOTÓN FLOTANTE "IR ARRIBA": VISIBLE SOLO AL DESPLAZARSE 300px.
+       ================================================================ -->
+  <button class="boton-arriba" id="boton-arriba" aria-label="Volver arriba al inicio de la página">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+</main>
 
   <!-- ================================================================
        INICIO DEL PIE DE PÁGINA.
@@ -795,8 +861,24 @@
           });
         });
       }
+
+      // BOTÓN FLOTANTE "IR ARRIBA": MUESTRA/OCULTA SEGÚN SCROLL Y DESPLAZA SUAVE
+      (function () {
+        var botonArriba = document.getElementById('boton-arriba');
+        if (!botonArriba) return;
+        var alternarBoton = function () {
+          botonArriba.classList.toggle('visible', window.scrollY > 300);
+        };
+        window.addEventListener('scroll', alternarBoton, { passive: true });
+        alternarBoton();
+        botonArriba.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      })();
     })();
   </script>
 </body>
 </html>
+
+
 

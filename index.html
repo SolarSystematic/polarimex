@@ -854,7 +854,66 @@
       .tarjeta-valor + .tarjeta-valor { border-top: 1px solid var(--borde-suave); border-left: 0; }
       .contenido-pie { flex-direction: column; }
     }
-  </style>
+  
+    /* ================================================================
+       BOTÓN FLOTANTE "IR ARRIBA" (BACK TO TOP).
+       APARECE SUAVEMENTE AL DESPLAZARSE 300px HACIA ABAJO.
+       ================================================================ */
+    .boton-arriba {
+      position: fixed;
+      z-index: 99;
+      bottom: 2rem;
+      right: 2rem;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 50%;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(8px);
+      color: var(--color-acento);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(12px);
+      transition: opacity var(--transicion), transform var(--transicion), visibility var(--transicion), background var(--transicion), border-color var(--transicion);
+    }
+
+    .boton-arriba.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .boton-arriba:hover,
+    .boton-arriba:focus-visible {
+      background: var(--mi-degradado);
+      border-color: var(--color-rojo);
+      transform: translateY(-3px);
+    }
+
+    .boton-arriba:focus-visible { outline: 2px solid var(--color-acento); outline-offset: 3px; }
+
+    .boton-arriba svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    @media (max-width: 560px) {
+      .boton-arriba {
+        bottom: 1.25rem;
+        right: 1.25rem;
+        width: 42px;
+        height: 42px;
+      }
+      .boton-arriba svg { width: 18px; height: 18px; }
+    }
+</style>
 </head>
 
 <body>
@@ -866,7 +925,7 @@
     <nav class="barra-navegacion contenedor" aria-label="Navegación principal">
       <!-- LOGOTIPO: REEMPLAZA logo.png POR TU ARCHIVO SI LO ACTUALIZAS -->
       <a class="logo" href="https://polarimex.com/" aria-label="Ir al inicio de Polarimex">
-        <img class="logo-imagen" src="Logo.png" alt="Polarimex">
+        <img loading="lazy"  class="logo-imagen" src="Logo.png" alt="Polarimex">
         <span>POLARIMEX</span>
       </a>
       <div class="enlaces-navegacion" id="enlaces-navegacion">
@@ -1018,7 +1077,14 @@
         </div>
       </div>
     </section>
-  </main>
+  
+  <!-- ================================================================
+       BOTÓN FLOTANTE "IR ARRIBA": VISIBLE SOLO AL DESPLAZARSE 300px.
+       ================================================================ -->
+  <button class="boton-arriba" id="boton-arriba" aria-label="Volver arriba al inicio de la página">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+</main>
 
   <!-- ================================================================
        INICIO DEL PIE DE PÁGINA.
@@ -1143,8 +1209,24 @@
           });
         });
       }
+
+      // BOTÓN FLOTANTE "IR ARRIBA": MUESTRA/OCULTA SEGÚN SCROLL Y DESPLAZA SUAVE
+      (function () {
+        var botonArriba = document.getElementById('boton-arriba');
+        if (!botonArriba) return;
+        var alternarBoton = function () {
+          botonArriba.classList.toggle('visible', window.scrollY > 300);
+        };
+        window.addEventListener('scroll', alternarBoton, { passive: true });
+        alternarBoton();
+        botonArriba.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      })();
     })();
   </script>
 </body>
 </html>
+
+
 
