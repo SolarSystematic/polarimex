@@ -458,6 +458,76 @@
 
     .tarjeta-gama:hover .imagen-gama { filter: grayscale(20%); }
 
+    /* ================================================================
+       VIDEO DE LA GAMA FOTOCROMÁTICA:
+       COMPARTE EXACTAMENTE LAS MISMAS MEDIDAS Y BORDES QUE .imagen-gama
+       PARA NO ROMPER LA CUADRÍCULA DE LAS TARJETAS.
+       ================================================================ */
+    .video-gama {
+      display: block;
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      margin-bottom: 1.5rem;
+      filter: grayscale(100%);
+      border: 1px solid var(--borde-suave);
+      border-radius: var(--radio-pequeno);
+      background: #0d0d0d;
+      transition: filter 500ms ease;
+    }
+
+    .tarjeta-gama:hover .video-gama { filter: grayscale(20%); }
+
+    /* OCULTA EL BOTÓN DE PANTALLA COMPLETA/CONTROLES NATIVOS EN NAVEGADORES WEBKIT */
+    .video-gama::-webkit-media-controls { display: none !important; }
+    .video-gama::-webkit-media-controls-enclosure { display: none !important; }
+
+    /* ================================================================
+       SECCIÓN NUESTRAS TONALIDADES: MUESTRA LA CARTA DE TONOS.
+       ================================================================ */
+    .seccion-tonalidades {
+      padding: var(--espaciado-seccion) 0;
+      background: var(--color-principal);
+    }
+
+    .encabezado-tonalidades {
+      text-align: center;
+      margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    }
+
+    .encabezado-tonalidades .etiqueta::before { display: none; }
+    .encabezado-tonalidades .titulo-seccion { margin-inline: auto; }
+
+    /* MARCO DE LA IMAGEN: CENTRADO, RESPONSIVO Y CON BORDES ELEGANTES */
+    .marco-tonalidades {
+      max-width: 900px;
+      margin: 0 auto;
+      border: 1px solid var(--borde-suave);
+      border-radius: var(--radio-suave);
+      overflow: hidden;
+      box-shadow: var(--sombra-suave);
+      background: var(--color-secundario);
+    }
+
+    .imagen-tonalidades {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto;
+      transition: transform 600ms ease;
+    }
+
+    .marco-tonalidades:hover .imagen-tonalidades { transform: scale(1.02); }
+
+    .leyenda-tonalidades {
+      max-width: 700px;
+      margin: 1.75rem auto 0;
+      text-align: center;
+      color: var(--color-texto-mutado);
+      font-size: 0.95rem;
+    }
+
     .titulo-gama {
       margin: 0 0 1rem;
       font-family: var(--fuente-titulos);
@@ -842,16 +912,39 @@
           <!-- ============ TARJETA 4: GAMA FOTOCROMÁTICA ============ -->
           <!-- EDITAR TEXTO DE GAMA FOTOCROMÁTICA AQUÍ -->
           <article class="tarjeta-gama" data-animar style="--retraso: 300ms">
-            <img loading="lazy"  class="imagen-gama" src="https://via.placeholder.com/500x400/555555/FFFFFF?text=GAMA+FOTOCROMATICA" alt="Marcador temporal de imagen para la Gama Fotocromática de película automotriz">
+            <!-- ============ CAMBIAR RUTA DEL VIDEO DE LA GAMA FOTOCROMÁTICA AQUÍ ============ -->
+            <video class="video-gama" src="fotocromatico.mp4" autoplay loop muted playsinline disablePictureInPicture preload="metadata" aria-label="Video demostrativo de la película fotocromática cambiando de tono"></video>
             <h3 class="titulo-gama">Gama Fotocromática</h3>
             <p>Se adapta a la intensidad de la luz solar, oscureciéndose o aclarándose de forma automática para brindar el máximo confort visual en cualquier condición.</p>
           </article>
         </div>
       </div>
-    </section><button class="boton-arriba" id="boton-arriba" aria-label="Volver arriba al inicio de la página">
-    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
-  </button>
-</main>
+    </section>
+
+    <!-- ================================================================
+         INICIO DE LA SECCIÓN NUESTRAS TONALIDADES.
+         MUESTRA LA CARTA DE TONOS DISPONIBLES PARA EL POLARIZADO.
+         ================================================================ -->
+    <section class="seccion-tonalidades" id="tonalidades" aria-labelledby="titulo-tonalidades">
+      <div class="contenedor">
+        <div class="encabezado-tonalidades" data-animar>
+          <p class="etiqueta">CARTA DE TONOS</p>
+          <!-- EDITAR TÍTULO DE LA SECCIÓN DE TONALIDADES AQUÍ -->
+          <h2 class="titulo-seccion" id="titulo-tonalidades">Nuestras Tonalidades</h2>
+        </div>
+
+        <!-- ============ CAMBIAR IMAGEN DE LA CARTA DE TONALIDADES AQUÍ ============ -->
+        <div class="marco-tonalidades" data-animar style="--retraso: 150ms">
+          <img loading="lazy" class="imagen-tonalidades" src="tonalidades.jpg" alt="Tonalidades de polarizados">
+        </div>
+
+        <!-- EDITAR TEXTO DESCRIPTIVO DE LAS TONALIDADES AQUÍ -->
+        <p class="leyenda-tonalidades" data-animar style="--retraso: 250ms">
+          Elige el nivel de tono que mejor se adapte a tus necesidades de privacidad, confort y estilo. Todas nuestras tonalidades cumplen con la normativa vigente.
+        </p>
+      </div>
+    </section>
+  </main>
 
   <!-- ================================================================
        INICIO DEL PIE DE PÁGINA.
