@@ -1022,23 +1022,25 @@
         <!-- ============ DIAPOSITIVA 1 ============ -->
         <!-- EDITAR TEXTO E IMAGEN DE LA DIAPOSITIVA 1 AQUÍ -->
         <div class="carrusel-slide activa" data-slide="0">
-          <img class="imagen-hero" src="Edificio1.png" alt="Vehículo con polarizado de seguridad instalado por Polarimex">
+          <img class="imagen-hero" src="Carro1.jpg" alt="Vehículo con polarizado de seguridad instalado por Polarimex">
           <div class="contenedor contenido-hero">
-            <p class="subtitulo-hero">POLARIMEX</p>
+            <p class="subtitulo-hero">ELEGANCIA</p>
             <h1 class="titulo-hero">Polarizado y<br>Blindaje Ligero</h1>
-            <p class="texto-hero">Protección, confort y estilo para tu vehículo o inmueble con las mejores marcas del mercado.</p>
+            <br><br>
+          <!--  <p class="texto-hero">Protección, confort y estilo para tu vehículo o inmueble con las mejores marcas del mercado.</p> -->
             <a class="boton boton-hero" href="#contacto">Solicitar Cotización</a>
           </div>
         </div>
-
+        
         <!-- ============ DIAPOSITIVA 2 ============ -->
         <!-- EDITAR TEXTO E IMAGEN DE LA DIAPOSITIVA 2 AQUÍ -->
         <div class="carrusel-slide" data-slide="1">
-          <img class="imagen-hero" src="Ventanas de colores1.png" alt="Instalación profesional de película de seguridad en fachada de cristal">
+          <img class="imagen-hero" src="Edificio1.png" alt="Instalación profesional de película de seguridad en fachada de cristal">
           <div class="contenedor contenido-hero">
-            <p class="subtitulo-hero">SEGURIDAD Y CONFORT</p>
-            <h1 class="titulo-hero">Protección<br>Que Se Nota</h1>
-            <p class="texto-hero">Reduce el calor, los rayos UV y refuerza tus cristales con tecnología de última generación.</p>
+            <p class="subtitulo-hero">SEGURIDAD</p>
+            <h1 class="titulo-hero">Confort y<br>Privacidad</h1>
+            <br><br>
+          <!--  <p class="texto-hero">Reduce el calor, los rayos UV y refuerza tus cristales con tecnología de última generación.</p> -->
             <a class="boton boton-hero" href="#contacto">Solicitar Cotización</a>
           </div>
         </div>
@@ -1046,11 +1048,12 @@
         <!-- ============ DIAPOSITIVA 3 ============ -->
         <!-- EDITAR TEXTO E IMAGEN DE LA DIAPOSITIVA 3 AQUÍ -->
         <div class="carrusel-slide" data-slide="2">
-          <img class="imagen-hero" src="Carro1.jpg" alt="Instalación de película decorativa en oficina comercial">
+          <img class="imagen-hero" src="Ventanas de colores1.png" alt="Instalación de película decorativa en oficina comercial">
           <div class="contenedor contenido-hero">
-            <p class="subtitulo-hero">CALIDAD GARANTIZADA</p>
-            <h1 class="titulo-hero">Las Mejores<br>Marcas</h1>
-            <p class="texto-hero">Trabajamos con las marcas más prestigiadas del mercado a los precios más competitivos.</p>
+            <p class="subtitulo-hero">DIVERSIDAD GRAFICA</p>
+            <h1 class="titulo-hero">Diseño e<br>Imagen</h1>
+            <br><br>
+          <!--  <p class="texto-hero">Trabajamos con las marcas más prestigiadas del mercado a los precios más competitivos.</p> -->
             <a class="boton boton-hero" href="#contacto">Solicitar Cotización</a>
           </div>
         </div>
@@ -1206,32 +1209,55 @@
       const totalSlides = slides.length;
 
       // CAMBIA ESTE VALOR PARA AJUSTAR CADA CUÁNTO SE MUEVE AUTOMÁTICAMENTE (EN MILISEGUNDOS)
-      const duracionSlide = 7000;
-      let temporizador = null;
+      const duracionSlide = 9000;
+
+      // DURACIÓN DEL DESVANECIMIENTO ENTRE DIAPOSITIVAS (DEBE COINCIDIR CON EL CSS: 900ms)
+      const duracionTransicion = 900;
+
+      let temporizador = null;      // ID DEL TEMPORIZADOR ACTIVO (SOLO UNO A LA VEZ)
+      let mouseEncima = false;      // EVITA CREAR TIMERS MIENTRAS EL CURSOR ESTÁ SOBRE EL CARRUSEL
+      let enTransicion = false;     // BLOQUEA CAMBIOS SOLAPADOS (CLICS MUY SEGUIDOS)
 
       function irASlide(indice) {
+        // SI YA HAY UNA TRANSICIÓN EN CURSO, SE IGNORA LA PETICIÓN (EVITA SALTOS BRUSCOS)
+        if (enTransicion) return;
+
+        const nuevoIndice = (indice + totalSlides) % totalSlides;
+        if (nuevoIndice === indiceActual) return;
+
+        enTransicion = true;
+
         slides[indiceActual].classList.remove('activa');
         puntos[indiceActual].classList.remove('activo');
 
-        indiceActual = (indice + totalSlides) % totalSlides;
+        indiceActual = nuevoIndice;
 
         slides[indiceActual].classList.add('activa');
         puntos[indiceActual].classList.add('activo');
+
+        // LIBERA EL BLOQUEO CUANDO TERMINA EL DESVANECIMIENTO
+        setTimeout(function () { enTransicion = false; }, duracionTransicion);
       }
 
       function siguienteSlide() { irASlide(indiceActual + 1); }
       function anteriorSlide() { irASlide(indiceActual - 1); }
 
+      // IMPORTANTE: SIEMPRE LIMPIA EL TEMPORIZADOR ANTERIOR ANTES DE CREAR UNO NUEVO.
+      // ASÍ NUNCA SE ACUMULAN VARIOS INTERVALOS CORRIENDO A LA VEZ.
       function iniciarAutoplay() {
+        detenerAutoplay();
+        if (mouseEncima || document.hidden) return;
         temporizador = setInterval(siguienteSlide, duracionSlide);
       }
 
       function detenerAutoplay() {
-        clearInterval(temporizador);
+        if (temporizador !== null) {
+          clearInterval(temporizador);
+          temporizador = null;
+        }
       }
 
       function reiniciarAutoplay() {
-        detenerAutoplay();
         iniciarAutoplay();
       }
 
@@ -1246,8 +1272,24 @@
 
       // PAUSA EL CAMBIO AUTOMÁTICO CUANDO EL MOUSE ESTÁ SOBRE EL CARRUSEL
       const heroCarrusel = document.querySelector('.hero-carrusel');
-      heroCarrusel.addEventListener('mouseenter', detenerAutoplay);
-      heroCarrusel.addEventListener('mouseleave', iniciarAutoplay);
+      heroCarrusel.addEventListener('mouseenter', function () {
+        mouseEncima = true;
+        detenerAutoplay();
+      });
+      heroCarrusel.addEventListener('mouseleave', function () {
+        mouseEncima = false;
+        iniciarAutoplay();
+      });
+
+      // PAUSA AL CAMBIAR DE PESTAÑA: EVITA QUE SE ACUMULEN CAMBIOS Y SALTE VARIAS
+      // DIAPOSITIVAS DE GOLPE AL REGRESAR A LA PÁGINA.
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+          detenerAutoplay();
+        } else {
+          iniciarAutoplay();
+        }
+      });
 
       iniciarAutoplay();
     })();
