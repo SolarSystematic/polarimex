@@ -11,9 +11,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- GOOGLE RECAPTCHA v2: SCRIPT OFICIAL (REQUERIDO PARA EL CAPTCHA DEL FORMULARIO) -->
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
   <style>
     /* ================================================================
        CONFIGURACIÓN GLOBAL: EDITA ESTAS VARIABLES PARA CAMBIAR TODA
@@ -732,23 +729,6 @@
     .grupo-campo textarea::placeholder { color: rgba(255, 255, 255, 0.35); }
 
     /* ================================================================
-       RECAPTCHA v2: CENTRADO Y ESPACIADO DE LA CASILLA "NO SOY UN ROBOT"
-       ================================================================ */
-    .recaptcha-wrap {
-      display: flex;
-      justify-content: center;
-      margin: 1.5rem 0 1.75rem;
-    }
-
-    @media (max-width: 560px) {
-      .recaptcha-wrap {
-        transform: scale(0.92);
-        transform-origin: center;
-        margin: 1rem 0 1.5rem;
-      }
-    }
-
-    /* ================================================================
        ANIMACIONES DE ENTRADA AL HACER SCROLL:
        AGREGA data-animar A CUALQUIER ELEMENTO Y APARECERÁ CON UN
        EFECTO FADE-UP SUAVE. USA style="--retraso: 150ms" PARA ESCALONAR.
@@ -1144,18 +1124,7 @@
         <div class="formulario-cotizacion" data-animar style="--retraso: 200ms"><p class="etiqueta">COTIZACIÓN</p><h2 class="titulo-seccion">Solicita tu cotización</h2>
           <!-- CAMBIA ESTE CORREO POR EL DE TU EMPRESA PARA QUE TE LLEGUEN LAS COTIZACIONES -->
           <!-- FormSubmit enviará los datos a este correo. La primera vez, confirma la activación desde el correo recibido. -->
-          <form action="https://api.web3forms.com/submit" method="POST" id="form-cotizacion">
-            <!-- ================================================================
-                 WEB3FORMS: CONFIGURACIÓN DEL FORMULARIO.
-                 PEGA AQUÍ TU ACCESS KEY DE WEB3FORMS:
-                 1. Crea una cuenta en https://web3forms.com
-                 2. Copia tu "Access Key" desde el panel de control.
-                 3. Reemplaza "TU_ACCESS_KEY_AQUÍ" con tu clave real.
-                 ================================================================ -->
-            <input type="hidden" name="access_key" value="e9a1c5ca-4386-479d-9bef-ee747e02314a">
-            <input type="hidden" name="redirect" value="gracias.html">
-            <input type="hidden" name="subject" value="Nueva solicitud de cotización - Polarimex">
-
+          <form id="form-cotizacion">
             <!-- FILA 1: NOMBRE Y APELLIDOS. -->
             <div class="fila-formulario">
               <div class="grupo-campo">
@@ -1188,17 +1157,6 @@
             <div class="grupo-campo">
               <label for="notas">Notas</label>
               <textarea id="notas" name="Notas" placeholder="Cuéntanos brevemente qué necesitas."></textarea>
-            </div>
-
-            <!-- ================================================================
-                 GOOGLE RECAPTCHA v2: CASILLA "NO SOY UN ROBOT".
-                 PEGA AQUÍ TU CLAVE DE SITIO DE RECAPTCHA V2:
-                 1. Regístrate en https://www.google.com/recaptcha/admin
-                 2. Crea un sitio nuevo seleccionando reCAPTCHA v2 > Casilla "No soy un robot"
-                 3. Copia la "Clave del sitio" (Site Key) y pégala en data-sitekey=""
-                 ================================================================ -->
-            <div class="grupo-campo recaptcha-wrap">
-              <div class="g-recaptcha" data-sitekey="6LepE3ktAAAAAGycEIazDRZlf3YvJMlKSNmnXriw"></div>
             </div>
 
             <button class="boton" type="submit">Enviar Cotización</button>
@@ -1364,6 +1322,34 @@
   <button class="boton-arriba" id="boton-arriba" aria-label="Volver arriba al inicio de la página">
     <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
   </button>
+
+  <!-- ================================================================
+       JAVASCRIPT: ENVÍO DEL FORMULARIO A GOOGLE SHEETS (GOOGLE APPS SCRIPT).
+       PROCESA EL FORMULARIO SIN RECARGAR Y REDIRIGE A GRACIAS.HTML.
+       ================================================================ -->
+  <script>
+    (function () {
+      var form = document.getElementById('form-cotizacion');
+      if (!form) return;
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // PEGA AQUÍ LA URL DE TU APLICACIÓN WEB DE GOOGLE APPS SCRIPT
+        var url = 'https://script.google.com/macros/s/AKfycbzbMcoQhtv8F9FHfmIrbNKwjzJx72OjUhQnJOz8JAsCyZng4v_oeY9lAknO-AAzHRF4nQ/exec';
+
+        var datos = new FormData(form);
+
+        fetch(url, { method: 'POST', body: datos })
+          .then(function (respuesta) {
+            window.location.href = 'gracias.html';
+          })
+          .catch(function (error) {
+            alert('Hubo un error al enviar. Intenta de nuevo.');
+          });
+      });
+    })();
+  </script>
 </body>
 </html>
 
