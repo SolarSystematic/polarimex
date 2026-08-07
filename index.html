@@ -729,6 +729,13 @@
     .grupo-campo textarea::placeholder { color: rgba(255, 255, 255, 0.35); }
 
     /* ================================================================
+       HONEYPOT: CAMPO INVISIBLE ANTI-SPAM (NO MOSTRAR AL USUARIO)
+       ================================================================ */
+    .honeypot {
+      display: none !important;
+    }
+
+    /* ================================================================
        ANIMACIONES DE ENTRADA AL HACER SCROLL:
        AGREGA data-animar A CUALQUIER ELEMENTO Y APARECERÁ CON UN
        EFECTO FADE-UP SUAVE. USA style="--retraso: 150ms" PARA ESCALONAR.
@@ -1125,6 +1132,9 @@
           <!-- CAMBIA ESTE CORREO POR EL DE TU EMPRESA PARA QUE TE LLEGUEN LAS COTIZACIONES -->
           <!-- FormSubmit enviará los datos a este correo. La primera vez, confirma la activación desde el correo recibido. -->
           <form id="form-cotizacion">
+            <!-- HONEYPOT: CAMPO INVISIBLE ANTI-SPAM (LOS ROBOTS LO LLENAN, LOS HUMANOS NO) -->
+            <input type="text" name="honeypot" class="honeypot" tabindex="-1" autocomplete="off">
+
             <!-- FILA 1: NOMBRE Y APELLIDOS. -->
             <div class="fila-formulario">
               <div class="grupo-campo">
@@ -1334,6 +1344,13 @@
 
       form.addEventListener('submit', function (e) {
         e.preventDefault();
+
+        // VALIDACIÓN HONEYPOT: SI EL CAMPO INVISIBLE TIENE VALOR, ES SPAM -> NO ENVIAR
+        var honeypot = form.querySelector('[name="honeypot"]');
+        if (honeypot && honeypot.value) {
+          window.location.href = 'gracias.html';
+          return;
+        }
 
         // PEGA AQUÍ LA URL DE TU APLICACIÓN WEB DE GOOGLE APPS SCRIPT
         var url = 'https://script.google.com/macros/s/AKfycbzbMcoQhtv8F9FHfmIrbNKwjzJx72OjUhQnJOz8JAsCyZng4v_oeY9lAknO-AAzHRF4nQ/exec';
